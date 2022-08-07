@@ -19,7 +19,7 @@ const RegisterPage = () => {
 
     const navigate = useNavigate();
 
-    //mounted
+    //mounted component
     useEffect(() => {
         if (currentUser?.id) {
             //navigate
