@@ -6,9 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import store from './store';
-import { handleResponseWithLoginCheck } from './services/base.service';
-
-handleResponseWithLoginCheck();
 
 ReactDOM.render(
   <React.StrictMode>

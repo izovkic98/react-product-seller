@@ -1,8 +1,8 @@
-import logo from '../logo.svg';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCurrentUser } from '../store/actions/user';
 import { Role } from '../models/role';
+import logo from './Skypark_logo.png'; 
 
 
 const NavBar = () => {
@@ -21,7 +21,6 @@ const NavBar = () => {
         <nav className="navbar navbar-expand navbar-dark bg-dark">
             <a href="https://reactjs.org" className="navbar-brand ms-1">
                 <img src={logo} className="App-logo" alt="logo" />
-                React
             </a>
 
             <div className="navbar-nav me-auto">
