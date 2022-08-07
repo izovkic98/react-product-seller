@@ -1,0 +1,11 @@
+export const VehicleType = {
+    MINIVAN:'MINIVAN',
+    COUPE:'COUPE',
+    TOURING:'TOURING',
+    SUPERCAR:'SUPERCAR',
+    HATCHBACK:'HATCHBACK',
+    CABRIOLET:'CABRIOLET', 
+    SEDAN:'SEDAN',
+    PICKUP:'PICKUP',
+    SUV:'SUV'
+}

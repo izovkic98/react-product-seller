@@ -10,7 +10,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const RegisterPage = () => {
 
-    const [user, setUser] = useState(new User('', '', ''));
+    const [user, setUser] = useState(new User('', '', '', '', '', '', ''));
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -29,52 +29,53 @@ const RegisterPage = () => {
 
     //<input name="x" value="y" onChange=(event) => handleChange(event)>
     const handleChange = (e) => {
-      const {name, value} = e.target;
+        const { name, value } = e.target;
 
-      setUser((prevState => {
-          //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
-          return {
-              ...prevState,
-              [name]: value
-          };
-      }));
+        setUser((prevState => {
+            //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
+            return {
+                ...prevState,
+                [name]: value
+            };
+        }));
     };
 
     const handleRegister = (e) => {
 
         e.preventDefault();
 
-      setSubmitted(true);
+        setSubmitted(true);
 
-      if (!user.username || !user.password || !user.name) {
-          return;
-      }
+        if (!user.firstName || !user.lastName || !user.username || !user.password
+            || !user.address || !user.email || !user.phoneNumber) {
+            return;
+        }
 
-      setLoading(true);
+        setLoading(true);
 
-      AuthenticationService.register(user).then(_ => {
-          navigate('/login');
-      }).catch(error => {
-         console.log(error);
-         if (error?.response?.status === 409) {
-             setErrorMessage('username or password is not valid.');
-         } else {
-             setErrorMessage('Unexpected error occurred.');
-         }
-         setLoading(false);
-      });
+        AuthenticationService.register(user).then(_ => {
+            navigate('/login');
+        }).catch(error => {
+            console.log(error);
+            if (error?.response?.status === 409) {
+                setErrorMessage('username or password is not valid.');
+            } else {
+                setErrorMessage('Unexpected error occurred.');
+            }
+            setLoading(false);
+        });
     };
 
     return (
         <div className="container mt-5">
             <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
 
-                <FontAwesomeIcon icon={faUserCircle} className="ms-auto me-auto user-icon"/>
+                <FontAwesomeIcon icon={faUserCircle} className="ms-auto me-auto user-icon" />
 
                 {errorMessage &&
-                <div className="alert alert-danger">
-                    {errorMessage}
-                </div>
+                    <div className="alert alert-danger">
+                        {errorMessage}
+                    </div>
                 }
 
                 <form
@@ -84,18 +85,82 @@ const RegisterPage = () => {
                 >
 
                     <div className="form-group">
-                        <label htmlFor="name">Full Name:</label>
+                        <label htmlFor="firstName">First name</label>
                         <input
                             type="text"
-                            name="name"
+                            name="firstName"
                             className="form-control"
-                            placeholder="name"
-                            value={user.name}
+                            placeholder="First name"
+                            value={user.firstName}
                             onChange={(e) => handleChange(e)}
                             required
                         />
                         <div className="invalid-feedback">
-                            Full name is required.
+                            First name is required.
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="lastName">Last name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            className="form-control"
+                            placeholder="Last name"
+                            value={user.lastName}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Last name is required.
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="address">Address</label>
+                        <input
+                            type="text"
+                            name="address"
+                            className="form-control"
+                            placeholder="Address"
+                            value={user.address}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Address is required.
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="text"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={user.email}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Email is required.
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="phoneNumber">Phone number</label>
+                        <input
+                            type="text"
+                            name="phoneNumber"
+                            className="form-control"
+                            placeholder="Phone number"
+                            value={user.phoneNumber}
+                            onChange={(e) => handleChange(e)}
+                            required
+                        />
+                        <div className="invalid-feedback">
+                            Phone number is required.
                         </div>
                     </div>
 
@@ -131,13 +196,13 @@ const RegisterPage = () => {
                         </div>
                     </div>
 
-                    <button className="btn btn-info w-100 mt-3" disabled={loading}>
+                    <button className="btn btn-dark w-20 mt-3" style={{ marginLeft: 120 }} disabled={loading}>
                         Sign Up
                     </button>
 
                 </form>
 
-                <Link to="/login" className="btn btn-link" style={{color: 'darkgray'}}>
+                <Link to="/login" className="btn btn-link" style={{ color: 'darkgray' }}>
                     I have an Account!
                 </Link>
 
@@ -146,4 +211,4 @@ const RegisterPage = () => {
     );
 };
 
-export {RegisterPage};
+export { RegisterPage };

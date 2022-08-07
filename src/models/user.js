@@ -1,10 +1,17 @@
 export default class User {
-    constructor(username, password, name, role, token, id) {
+    constructor(firstName, lastName, address, email, phoneNumber, username, password,
+        role, createTime, reservations, token, id){
         this.username = username;
-        this.password= password;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.role = role;
+        this.createTime = createTime;
         this.token = token;
+        this.reservations = reservations;
         this.id = id;
     }
 }
