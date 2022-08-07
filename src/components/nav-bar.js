@@ -46,7 +46,7 @@ const NavBar = () => {
                         Sign Up
                     </NavLink>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item" style={{marginRight:20, marginLeft:20}}>
                     <NavLink to="/login" className="nav-link">
                         Sign In
                     </NavLink>
@@ -58,11 +58,12 @@ const NavBar = () => {
             <div className="navbar-nav ms-auto">
                 <li className="nav-item">
                     <NavLink to="/profile" className="nav-link">
-                        {currentUser.name}
+                        {currentUser.firstName + " " + currentUser.lastName }
+                        {currentUser?.role === Role.ADMIN && <span> (admin)</span>}
                     </NavLink>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link" onClick={() => logout()}>
+                    <a href="#" className="nav-link" style={{marginRight:20, marginLeft:20}} onClick={() => logout()}>
                         Sign Out
                     </a>
                 </li>

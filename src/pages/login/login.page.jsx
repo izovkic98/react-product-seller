@@ -115,7 +115,7 @@ const LoginPage = () => {
                         </div>
                     </div>
 
-                    <button className="btn btn-info w-100 mt-3" disabled={loading}>
+                    <button className="btn btn-dark w-20 mt-3" style={{ marginLeft: 123 }}  disabled={loading}>
                         Sign In
                     </button>
 
