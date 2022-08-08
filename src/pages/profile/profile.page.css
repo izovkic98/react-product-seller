@@ -1,0 +1,62 @@
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 15px;
+}
+
+.card .footer hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgb(204 197 185 / 50%);
+    background-color: #FFFFFF;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.card .content {
+    padding: 15px 15px 10px 15px;
+}
+
+.card .footer div {
+    display: inline-block;
+}
+
+.card .stats {
+    color: #0ba89b;
+    font-weight: 300;
+}
+
+.card .numbers {
+    font-size: 2.2rem;
+    text-align: right;
+}
+
+.card .numbers p {
+    margin: 0;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.4em;
+}
+
+.card .icon-big {
+
+    font-size: 3em;
+    min-height: 64px;
+}
+.discount {
+    margin-left: 50px;
+    color: #3ac7cc;
+}
+
+.left{
+    float: left;
+    display: flex;
+}
