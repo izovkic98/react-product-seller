@@ -5,17 +5,19 @@ import { faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { faParking } from '@fortawesome/free-solid-svg-icons';
 import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { ProfileUserData } from './profile.user.data';
 
 const ProfilePage = () => {
     const currentUser = useSelector(state => state.user);
 
     return (
-        <div class="content">
+        <><ProfileUserData /><div class="content">
             <div class="container-fluid">
-                <div class="row" style={{marginTop:25}}>
+                <div class="row" style={{ marginTop: 25 }}>
                     <div class="col-lg-6 col-sm-6">
                         <div class="card">
-                            <div class="content" >
+                            <div class="content">
                                 <div class="row">
                                     <div class="col-xs-7">
                                         <div class="numbers">
@@ -28,7 +30,7 @@ const ProfilePage = () => {
                                 <div class="footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="glyphicon-chevron-right"></i> Trenutni popust
+                                    <FontAwesomeIcon icon={faArrowRight} /> Trenutni popust
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +52,7 @@ const ProfilePage = () => {
                                 <div class="footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="glyphicon-chevron-right"></i> Broj slobodnih parkirnih mjesta
+                                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +73,7 @@ const ProfilePage = () => {
                                 <div class="footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="glyphicon-chevron-right"></i> Broj preostalih dana tekuće rezervacije
+                                    <FontAwesomeIcon icon={faArrowRight} /> Broj preostalih dana tekuće rezervacije
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +94,7 @@ const ProfilePage = () => {
                                 <div class="footer">
                                     <hr />
                                     <div class="stats">
-                                        <i class="glyphicon-chevron-right"></i> Testni
+                                    <FontAwesomeIcon icon={faArrowRight} /> Testni
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +106,7 @@ const ProfilePage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div></>
 
     )
 }

@@ -58,7 +58,7 @@ const NavBar = () => {
             <div className="navbar-nav ms-auto">
                 <li className="nav-item">
                     <NavLink to="/profile" className="nav-link">
-                        {currentUser.firstName + " " + currentUser.lastName }
+                        {currentUser.username}
                         {currentUser?.role === Role.ADMIN && <span> (admin)</span>}
                     </NavLink>
                 </li>
