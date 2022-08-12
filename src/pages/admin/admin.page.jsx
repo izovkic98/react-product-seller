@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import ReservationService from '../../services/reservation.service';
 import { ReservationSave } from '../../components/reservation-save';
 import Reservation from '../../models/reservation';
+import { ReservationStatus } from '../../models/reservationStatus';
 
 const AdminPage = () => {
 
@@ -39,6 +40,21 @@ const AdminPage = () => {
         }
     };
 
+    const changeReservationStatus = (reservationId) => {
+        var tempReservation;
+        ReservationService.getReservationById(reservationId).then((res) => {
+            tempReservation = res.data;
+            if (tempReservation.reservationStatus === ReservationStatus.APPROVED) tempReservation.reservationStatus = ReservationStatus.IN_PROCESS;
+            else tempReservation.reservationStatus = ReservationStatus.APPROVED;
+            ReservationService.updateReservation(tempReservation).then((res)=>{
+                ReservationService.getAllReservations().then((res)=>{
+                    setReservationList(res.data);
+                })
+            })
+
+        })
+
+    }
 
     return (
 
@@ -53,7 +69,7 @@ const AdminPage = () => {
                                 </div>
 
                                 <div className="col-6 text-end">
-                                    <button className="btn btn-primary"  onClick={()=>createReservationRequest()}>
+                                    <button className="btn btn-primary" onClick={() => createReservationRequest()}>
                                         Create Reservation
                                     </button>
                                 </div>
@@ -90,9 +106,14 @@ const AdminPage = () => {
                                             <td>{`$ ${reservation.price}`}</td>
                                             <td>{reservation.reservationStatus}</td>
                                             <td>
-                                                <button className="btn btn-success me-1" >
+                                                <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)}   onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
                                                     Approve
                                                 </button>
+                                            
+                                                <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)}  onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
+                                                    Deny
+                                                </button>
+
                                                 <button className="btn btn-danger" >
                                                     Delete
                                                 </button>
@@ -106,8 +127,8 @@ const AdminPage = () => {
                     </div>
                 </div>
             </div>
-            <ReservationSave ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)}/>
-            
+            <ReservationSave ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
+
         </div>
 
 

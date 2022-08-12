@@ -19,6 +19,14 @@ class ReservationService {
         return axios.get(API_URL + '/all', {headers: authHeader()});
     }
 
+    getReservationById(reservationId){
+        return axios.get(API_URL + '/id/' + reservationId, {headers: authHeader()});
+    }
+
+    updateReservation(reservation){
+        return axios.put(API_URL ,reservation, {headers: authHeader()});
+    }
+
 }
 
 export default new ReservationService();
