@@ -30,7 +30,7 @@ function App() {
                   }
                   />
 
-                  <Route path="/admin" element={
+                  <Route path="/admin-reservations" element={
                       <AuthGuard roles={[Role.ADMIN]}>
                           <AdminPage/>
                       </AuthGuard>

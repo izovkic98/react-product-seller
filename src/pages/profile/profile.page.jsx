@@ -12,36 +12,36 @@ const ProfilePage = () => {
   const currentUser = useSelector(state => state.user);
 
   return (
-    <><ProfileUserData /><div class="content">
-      <div class="container-fluid">
-        <div class="row" style={{ marginTop: 25 }}>
-          <div class="col-lg-6 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-7">
-                    <div class="numbers">
+    <><ProfileUserData /><div className="content">
+      <div className="container-fluid">
+        <div className="row" style={{ marginTop: 25 }}>
+          <div className="col-lg-6 col-sm-6">
+            <div className="card">
+              <div className="content">
+                <div className="row">
+                  <div className="col-xs-7">
+                    <div className="numbers">
                       <FontAwesomeIcon icon={faPercentage} className="icon-big discount left text-center" />
                       <p>Ukupno</p>
                       27
                     </div>
                   </div>
                 </div>
-                <div class="footer">
+                <div className="footer">
                   <hr />
-                  <div class="stats">
+                  <div className="stats">
                     <FontAwesomeIcon icon={faArrowRight} /> Trenutni popust
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-7">
-                    <div class="numbers">
+          <div className="col-lg-6 col-sm-6">
+            <div className="card">
+              <div className="content">
+                <div className="row">
+                  <div className="col-xs-7">
+                    <div className="numbers">
                       <FontAwesomeIcon icon={faParking} className="icon-big discount left text-center" />
 
                       <p>Ostalo</p>
@@ -49,51 +49,51 @@ const ProfilePage = () => {
                     </div>
                   </div>
                 </div>
-                <div class="footer">
+                <div className="footer">
                   <hr />
-                  <div class="stats">
+                  <div className="stats">
                     <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-7">
-                    <div class="numbers">
+          <div className="col-lg-6 col-sm-6">
+            <div className="card">
+              <div className="content">
+                <div className="row">
+                  <div className="col-xs-7">
+                    <div className="numbers">
                       <FontAwesomeIcon icon={faHourglassHalf} className="icon-big discount left text-center" />
                       <p>Ukupno</p>
                       0
                     </div>
                   </div>
                 </div>
-                <div class="footer">
+                <div className="footer">
                   <hr />
-                  <div class="stats">
+                  <div className="stats">
                     <FontAwesomeIcon icon={faArrowRight} /> Broj preostalih dana tekuće rezervacije
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-sm-6">
-            <div class="card">
-              <div class="content">
-                <div class="row">
-                  <div class="col-xs-7">
-                    <div class="numbers">
+          <div className="col-lg-6 col-sm-6">
+            <div className="card">
+              <div className="content">
+                <div className="row">
+                  <div className="col-xs-7">
+                    <div className="numbers">
                       <FontAwesomeIcon icon={faQuestion} className="icon-big discount left text-center" />
                       <p>Testni</p>
                       0
                     </div>
                   </div>
                 </div>
-                <div class="footer">
+                <div className="footer">
                   <hr />
-                  <div class="stats">
+                  <div className="stats">
                     <FontAwesomeIcon icon={faArrowRight} /> Testni
                   </div>
                 </div>
@@ -101,13 +101,13 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          <div class="col-lg-9 col-sm-9">
+          <div className="col-lg-9 col-sm-9">
             <p>* stari godišnji morate iskoristiti do kraja trećeg mjeseca 2022 godine.</p>
           </div>
         </div>
       </div>
 
-      <table class="table table-striped table-dark">
+      <table className="table table-striped table-dark">
         <thead>
           <tr>
             <th scope="col">#</th>

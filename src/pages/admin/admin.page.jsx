@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import ReservationService from '../../services/reservation.service';
 import { ReservationSave } from '../../components/reservation-save';
+import Reservation from '../../models/reservation';
 
 const AdminPage = () => {
 
     const [reservationList, setReservationList] = useState([]);
+    const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+    const [errorMessage, setErrorMessage] = useState('');
 
     const saveComponent = useRef();
 
@@ -15,7 +18,25 @@ const AdminPage = () => {
     }, []);
 
     const createReservationRequest = () => {
+        setSelectedReservation(new Reservation('', '', '', '', '', '', '', ''));
         saveComponent.current?.showReservationModal();
+    };
+
+    const saveReservationWatcher = (reservation) => {
+        let itemIndex = reservationList.findIndex(item => item.id === reservation.id);
+
+        if (itemIndex !== -1) {
+            const newList = reservationList.map((item) => {
+                if (item.id === reservation.id) {
+                    return reservation;
+                }
+                return item;
+            });
+            setReservationList(newList);
+        } else {
+            const newList = reservationList.concat(reservation);
+            setReservationList(newList);
+        }
     };
 
 
@@ -69,8 +90,8 @@ const AdminPage = () => {
                                             <td>{`$ ${reservation.price}`}</td>
                                             <td>{reservation.reservationStatus}</td>
                                             <td>
-                                                <button className="btn btn-primary me-1" >
-                                                    Edit
+                                                <button className="btn btn-success me-1" >
+                                                    Approve
                                                 </button>
                                                 <button className="btn btn-danger" >
                                                     Delete
@@ -85,7 +106,7 @@ const AdminPage = () => {
                     </div>
                 </div>
             </div>
-            <ReservationSave ref={saveComponent} />
+            <ReservationSave ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)}/>
             
         </div>
 
