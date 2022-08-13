@@ -56,6 +56,11 @@ const AdminPage = () => {
 
     }
 
+    const editReservationRequest = (item) => {
+        setSelectedReservation(Object.assign({}, item));
+          saveComponent.current?.showProductModal();
+      };
+
     return (
 
         <div>
@@ -112,6 +117,10 @@ const AdminPage = () => {
                                             
                                                 <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)}  onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
                                                     Deny
+                                                </button>
+
+                                                <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
+                                                    Edit
                                                 </button>
 
                                                 <button className="btn btn-danger" >

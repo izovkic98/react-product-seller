@@ -49,7 +49,7 @@ const ReservationSave = forwardRef((props, ref) => {
 
         ReservationService.saveReservation(reservation).then(response => {
             //...
-            console.log("sejvam");
+            props.onSaved(response.data);
             setShow(false);
             setSubmitted(false);
         }).catch(err => {
