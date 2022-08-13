@@ -30,9 +30,7 @@ const ReservationSave = forwardRef((props, ref) => {
 
         setSubmitted(true);
 
-        if (!reservation.user.firstName || !reservation.user.lastName || !reservation.user.id
-            || !reservation.vehicleModel
-            || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
+        if ( !reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
             || !reservation.dateTo  || !reservation.price ) {
                 console.log(reservation.user.firstName)
                 console.log(reservation.user.lastName);
@@ -43,7 +41,7 @@ const ReservationSave = forwardRef((props, ref) => {
                 console.log(reservation.dateFrom)
                 console.log(reservation.dateTo);
                 console.log(reservation.price)
-                console.log("karina");
+                console.log("returnalo me");
             return;
         }
 
@@ -89,39 +87,8 @@ const ReservationSave = forwardRef((props, ref) => {
                         </div>
                     }
 
-                    <div className="form-group">
-                        <label htmlFor="firstName">First name </label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            placeholder="First Name"
-                            className="form-control"
-                            value={reservation.user.firstName}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
-                        <div className="invalid-feedback">
-                            First name is required.
-                        </div>
-                    </div>
- 
-                    <div className="form-group">
-                        <label htmlFor="lastName">Last name </label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            placeholder="Last Name"
-                            className="form-control"
-                            value={reservation.user.lastName}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
-                        <div className="invalid-feedback">
-                            Last name is required.
-                        </div>
-                    </div>
 
-                    
+                    {/*
                     <div className="form-group">
                         <label htmlFor="id">User id </label>
                         <input
@@ -136,7 +103,7 @@ const ReservationSave = forwardRef((props, ref) => {
                         <div className="invalid-feedback">
                             User id is required.
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                         <label htmlFor="vehicleModel">Vehicle model </label>
@@ -189,7 +156,7 @@ const ReservationSave = forwardRef((props, ref) => {
                     <div className="form-group">
                         <label htmlFor="dateFrom">Date from </label>
                         <input
-                            type='text'
+                            type='date'
                             name="dateFrom"
                             placeholder="Date from"
                             className="form-control"
@@ -205,7 +172,7 @@ const ReservationSave = forwardRef((props, ref) => {
                     <div className="form-group">
                         <label htmlFor="dateTo">Date to </label>
                         <input
-                            type='text'
+                            type='date'
                             name="dateTo"
                             placeholder="Date to"
                             className="form-control"

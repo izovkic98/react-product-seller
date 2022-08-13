@@ -23,6 +23,11 @@ const AdminPage = () => {
         saveComponent.current?.showReservationModal();
     };
 
+    const editReservationRequest = (item) => {
+        setSelectedReservation(Object.assign({}, item));
+          saveComponent.current?.showReservationModal();
+      };
+
     const saveReservationWatcher = (reservation) => {
         let itemIndex = reservationList.findIndex(item => item.id === reservation.id);
 
@@ -56,10 +61,7 @@ const AdminPage = () => {
 
     }
 
-    const editReservationRequest = (item) => {
-        setSelectedReservation(Object.assign({}, item));
-          saveComponent.current?.showProductModal();
-      };
+
 
     return (
 
