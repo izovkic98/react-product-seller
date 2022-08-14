@@ -4,6 +4,8 @@ import { ReservationEdit } from '../../components/reservation-edit';
 import Reservation from '../../models/reservation';
 import { ReservationStatus } from '../../models/reservationStatus';
 import { ReservationDelete } from '../../components/reservation-delete';
+import { types } from './../../components/reservation-edit';
+import {manufacturers} from './../../components/reservation-edit';
 
 const AdminPage = () => {
 
@@ -187,12 +189,7 @@ const AdminPage = () => {
                 <div ref={reservationCreationRef}>
                     This is my DIV element.
                 </div>
-
             </div>
-
-
-
-
 
             <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
             <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />

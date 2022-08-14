@@ -212,7 +212,7 @@ const ReservationEdit = forwardRef((props, ref) => {
 
 export { ReservationEdit };
 
-const types = [
+export const types = [
     { label: VehicleType.CABRIOLET },
     { label: VehicleType.COUPE },
     { label: VehicleType.HATCHBACK },
@@ -226,7 +226,7 @@ const types = [
 
 ];
 
-const manufacturers = [
+export const manufacturers = [
     { label: VehicleManufacturer.Abarth },
     { label: VehicleManufacturer.Audi },
     { label: VehicleManufacturer.Bentley },
