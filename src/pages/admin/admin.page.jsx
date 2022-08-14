@@ -3,6 +3,7 @@ import ReservationService from '../../services/reservation.service';
 import { ReservationEdit } from '../../components/reservation-edit';
 import Reservation from '../../models/reservation';
 import { ReservationStatus } from '../../models/reservationStatus';
+import { ReservationDelete } from '../../components/reservation-delete';
 
 const AdminPage = () => {
 
@@ -11,11 +12,14 @@ const AdminPage = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const saveComponent = useRef();
+    const deleteComponent = useRef();
+    const reservationCreationRef = useRef();
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {
             setReservationList(response.data);
         })
+
     }, []);
 
     const createReservationRequest = () => {
@@ -25,8 +29,8 @@ const AdminPage = () => {
 
     const editReservationRequest = (item) => {
         setSelectedReservation(Object.assign({}, item));
-          saveComponent.current?.showReservationModal();
-      };
+        saveComponent.current?.showReservationModal();
+    };
 
     const saveReservationWatcher = (reservation) => {
         let itemIndex = reservationList.findIndex(item => item.id === reservation.id);
@@ -51,8 +55,8 @@ const AdminPage = () => {
             tempReservation = res.data;
             if (tempReservation.reservationStatus === ReservationStatus.APPROVED) tempReservation.reservationStatus = ReservationStatus.IN_PROCESS;
             else tempReservation.reservationStatus = ReservationStatus.APPROVED;
-            ReservationService.updateReservation(tempReservation).then((res)=>{
-                ReservationService.getAllReservations().then((res)=>{
+            ReservationService.updateReservation(tempReservation).then((res) => {
+                ReservationService.getAllReservations().then((res) => {
                     setReservationList(res.data);
                 })
             })
@@ -61,11 +65,47 @@ const AdminPage = () => {
 
     }
 
+    const deleteReservationRequest = (reservation) => {
+        setSelectedReservation(reservation);
+        deleteComponent.current?.showDeleteModal();
+    };
+
+
+    const deleteReservation = () => {
+        console.log(selectedReservation)
+        ReservationService.deleteReservation(selectedReservation).then(_ => {
+            setReservationList(reservationList.filter(x => x.id !== selectedReservation.id));
+        }).catch(err => {
+            setErrorMessage('Unexpected error occurred.');
+            console.log(err);
+        });
+    };
+
+    // RESERVATION CREATION PART
+    const myFunction = () => {
+        var x = reservationCreationRef.current;
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+
+
+
     return (
 
         <div>
             <div className="container">
                 <div className="pt-5">
+
+                    {errorMessage &&
+                        <div className="alert alert-danger">
+                            {errorMessage}
+                        </div>
+                    }
+
                     <div className="card">
                         <div className="card-header">
                             <div className="row">
@@ -73,11 +113,11 @@ const AdminPage = () => {
                                     <h3>All Reservations</h3>
                                 </div>
 
-                                <div className="col-6 text-end">
+                                {/* <div className="col-6 text-end">
                                     <button className="btn btn-primary" onClick={() => createReservationRequest()}>
                                         Create Reservation
                                     </button>
-                                </div>
+                                </div> */}
 
                             </div>
                         </div>
@@ -111,11 +151,11 @@ const AdminPage = () => {
                                             <td>{`$ ${reservation.price}`}</td>
                                             <td>{reservation.reservationStatus}</td>
                                             <td>
-                                                <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)}   onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
+                                                <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
                                                     Approve
                                                 </button>
-                                            
-                                                <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)}  onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
+
+                                                <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
                                                     Deny
                                                 </button>
 
@@ -123,7 +163,7 @@ const AdminPage = () => {
                                                     Edit
                                                 </button>
 
-                                                <button className="btn btn-danger" >
+                                                <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
                                                     Delete
                                                 </button>
                                             </td>
@@ -135,10 +175,32 @@ const AdminPage = () => {
                         </div>
                     </div>
                 </div>
+
+                {/*RESERVATION CREATION DIV  */}
+
+                <div className="col-6 text-end">
+                    <button className="btn btn-primary" onClick={() => myFunction()}>
+                        Create Reservation
+                    </button>
+                </div>
+
+                <div ref={reservationCreationRef}>
+                    This is my DIV element.
+                </div>
+
             </div>
+
+
+
+
+
             <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
+            <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />
+
 
         </div>
+
+
 
 
     )

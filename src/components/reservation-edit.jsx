@@ -108,7 +108,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                             onChange={(e) => handleChange(e)}
                             placeholder="Vehicle model {e.g. Passat}"
                             className="form-control"
-                            value={reservation.vehicleModel}
+                            value={reservation?.vehicleModel}
                             required
                         />
                         <div className="invalid-feedback">
@@ -157,7 +157,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                             name="dateFrom"
                             placeholder="Date from"
                             className="form-control"
-                            value={reservation.dateFrom}
+                            value={reservation?.dateFrom}
                             onChange={(e) => handleChange(e)}
                             required
                         />
@@ -173,7 +173,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                             name="dateTo"
                             placeholder="Date to"
                             className="form-control"
-                            value={reservation.dateTo}
+                            value={reservation?.dateTo}
                             onChange={(e) => handleChange(e)}
                             required
                         />
@@ -189,7 +189,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                             name="price"
                             placeholder="Price (EUR)"
                             className="form-control"
-                            value={reservation.price}
+                            value={reservation?.price}
                             onChange={(e) => handleChange(e)}
                             required
                         />
