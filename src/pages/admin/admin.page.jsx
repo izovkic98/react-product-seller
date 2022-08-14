@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import ReservationService from '../../services/reservation.service';
-import { ReservationSave } from '../../components/reservation-save';
+import { ReservationEdit } from '../../components/reservation-edit';
 import Reservation from '../../models/reservation';
 import { ReservationStatus } from '../../models/reservationStatus';
 
@@ -60,8 +60,6 @@ const AdminPage = () => {
         })
 
     }
-
-
 
     return (
 
@@ -138,7 +136,7 @@ const AdminPage = () => {
                     </div>
                 </div>
             </div>
-            <ReservationSave ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
+            <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
 
         </div>
 
