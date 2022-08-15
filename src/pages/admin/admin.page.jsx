@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import ReservationService from '../../services/reservation.service';
 import { ReservationEdit } from '../../components/reservation-edit';
 import Reservation from '../../models/reservation';
 import { ReservationStatus } from '../../models/reservationStatus';
 import { ReservationDelete } from '../../components/reservation-delete';
 import { types } from './../../components/reservation-edit';
-import {manufacturers} from './../../components/reservation-edit';
+import { manufacturers } from './../../components/reservation-edit';
+import Pagination from './pagination';
 
 const AdminPage = () => {
 
@@ -16,6 +17,9 @@ const AdminPage = () => {
     const saveComponent = useRef();
     const deleteComponent = useRef();
     const reservationCreationRef = useRef();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [reservationsPerPage] = useState(5)
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {
@@ -83,6 +87,16 @@ const AdminPage = () => {
         });
     };
 
+
+    //PAGINATION PART
+    const indexOfLastReservation = currentPage * reservationsPerPage;
+    const indexOfFirstReservation = indexOfLastReservation - reservationsPerPage;
+    const currentReservations = reservationList?.slice(indexOfFirstReservation, indexOfLastReservation);
+    const totalPagesNum = Math.ceil(reservationList?.length / reservationsPerPage);
+
+
+
+
     // RESERVATION CREATION PART
     const myFunction = () => {
         var x = reservationCreationRef.current;
@@ -92,8 +106,6 @@ const AdminPage = () => {
             x.style.display = "none";
         }
     }
-
-
 
 
     return (
@@ -141,7 +153,7 @@ const AdminPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {reservationList.map((reservation, ind) =>
+                                    {currentReservations.map((reservation, ind) =>
                                         <tr key={reservation.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{reservation.user.firstName} {reservation.user.lastName}</td>
@@ -174,6 +186,11 @@ const AdminPage = () => {
                                 </tbody>
                             </table>
 
+                            <Pagination pages={totalPagesNum}
+                                setCurrentPage={setCurrentPage}
+                                currentReservations={currentReservations}
+                                sortedReservations={reservationList} />
+
                         </div>
                     </div>
                 </div>
@@ -196,8 +213,6 @@ const AdminPage = () => {
 
 
         </div>
-
-
 
 
     )
