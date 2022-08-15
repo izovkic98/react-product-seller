@@ -88,7 +88,7 @@ const AdminPage = () => {
     };
 
 
-    //PAGINATION PART
+    //PAGINATION PART (RESERVATIONS)
     const indexOfLastReservation = currentPage * reservationsPerPage;
     const indexOfFirstReservation = indexOfLastReservation - reservationsPerPage;
     const currentReservations = reservationList?.slice(indexOfFirstReservation, indexOfLastReservation);
