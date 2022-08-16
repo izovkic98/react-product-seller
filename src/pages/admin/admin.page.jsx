@@ -7,12 +7,15 @@ import { ReservationDelete } from '../../components/reservation-delete';
 import { types } from './../../components/reservation-edit';
 import { manufacturers } from './../../components/reservation-edit';
 import Pagination from './pagination';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 const AdminPage = () => {
 
     const [reservationList, setReservationList] = useState([]);
     const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
     const [errorMessage, setErrorMessage] = useState('');
+    
 
     const saveComponent = useRef();
     const deleteComponent = useRef();
@@ -25,6 +28,7 @@ const AdminPage = () => {
         ReservationService.getAllReservations().then((response) => {
             setReservationList(response.data);
         })
+        setResCreation(false);
 
     }, []);
 
@@ -98,14 +102,77 @@ const AdminPage = () => {
 
 
     // RESERVATION CREATION PART
-    const myFunction = () => {
+
+    const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+    const [errorMessageResCreation, setErrorMessageResCreation] = useState('');
+    const [submitted, setSubmitted] = useState(false);
+    const [showResCreation, setResCreation] = useState();
+
+    const ref0 = useRef();
+    const ref1 = useRef();
+
+    const showCreateReservation = () => {
         var x = reservationCreationRef.current;
-        if (x.style.display === "none") {
+
+        console.log(showResCreation);
+
+        if (showResCreation) {
             x.style.display = "block";
+            setResCreation(false)
         } else {
             x.style.display = "none";
+            setResCreation(true)
         }
     }
+
+
+
+    const saveReservation = (e) => {
+        e.preventDefault();
+
+        setSubmitted(true);
+
+        if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
+            || !reservation.dateTo || !reservation.price) {
+            console.log("returnalo me");
+            return;
+        }
+
+        ReservationService.saveReservation(reservation).then(response => {
+            setSubmitted(false);
+        }).catch(err => {
+            setErrorMessage('Unexpected error occurred.');
+            console.log(err);
+        });
+    };
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setReservation((prevState => {
+            return {
+                ...prevState,
+                [name]: value
+            };
+        }));
+    };
+
+    const handleChangeDropdown = (event, value, ref) => {
+
+        if(value===null){
+            return;
+        }
+
+        setReservation((prevState => {
+            return {
+                ...prevState,
+                [ref]: value.label
+            };
+        }));
+    };
+
+
 
 
     return (
@@ -196,15 +263,133 @@ const AdminPage = () => {
                 </div>
 
                 {/*RESERVATION CREATION DIV  */}
-
+          {(showResCreation === true) &&
                 <div className="col-6 text-end">
-                    <button className="btn btn-primary" onClick={() => myFunction()}>
+                    <button className="btn btn-primary" onClick={() => showCreateReservation()}>
                         Create Reservation
                     </button>
                 </div>
+            }
+                <div ref={reservationCreationRef} >
+                <div className="modal-header" style={{marginBottom:40}}/>
+                    <form onSubmit={(e) => saveReservation(e)}
+                        noValidate
+                        className={submitted ? 'was-validated' : ''}>
 
-                <div ref={reservationCreationRef}>
-                    This is my DIV element.
+                            <h5 style={{marginLeft:15}} >Reservation creation form </h5>
+
+                        <div className="modal-body">
+
+                            {errorMessage &&
+                                <div className="alert alert-danger">
+                                    {errorMessage}
+                                </div>
+                            }
+
+                            <div className="form-group">
+                                <label htmlFor="vehicleModel">Vehicle model </label>
+                                <input
+                                    type="text"
+                                    name="vehicleModel"
+                                    // onChange={(e) => handleChange(e)}
+                                    placeholder="Vehicle model {e.g. Passat}"
+                                    className="form-control"
+
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Vehicle model is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group" style={{ marginBottom: 10 }}>
+                                <Autocomplete
+                                    name='vehicleManufacturer'
+                                    ref={ref0}
+                                    getOptionLabel={(option) => option.label}
+                                    disablePortal
+                                    // onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
+                                    options={manufacturers}
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Vehicle manufacturer is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group" style={{ marginBottom: 10 }}>
+                                <Autocomplete
+                                    name="vehicleType"
+                                    ref={ref1}
+                                    getOptionLabel={(option) => option.label}
+                                    disablePortal
+                                    // onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
+                                    options={types}
+                                    sx={{ width: 300 }}
+                                    renderInput={(params) => <TextField {...params} label="Vehicle type" />}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Vehicle type is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="dateFrom">Date from </label>
+                                <input
+                                    type='date'
+                                    name="dateFrom"
+                                    placeholder="Date from"
+                                    className="form-control"
+                                    // onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Date from is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="dateTo">Date to </label>
+                                <input
+                                    type='date'
+                                    name="dateTo"
+                                    placeholder="Date to"
+                                    className="form-control"
+  
+                                    // onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    Date to is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="price">Price (HRK) </label>
+                                <input
+                                    type='text'
+                                    name="price"
+                                    placeholder="Price (EUR)"
+                                    className="form-control"
+
+                                    // onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    price is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="modal-footer"  style={{marginTop:40}}>
+                            <button type="button" className="btn btn-secondary" onClick={() => showCreateReservation()} >Close</button>
+                            <button type="submit" className="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
