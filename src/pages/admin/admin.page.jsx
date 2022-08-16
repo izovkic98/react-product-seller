@@ -9,13 +9,17 @@ import { manufacturers } from './../../components/reservation-edit';
 import Pagination from './pagination';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import './admin.page.css'
+import UserService from '../../services/user.service';
 
 const AdminPage = () => {
 
     const [reservationList, setReservationList] = useState([]);
+    const [userList, setUserList] = useState([]);
+
     const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
     const [errorMessage, setErrorMessage] = useState('');
-    
+
 
     const saveComponent = useRef();
     const deleteComponent = useRef();
@@ -28,14 +32,14 @@ const AdminPage = () => {
         ReservationService.getAllReservations().then((response) => {
             setReservationList(response.data);
         })
+
+        UserService.getAllUsers().then((response) => {
+            setUserList(response.data)
+        })
+
         setResCreation(false);
 
     }, []);
-
-    const createReservationRequest = () => {
-        setSelectedReservation(new Reservation('', '', '', '', '', '', '', ''));
-        saveComponent.current?.showReservationModal();
-    };
 
     const editReservationRequest = (item) => {
         setSelectedReservation(Object.assign({}, item));
@@ -107,6 +111,8 @@ const AdminPage = () => {
     const [errorMessageResCreation, setErrorMessageResCreation] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
+    const [isRegisteredUser, setIsRegisteredUser] = useState();
+    const [showUsersTable, setShowUsersTable] = useState(false);
 
     const ref0 = useRef();
     const ref1 = useRef();
@@ -122,6 +128,15 @@ const AdminPage = () => {
         } else {
             x.style.display = "none";
             setResCreation(true)
+        }
+    }
+
+    const showRegistratedUsersTable = () => {
+
+        if(showUsersTable){
+            setShowUsersTable(false);
+        }else {
+            setShowUsersTable(true);
         }
     }
 
@@ -160,7 +175,7 @@ const AdminPage = () => {
 
     const handleChangeDropdown = (event, value, ref) => {
 
-        if(value===null){
+        if (value === null) {
             return;
         }
 
@@ -193,13 +208,6 @@ const AdminPage = () => {
                                 <div className="col-6">
                                     <h3>All Reservations</h3>
                                 </div>
-
-                                {/* <div className="col-6 text-end">
-                                    <button className="btn btn-primary" onClick={() => createReservationRequest()}>
-                                        Create Reservation
-                                    </button>
-                                </div> */}
-
                             </div>
                         </div>
                         <div className="card-body">
@@ -223,7 +231,7 @@ const AdminPage = () => {
                                     {currentReservations.map((reservation, ind) =>
                                         <tr key={reservation.id}>
                                             <th scope="row">{ind + 1}</th>
-                                            <td>{reservation.user.firstName} {reservation.user.lastName}</td>
+                                            <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
                                             <td>{reservation.vehicleModel}</td>
                                             <td>{reservation.vehicleManufacturer}</td>
                                             <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
@@ -263,20 +271,27 @@ const AdminPage = () => {
                 </div>
 
                 {/*RESERVATION CREATION DIV  */}
-          {(showResCreation === true) &&
-                <div className="col-6 text-end">
-                    <button className="btn btn-primary" onClick={() => showCreateReservation()}>
-                        Create Reservation
-                    </button>
-                </div>
-            }
+                {(showResCreation === true) &&
+                    <div className="col-6 text-end">
+                        <button className="btn btn-primary" onClick={() => showCreateReservation()}>
+                            Create Reservation
+                        </button>
+                    </div>
+                }
+
+            </div>
+
+            <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
+            <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />
+
+
+            <div className='container--narrow'>
                 <div ref={reservationCreationRef} >
-                <div className="modal-header" style={{marginBottom:40}}/>
+                    <div className="modal-header" style={{ marginBottom: 40 }} />
                     <form onSubmit={(e) => saveReservation(e)}
                         noValidate
                         className={submitted ? 'was-validated' : ''}>
-
-                            <h5 style={{marginLeft:15}} >Reservation creation form </h5>
+                        <h4 style={{ marginLeft: 15 }} >Reservation details </h4>
 
                         <div className="modal-body">
 
@@ -286,12 +301,12 @@ const AdminPage = () => {
                                 </div>
                             }
 
-                            <div className="form-group">
+                            <div className="form-group mt-3">
                                 <label htmlFor="vehicleModel">Vehicle model </label>
                                 <input
                                     type="text"
                                     name="vehicleModel"
-                                    // onChange={(e) => handleChange(e)}
+                                    onChange={(e) => handleChange(e)}
                                     placeholder="Vehicle model {e.g. Passat}"
                                     className="form-control"
 
@@ -302,13 +317,13 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group" style={{ marginBottom: 10 }}>
+                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
                                 <Autocomplete
                                     name='vehicleManufacturer'
                                     ref={ref0}
                                     getOptionLabel={(option) => option.label}
                                     disablePortal
-                                    // onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
+                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                                     options={manufacturers}
                                     sx={{ width: 300 }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
@@ -319,13 +334,13 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group" style={{ marginBottom: 10 }}>
+                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
                                 <Autocomplete
                                     name="vehicleType"
                                     ref={ref1}
                                     getOptionLabel={(option) => option.label}
                                     disablePortal
-                                    // onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
+                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                                     options={types}
                                     sx={{ width: 300 }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle type" />}
@@ -336,14 +351,14 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group">
+                            <div className="form-group mt-3">
                                 <label htmlFor="dateFrom">Date from </label>
                                 <input
                                     type='date'
                                     name="dateFrom"
                                     placeholder="Date from"
                                     className="form-control"
-                                    // onChange={(e) => handleChange(e)}
+                                    onChange={(e) => handleChange(e)}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -351,15 +366,15 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group">
+                            <div className="form-group mt-3">
                                 <label htmlFor="dateTo">Date to </label>
                                 <input
                                     type='date'
                                     name="dateTo"
                                     placeholder="Date to"
                                     className="form-control"
-  
-                                    // onChange={(e) => handleChange(e)}
+
+                                    onChange={(e) => handleChange(e)}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -367,7 +382,7 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
-                            <div className="form-group">
+                            <div className="form-group mt-3">
                                 <label htmlFor="price">Price (HRK) </label>
                                 <input
                                     type='text'
@@ -375,7 +390,7 @@ const AdminPage = () => {
                                     placeholder="Price (EUR)"
                                     className="form-control"
 
-                                    // onChange={(e) => handleChange(e)}
+                                    onChange={(e) => handleChange(e)}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -383,18 +398,112 @@ const AdminPage = () => {
                                 </div>
                             </div>
 
+                            <div className="modal-header" style={{ marginBottom: 40, marginTop: 30 }} />
+                            <h4 style={{ marginLeft: 15 }} >User details </h4>
+                            <div className="form-check mt-5">
+                                <input className="form-check-input" type="checkbox" onClick={() => showRegistratedUsersTable()} id="flexCheckDefault" />
+                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    Registered user
+                                </label>
+                            </div>
+
+                            <div className="form-group mt-3">
+                                <label htmlFor="price">First name </label>
+                                <input
+                                    type='text'
+                                    name="price"
+                                    placeholder="First name"
+                                    className="form-control"
+
+                                    onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    price is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group mt-3">
+                                <label htmlFor="price">Last name </label>
+                                <input
+                                    type='text'
+                                    name="price"
+                                    placeholder="Last name"
+                                    className="form-control"
+
+                                    onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                                <div className="invalid-feedback">
+                                    price is required.
+                                </div>
+                            </div>
+
+
+                            {/*USER TABLE  */}
+
+                            {showUsersTable &&
+                                <div className="card mt-5">
+                                    <div className="card-header">
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <h3>All users</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="card-body">
+
+                                        <table className="table table-striped table-dark">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Full name</th>
+                                                    <th scope="col">Username</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Phone number </th>
+                                                    <th scope="col">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {userList.map((user, ind) =>
+                                                    <tr key={user.id}>
+                                                        <th scope="row">{ind + 1}</th>
+                                                        <td>{user.firstName} {user.lastName}</td>
+                                                        <td>{user.username}</td>
+                                                        <td>{user.email}</td>
+                                                        <td>{user.phoneNumber}</td>
+                                                        <td>
+                                                            <button className="btn btn-info me-1" >
+                                                                Select
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+
+                                        {/* <Pagination pages={totalPagesNum}
+                                                                setCurrentPage={setCurrentPage}
+                                                                currentReservations={currentReservations}
+                                                                sortedReservations={reservationList} /> */}
+
+                                    </div>
+                                </div>
+
+                            }
+
+
+                            {/*USER TABLE  */}
+
                         </div>
 
-                        <div className="modal-footer"  style={{marginTop:40}}>
+                        <div className="modal-footer" style={{ marginTop: 40 }}>
                             <button type="button" className="btn btn-secondary" onClick={() => showCreateReservation()} >Close</button>
                             <button type="submit" className="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
-            <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />
 
 
         </div>
