@@ -11,6 +11,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import './admin.page.css'
 import UserService from '../../services/user.service';
+import User from './../../models/user';
 
 const AdminPage = () => {
 
@@ -108,11 +109,27 @@ const AdminPage = () => {
     // RESERVATION CREATION PART
 
     const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+    const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', ''))
     const [errorMessageResCreation, setErrorMessageResCreation] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
     const [isRegisteredUser, setIsRegisteredUser] = useState();
     const [showUsersTable, setShowUsersTable] = useState(false);
+    const [firstNameInput, setFirstNameInput] = useState(false);
+    const [lastNameInput, setLastNameInput] = useState(false);
+
+    const [currentUsersPage, setCurrentUsersPage] = useState(1);
+    const [usersPerPage] = useState(5)
+
+    const indexOfLastUser = currentUsersPage * usersPerPage;
+    console.log("indexOfLastUser " +indexOfLastUser)
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    console.log("indexOfFirstUser " + indexOfFirstUser)
+    const currentUsers = userList?.slice(indexOfFirstUser, indexOfLastUser);
+    console.log("currentUsers " + currentUsers)
+    console.log("userList " +userList)
+    const totalPagesNumUsers = Math.ceil(userList?.length / usersPerPage);
+    console.log("totalPagesNumUsers " +totalPagesNumUsers)
 
     const ref0 = useRef();
     const ref1 = useRef();
@@ -133,22 +150,56 @@ const AdminPage = () => {
 
     const showRegistratedUsersTable = () => {
 
-        if(showUsersTable){
+        if (firstNameInput && lastNameInput){
+            setFirstNameInput(false)
+            setLastNameInput(false)
+        } else {
+            setFirstNameInput(true)
+            setLastNameInput(true)
+        }
+        if (showUsersTable) {
             setShowUsersTable(false);
-        }else {
+        } else {
             setShowUsersTable(true);
         }
     }
 
+    const selectUser = (userId) => {
+        UserService.getUserById(userId).then((res) => {
+            setSelectedUser(res.data);
+        })
+
+        setReservation((prevState => {
+            return {
+                ...prevState,
+                ["user"]: {"id" : userId }
+            };
+        }));
+
+        console.log(reservation);
+
+
+    }
 
 
     const saveReservation = (e) => {
+        console.log("okinulo sejvanje rezervacije")
         e.preventDefault();
 
         setSubmitted(true);
 
-        if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
+        if ( !reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
             || !reservation.dateTo || !reservation.price) {
+
+                console.log(selectedUser.id);
+                console.log(reservation.vehicleModel);
+                console.log(reservation.vehicleManufacturer);
+                console.log(reservation.vehicleType);
+                console.log(reservation.dateFrom);
+                console.log(reservation.dateTo);
+                console.log(reservation.price);
+
+
             console.log("returnalo me");
             return;
         }
@@ -263,8 +314,8 @@ const AdminPage = () => {
 
                             <Pagination pages={totalPagesNum}
                                 setCurrentPage={setCurrentPage}
-                                currentReservations={currentReservations}
-                                sortedReservations={reservationList} />
+                                currentObjects={currentReservations}
+                                sortedObjects={reservationList} />
 
                         </div>
                     </div>
@@ -308,8 +359,8 @@ const AdminPage = () => {
                                     name="vehicleModel"
                                     onChange={(e) => handleChange(e)}
                                     placeholder="Vehicle model {e.g. Passat}"
-                                    className="form-control"
-
+                                    className="form-control input-width"
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -326,6 +377,7 @@ const AdminPage = () => {
                                     onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                                     options={manufacturers}
                                     sx={{ width: 300 }}
+                                    style={{width:50+'%'}}
                                     renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
                                     required
                                 />
@@ -343,6 +395,7 @@ const AdminPage = () => {
                                     onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                                     options={types}
                                     sx={{ width: 300 }}
+                                    style={{width:50+'%'}}
                                     renderInput={(params) => <TextField {...params} label="Vehicle type" />}
                                     required
                                 />
@@ -359,6 +412,7 @@ const AdminPage = () => {
                                     placeholder="Date from"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -373,8 +427,8 @@ const AdminPage = () => {
                                     name="dateTo"
                                     placeholder="Date to"
                                     className="form-control"
-
                                     onChange={(e) => handleChange(e)}
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -389,8 +443,8 @@ const AdminPage = () => {
                                     name="price"
                                     placeholder="Price (EUR)"
                                     className="form-control"
-
                                     onChange={(e) => handleChange(e)}
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -407,35 +461,38 @@ const AdminPage = () => {
                                 </label>
                             </div>
 
+                    { showUsersTable ===false }
                             <div className="form-group mt-3">
-                                <label htmlFor="price">First name </label>
+                                <label htmlFor="firstName">First name</label>
                                 <input
                                     type='text'
-                                    name="price"
+                                    name="firstName"
                                     placeholder="First name"
                                     className="form-control"
-
                                     onChange={(e) => handleChange(e)}
+                                    disabled={firstNameInput}
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
-                                    price is required.
+                                    First name is required.
                                 </div>
                             </div>
 
                             <div className="form-group mt-3">
-                                <label htmlFor="price">Last name </label>
+                                <label htmlFor="lastName">Last name</label>
                                 <input
                                     type='text'
-                                    name="price"
+                                    name="lastName"
                                     placeholder="Last name"
                                     className="form-control"
-
                                     onChange={(e) => handleChange(e)}
+                                    disabled={lastNameInput}
+                                    style={{width:50+'%'}}
                                     required
                                 />
                                 <div className="invalid-feedback">
-                                    price is required.
+                                    Last name is required.
                                 </div>
                             </div>
 
@@ -465,7 +522,7 @@ const AdminPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {userList.map((user, ind) =>
+                                                {currentUsers.map((user, ind) =>
                                                     <tr key={user.id}>
                                                         <th scope="row">{ind + 1}</th>
                                                         <td>{user.firstName} {user.lastName}</td>
@@ -473,7 +530,7 @@ const AdminPage = () => {
                                                         <td>{user.email}</td>
                                                         <td>{user.phoneNumber}</td>
                                                         <td>
-                                                            <button className="btn btn-info me-1" >
+                                                            <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
                                                                 Select
                                                             </button>
                                                         </td>
@@ -482,10 +539,10 @@ const AdminPage = () => {
                                             </tbody>
                                         </table>
 
-                                        {/* <Pagination pages={totalPagesNum}
-                                                                setCurrentPage={setCurrentPage}
-                                                                currentReservations={currentReservations}
-                                                                sortedReservations={reservationList} /> */}
+                                         <Pagination pages={totalPagesNumUsers}
+                                                                setCurrentPage={setCurrentUsersPage}
+                                                                currentObjects={currentUsers}
+                                                                sortedObjects={userList} /> 
 
                                     </div>
                                 </div>

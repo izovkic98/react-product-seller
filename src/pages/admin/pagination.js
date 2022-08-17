@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Pagination = ({ pages, setCurrentPage, currentReservations, sortedReservations }) => {
+const Pagination = ({ pages, setCurrentPage, currentObjects, sortedObjects }) => {
 
 
     const numOfPages = [];
@@ -17,7 +17,7 @@ const Pagination = ({ pages, setCurrentPage, currentReservations, sortedReservat
 
     return (
         <div className="clearfix">
-            <div className="hint-text">Showing <b>{currentReservations?.length}</b> out of <b>{sortedReservations?.length}</b> entries</div>
+            <div className="hint-text">Showing <b>{currentObjects?.length}</b> out of <b>{sortedObjects?.length}</b> entries</div>
             <ul className="pagination">
                 <li className={`${currentButton === 1 ? "page-item disabled" : "page-item"}`}><a className="page-link" href="#!"
                     onClick={() => setCurrentButton((prev) => prev === 1 ? prev : prev - 1)}
