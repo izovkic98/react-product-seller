@@ -113,7 +113,7 @@ const AdminPage = () => {
     const [errorMessageResCreation, setErrorMessageResCreation] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
-    const [isRegisteredUser, setIsRegisteredUser] = useState();
+    const [disabledCheckBox, setDisabledCheckBox] = useState();
     const [showUsersTable, setShowUsersTable] = useState(false);
     const [firstNameInput, setFirstNameInput] = useState(false);
     const [lastNameInput, setLastNameInput] = useState(false);
@@ -122,14 +122,9 @@ const AdminPage = () => {
     const [usersPerPage] = useState(5)
 
     const indexOfLastUser = currentUsersPage * usersPerPage;
-    console.log("indexOfLastUser " +indexOfLastUser)
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    console.log("indexOfFirstUser " + indexOfFirstUser)
     const currentUsers = userList?.slice(indexOfFirstUser, indexOfLastUser);
-    console.log("currentUsers " + currentUsers)
-    console.log("userList " +userList)
     const totalPagesNumUsers = Math.ceil(userList?.length / usersPerPage);
-    console.log("totalPagesNumUsers " +totalPagesNumUsers)
 
     const ref0 = useRef();
     const ref1 = useRef();
@@ -150,7 +145,7 @@ const AdminPage = () => {
 
     const showRegistratedUsersTable = () => {
 
-        if (firstNameInput && lastNameInput){
+        if (firstNameInput && lastNameInput) {
             setFirstNameInput(false)
             setLastNameInput(false)
         } else {
@@ -172,13 +167,20 @@ const AdminPage = () => {
         setReservation((prevState => {
             return {
                 ...prevState,
-                ["user"]: {"id" : userId }
+                ["user"]: { "id": userId }
             };
         }));
 
-        console.log(reservation);
+        console.log(reservation)
 
+        setShowUsersTable(false);
+        setDisabledCheckBox(true)
 
+    }
+
+    const deselect = () => {
+        setShowUsersTable(true);
+        setDisabledCheckBox(false);
     }
 
 
@@ -188,16 +190,16 @@ const AdminPage = () => {
 
         setSubmitted(true);
 
-        if ( !reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
+        if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
             || !reservation.dateTo || !reservation.price) {
 
-                console.log(selectedUser.id);
-                console.log(reservation.vehicleModel);
-                console.log(reservation.vehicleManufacturer);
-                console.log(reservation.vehicleType);
-                console.log(reservation.dateFrom);
-                console.log(reservation.dateTo);
-                console.log(reservation.price);
+            console.log(selectedUser.id);
+            console.log(reservation.vehicleModel);
+            console.log(reservation.vehicleManufacturer);
+            console.log(reservation.vehicleType);
+            console.log(reservation.dateFrom);
+            console.log(reservation.dateTo);
+            console.log(reservation.price);
 
 
             console.log("returnalo me");
@@ -360,7 +362,7 @@ const AdminPage = () => {
                                     onChange={(e) => handleChange(e)}
                                     placeholder="Vehicle model {e.g. Passat}"
                                     className="form-control input-width"
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -377,7 +379,7 @@ const AdminPage = () => {
                                     onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                                     options={manufacturers}
                                     sx={{ width: 300 }}
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
                                     required
                                 />
@@ -395,7 +397,7 @@ const AdminPage = () => {
                                     onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                                     options={types}
                                     sx={{ width: 300 }}
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle type" />}
                                     required
                                 />
@@ -412,7 +414,7 @@ const AdminPage = () => {
                                     placeholder="Date from"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -428,7 +430,7 @@ const AdminPage = () => {
                                     placeholder="Date to"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -444,7 +446,7 @@ const AdminPage = () => {
                                     placeholder="Price (EUR)"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
-                                    style={{width:50+'%'}}
+                                    style={{ width: 50 + '%' }}
                                     required
                                 />
                                 <div className="invalid-feedback">
@@ -454,48 +456,57 @@ const AdminPage = () => {
 
                             <div className="modal-header" style={{ marginBottom: 40, marginTop: 30 }} />
                             <h4 style={{ marginLeft: 15 }} >User details </h4>
-                            <div className="form-check mt-5">
-                                <input className="form-check-input" type="checkbox" onClick={() => showRegistratedUsersTable()} id="flexCheckDefault" />
+                            <div className="form-check mt-5" >
+                                <input className="form-check-input" type="checkbox" disabled={disabledCheckBox} onClick={() => showRegistratedUsersTable()} id="flexCheckDefault" />
                                 <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Registered user
                                 </label>
                             </div>
 
-                    { showUsersTable ===false }
-                            <div className="form-group mt-3">
-                                <label htmlFor="firstName">First name</label>
-                                <input
-                                    type='text'
-                                    name="firstName"
-                                    placeholder="First name"
-                                    className="form-control"
-                                    onChange={(e) => handleChange(e)}
-                                    disabled={firstNameInput}
-                                    style={{width:50+'%'}}
-                                    required
-                                />
-                                <div className="invalid-feedback">
-                                    First name is required.
+                            {!showUsersTable &&
+                                <div className="form-group mt-3">
+                                    <label htmlFor="firstName">First name</label>
+                                    <input
+                                        type='text'
+                                        name="firstName"
+                                        placeholder={disabledCheckBox ? selectedUser.firstName : "First name"}
+                                        className="form-control"
+                                        onChange={(e) => handleChange(e)}
+                                        disabled={firstNameInput}
+                                        style={{ width: 50 + '%' }}
+                                        required
+                                    />
+                                    <div className="invalid-feedback">
+                                        First name is required.
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div className="form-group mt-3">
-                                <label htmlFor="lastName">Last name</label>
-                                <input
-                                    type='text'
-                                    name="lastName"
-                                    placeholder="Last name"
-                                    className="form-control"
-                                    onChange={(e) => handleChange(e)}
-                                    disabled={lastNameInput}
-                                    style={{width:50+'%'}}
-                                    required
-                                />
-                                <div className="invalid-feedback">
-                                    Last name is required.
+                            {!showUsersTable &&
+                                <div className="form-group mt-3">
+                                    <label htmlFor="lastName">Last name</label>
+                                    <input
+                                        type='text'
+                                        name="lastName"
+                                        placeholder={disabledCheckBox ? selectedUser.lastName : "Last name"}
+                                        className="form-control"
+                                        onChange={(e) => handleChange(e)}
+                                        disabled={lastNameInput}
+                                        style={{ width: 50 + '%' }}
+                                        required
+                                    />
+                                    <div className="invalid-feedback">
+                                        Last name is required.
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
+                            {(!showUsersTable && disabledCheckBox ) &&
+
+                                <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => deselect()} >
+                                    Deselect
+                                </button>
+                            }
 
                             {/*USER TABLE  */}
 
@@ -539,10 +550,10 @@ const AdminPage = () => {
                                             </tbody>
                                         </table>
 
-                                         <Pagination pages={totalPagesNumUsers}
-                                                                setCurrentPage={setCurrentUsersPage}
-                                                                currentObjects={currentUsers}
-                                                                sortedObjects={userList} /> 
+                                        <Pagination pages={totalPagesNumUsers}
+                                            setCurrentPage={setCurrentUsersPage}
+                                            currentObjects={currentUsers}
+                                            sortedObjects={userList} />
 
                                     </div>
                                 </div>
