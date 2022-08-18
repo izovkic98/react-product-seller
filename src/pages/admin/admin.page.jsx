@@ -208,6 +208,10 @@ const AdminPage = () => {
 
         ReservationService.saveReservation(reservation).then(response => {
             setSubmitted(false);
+
+            var x = reservationCreationRef.current;
+            x.style.display = "none";
+            setResCreation(true)
         }).catch(err => {
             setErrorMessage('Unexpected error occurred.');
             console.log(err);
@@ -501,7 +505,7 @@ const AdminPage = () => {
                                 </div>
                             }
 
-                            {(!showUsersTable && disabledCheckBox ) &&
+                            {(!showUsersTable && disabledCheckBox) &&
 
                                 <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => deselect()} >
                                     Deselect
