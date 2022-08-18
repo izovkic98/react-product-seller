@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReservationService from '../../services/reservation.service';
 import { ReservationEdit } from '../../components/reservation-edit';
 import Reservation from '../../models/reservation';
@@ -111,7 +111,6 @@ const AdminPage = () => {
 
     const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
     const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', ''))
-    const [errorMessageResCreation, setErrorMessageResCreation] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
     const [disabledCheckBox, setDisabledCheckBox] = useState();
@@ -169,7 +168,7 @@ const AdminPage = () => {
         setReservation((prevState => {
             return {
                 ...prevState,
-                ["user"]: { "id": userId }
+                "user" : { "id": userId }
             };
         }));
 
