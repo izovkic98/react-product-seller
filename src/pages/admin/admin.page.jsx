@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import './admin.page.css'
 import UserService from '../../services/user.service';
 import User from './../../models/user';
+import Alert from 'react-bootstrap/Alert';
 
 const AdminPage = () => {
 
@@ -125,6 +126,7 @@ const AdminPage = () => {
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = userList?.slice(indexOfFirstUser, indexOfLastUser);
     const totalPagesNumUsers = Math.ceil(userList?.length / usersPerPage);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
     const ref0 = useRef();
     const ref1 = useRef();
@@ -211,7 +213,19 @@ const AdminPage = () => {
 
             var x = reservationCreationRef.current;
             x.style.display = "none";
+
+            ReservationService.getAllReservations().then((res) => {
+                setReservationList(res.data);
+            })
+
+            document.getElementById("reservationForm").reset();
             setResCreation(true)
+            setShowSuccessAlert(true)
+
+            setDisabledCheckBox(false);
+            setFirstNameInput(false);
+            setLastNameInput(false)
+
         }).catch(err => {
             setErrorMessage('Unexpected error occurred.');
             console.log(err);
@@ -328,12 +342,19 @@ const AdminPage = () => {
                 </div>
 
                 {/*RESERVATION CREATION DIV  */}
-                {(showResCreation === true) &&
+                {showResCreation &&
                     <div className="col-6 text-end">
                         <button className="btn btn-primary" onClick={() => showCreateReservation()}>
                             Create Reservation
                         </button>
                     </div>
+                }
+
+                {showSuccessAlert &&
+
+                    <Alert className='alert-success' variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
+                        <Alert.Heading>Reservation successfuly saved !</Alert.Heading>
+                    </Alert>
                 }
 
             </div>
@@ -345,7 +366,7 @@ const AdminPage = () => {
             <div className='container--narrow'>
                 <div ref={reservationCreationRef} >
                     <div className="modal-header" style={{ marginBottom: 40 }} />
-                    <form onSubmit={(e) => saveReservation(e)}
+                    <form id='reservationForm' onSubmit={(e) => saveReservation(e)}
                         noValidate
                         className={submitted ? 'was-validated' : ''}>
                         <h4 style={{ marginLeft: 15 }} >Reservation details </h4>
@@ -386,6 +407,7 @@ const AdminPage = () => {
                                     style={{ width: 50 + '%' }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
                                     required
+                                    key={submitted}
                                 />
                                 <div className="invalid-feedback">
                                     Vehicle manufacturer is required.
@@ -404,6 +426,7 @@ const AdminPage = () => {
                                     style={{ width: 50 + '%' }}
                                     renderInput={(params) => <TextField {...params} label="Vehicle type" />}
                                     required
+                                    key={submitted}
                                 />
                                 <div className="invalid-feedback">
                                     Vehicle type is required.
