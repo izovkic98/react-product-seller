@@ -7,6 +7,7 @@ import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { ProfilePage } from './pages/profile/profile.page';
 import { AdminPage } from './pages/admin/admin.page';
+import { AdminUsersPage } from './pages/admin/admin.users.page';
 import { NotFoundPage } from './pages/not-found/not-found.page';
 import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { AuthGuard } from './guards/auth.guard';
@@ -33,6 +34,12 @@ function App() {
                   <Route path="/admin-reservations" element={
                       <AuthGuard roles={[Role.ADMIN]}>
                           <AdminPage/>
+                      </AuthGuard>
+                  }/>
+                  
+                  <Route path="/admin-users" element={
+                      <AuthGuard roles={[Role.ADMIN]}>
+                          <AdminUsersPage/>
                       </AuthGuard>
                   }/>
 

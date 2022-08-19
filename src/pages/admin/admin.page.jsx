@@ -168,7 +168,7 @@ const AdminPage = () => {
         setReservation((prevState => {
             return {
                 ...prevState,
-                "user" : { "id": userId }
+                "user": { "id": userId }
             };
         }));
 
@@ -277,6 +277,11 @@ const AdminPage = () => {
                             <div className="row">
                                 <div className="col-6">
                                     <h3>All Reservations</h3>
+                                </div>
+                                <div className="col-6 text-end">
+                                    <button className="btn btn-primary" >
+                                        Search
+                                    </button>
                                 </div>
                             </div>
                         </div>
