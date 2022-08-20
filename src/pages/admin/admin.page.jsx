@@ -387,7 +387,7 @@ const AdminPage = () => {
                 {showResCreation &&
                     <div className="col-6 text-end">
                         <button className="btn btn-primary" onClick={() => showCreateReservation()}>
-                            Create Reservation
+                            Create Reservation {'>'}
                         </button>
                     </div>
                 }

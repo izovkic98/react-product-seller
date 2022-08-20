@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const currentUser = useSelector(state => state.user);
 
   return (
+
     <><ProfileUserData /><div className="content">
       <div className="container-fluid">
         <div className="row" style={{ marginTop: 25 }}>
@@ -105,110 +106,87 @@ const ProfilePage = () => {
             <p>* stari godišnji morate iskoristiti do kraja trećeg mjeseca 2022 godine.</p>
           </div>
         </div>
-      </div>
 
-      <table className="table table-striped table-dark">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+
+
+        {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
+        <div className='dxbs-cardview'>
+          <div className='panel panel-default'>
+            <div className='panel panel-default'>
+              <div className="panel-body row dxbs-content">
+                <div id="Content_gwCard_DXDataCard0" className="col-md-6 col-lg-6">
+                  <div className="panel panel-default dxbs-card panel-primary" >
+                    <div id="Content_gwCard_tcch0" className="panel-heading">
+
+                      <span>Godišnji odmor - MARKO ZOVKIĆ</span>
+
+                    </div>
+                    <div className="panel-body" style={{ color: `rgb(${0, 97, 0})`, backgroundColor: `rgb(${198, 239, 206})`, height: 156 + 'px' }}>
+                      <div id="Content_gwCard_tccv0">
+
+                        <div className="info">
+                          <span>Od: 25.7.2022.</span>
+                          <br />
+                          <span>Do: 25.7.2022.</span>
+                          <br />
+                          <div className="address">
+                            <span>Zamjena: LUKA SAKOMAN</span>
+                            <br />
+
+                            <span><p><b>Status: <span className="icon-success">Odobreno</span> </b></p></span>
+                          </div>
+                          <button type="button" className="btn btn-info" onClick="ShowDialog(3893)">Detalji</button>
+                          <button type="button" className="btn btn-warning" onClick="ShowReport(this, 3893)">Ispis</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="Content_gwCard_DXDataCard1" className="col-md-6 col-lg-6">
+                  <div className="panel panel-default dxbs-card panel-primary" >
+                    <div id="Content_gwCard_tcch1" className="panel-heading " style={{backgroundColor: `rgb(${0, 0, 0})`}}>
+
+                      <span>Godišnji odmor - MARKO ZOVKIĆ</span>
+
+                    </div><div className="panel-body" style={{ color: `rgb(${0, 97, 0})`, backgroundColor: `rgb(${198, 239, 206})`, height: 156 + 'px' }}>
+                      <div id="Content_gwCard_tccv1">
+
+                        <div className="info">
+                          <span>Od: 8.8.2022.</span>
+                          <br />
+                          <span>Do: 12.8.2022.</span>
+                          <br />
+                          <div className="address">
+                            <span>Zamjena: LUKA SAKOMAN</span>
+                            <br />
+
+                            <span><p><b>Status: <span className="icon-success">Odobreno</span> </b></p></span>
+                          </div>
+                          <button type="button" className="btn btn-info" onClick="ShowDialog(3875)">Detalji</button>
+                          <button type="button" className="btn btn-warning" onClick="ShowReport(this, 3875)">Ispis</button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
     </div></>
 
 

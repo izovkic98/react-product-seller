@@ -65,3 +65,77 @@ p {
     margin-left: 0;
     margin-right: 0;
 }
+
+.dxbs-cardview{
+    display: table;
+    width: 100%;
+}
+
+.panel{
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    
+}
+
+.panel-default{
+    border-color: #ddd;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+}
+
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.dxbs-cardview .dxbs-content {
+    padding: 1em 0.5em 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.dxbs-cardview .dxbs-content > div {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.dxbs-content {
+    padding: 1em 0.5em 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+ .panel-default {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+} 
+
+.dxbs-cardview > .panel > .panel:first-child, .dxbs-cardview > .panel > .panel-heading + .panel {
+    border-top: 0;
+}
+
+.dxbs-cardview > .panel > .panel:first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+.dxbs-cardview > .panel > .panel {
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    margin: 0;
+    box-shadow: none;
+}
