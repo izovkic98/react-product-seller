@@ -258,6 +258,12 @@ const AdminPage = () => {
     };
 
 
+    // SEARCH BAR
+
+    const [query, setQuery] = useState("")
+    const reservationKeys = ["user?.firstName", "user?.lastName", "vehicleModel", "vehicleManufacturer"]
+    const [queryUsers, setQueryUsers] = useState("")
+    const userKeys = ["firstName", "lastName", "username", "email"]
 
 
     return (
@@ -279,9 +285,8 @@ const AdminPage = () => {
                                     <h3>All Reservations</h3>
                                 </div>
                                 <div className="col-6 text-end">
-                                    <button className="btn btn-primary" >
-                                        Search
-                                    </button>
+                                    <input type="text" placeholder='Search...'
+                                        onChange={e => setQuery(e.target.value)} />
                                 </div>
                             </div>
                         </div>
@@ -303,7 +308,7 @@ const AdminPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentReservations.map((reservation, ind) =>
+                                    {!query ? (currentReservations.map((reservation, ind) =>
                                         <tr key={reservation.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
@@ -332,15 +337,48 @@ const AdminPage = () => {
                                                 </button>
                                             </td>
                                         </tr>
-                                    )}
+                                    ))
+                                        :
+                                        (reservationList.filter((item) => reservationKeys.some((key) =>
+                                            item[key]?.toLowerCase().includes(query))).map((reservation, ind) =>
+                                                <tr key={reservation.id}>
+                                                    <th scope="row">{ind + 1}</th>
+                                                    <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
+                                                    <td>{reservation.vehicleModel}</td>
+                                                    <td>{reservation.vehicleManufacturer}</td>
+                                                    <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
+                                                    <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
+                                                    <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
+                                                    <td>{`$ ${reservation.price}`}</td>
+                                                    <td>{reservation.reservationStatus}</td>
+                                                    <td>
+                                                        <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
+                                                            Approve
+                                                        </button>
+
+                                                        <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
+                                                            Deny
+                                                        </button>
+
+                                                        <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
+                                                            Edit
+                                                        </button>
+
+                                                        <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                    }
                                 </tbody>
                             </table>
-
-                            <Pagination pages={totalPagesNum}
-                                setCurrentPage={setCurrentPage}
-                                currentObjects={currentReservations}
-                                sortedObjects={reservationList} />
-
+                            {!query &&
+                                <Pagination pages={totalPagesNum}
+                                    setCurrentPage={setCurrentPage}
+                                    currentObjects={currentReservations}
+                                    sortedObjects={reservationList} />
+                            }
                         </div>
                     </div>
                 </div>
@@ -548,6 +586,10 @@ const AdminPage = () => {
                                             <div className="col-6">
                                                 <h3>All users</h3>
                                             </div>
+                                            <div className="col-6 text-end">
+                                                <input type="text" placeholder='Search...'
+                                                    onChange={e => setQueryUsers(e.target.value)} />
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="card-body">
@@ -564,7 +606,7 @@ const AdminPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {currentUsers.map((user, ind) =>
+                                                {!queryUsers ? (currentUsers.map((user, ind) =>
                                                     <tr key={user.id}>
                                                         <th scope="row">{ind + 1}</th>
                                                         <td>{user.firstName} {user.lastName}</td>
@@ -577,15 +619,33 @@ const AdminPage = () => {
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                )}
+                                                )) :
+                                                    (userList.filter((item) => userKeys.some((key) =>
+                                                    item[key].toLowerCase().includes(queryUsers))).map((user, ind) =>
+                                                        <tr key={user.id}>
+                                                            <th scope="row">{ind + 1}</th>
+                                                            <td>{user.firstName} {user.lastName}</td>
+                                                            <td>{user.username}</td>
+                                                            <td>{user.email}</td>
+                                                            <td>{user.phoneNumber}</td>
+                                                            <td>
+                                                                <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
+                                                                    Select
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    ))
+
+
+                                                }
                                             </tbody>
                                         </table>
-
-                                        <Pagination pages={totalPagesNumUsers}
-                                            setCurrentPage={setCurrentUsersPage}
-                                            currentObjects={currentUsers}
-                                            sortedObjects={userList} />
-
+                                        {!queryUsers &&
+                                            <Pagination pages={totalPagesNumUsers}
+                                                setCurrentPage={setCurrentUsersPage}
+                                                currentObjects={currentUsers}
+                                                sortedObjects={userList} />
+                                        }
                                     </div>
                                 </div>
 

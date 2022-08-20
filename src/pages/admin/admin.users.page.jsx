@@ -161,7 +161,7 @@ const AdminUsersPage = () => {
                                     </tr>
                                 )) :
 
-                                    (userList.filter((item) =>keys.some((key)=> item[key].toLowerCase().includes(query))).map((user, ind) =>
+                                    (userList.filter((item) => keys.some((key) => item[key]?.toLowerCase().includes(query))).map((user, ind) =>
                                         <tr key={user.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{user.firstName} {user.lastName}</td>
@@ -188,12 +188,12 @@ const AdminUsersPage = () => {
 
                             </tbody>
                         </table>
-
-                        <Pagination pages={totalPagesNumUsers}
-                            setCurrentPage={setCurrentUsersPage}
-                            currentObjects={currentUsers}
-                            sortedObjects={userList} />
-
+                        {!query &&
+                            <Pagination pages={totalPagesNumUsers}
+                                setCurrentPage={setCurrentUsersPage}
+                                currentObjects={currentUsers}
+                                sortedObjects={userList} />
+                        }
                     </div>
                 </div>
 
