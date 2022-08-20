@@ -8,6 +8,10 @@ import { UserEdit } from '../../components/user-edit';
 import { UserDelete } from '../../components/user-delete';
 import { Role } from './../../models/role';
 
+// TABLE SEARCH
+import { Table, Input } from "antd";
+import { useTableSearch } from "../../components/useTableSearch";
+
 const AdminUsersPage = () => {
 
     const [currentUsersPage, setCurrentUsersPage] = useState(1);
@@ -46,6 +50,16 @@ const AdminUsersPage = () => {
             setUserList(newList);
         }
     };
+
+    // SEARCH BAR
+    const { Search } = Input;
+
+    const [searchVal, setSearchVal] = useState(null);
+
+    const { filteredData, loading } = useTableSearch({
+        searchVal,
+        retrieve: userList
+    });
 
 
     // MIJENJANJE USER ROLE
@@ -113,6 +127,12 @@ const AdminUsersPage = () => {
                                 <h3>All users</h3>
                             </div>
                             <div className="col-6 text-end">
+                                <Search
+                                    onChange={e => setSearchVal(e.target.value)}
+                                    placeholder="Search"
+                                    enterButton
+                                    style={{ position: "sticky", top: "0", left: "0" }}
+                                />
                                 <button className="btn btn-primary" >
                                     Search
                                 </button>
@@ -149,12 +169,9 @@ const AdminUsersPage = () => {
                                             <button className="btn btn-light me-1" type='button' onClick={() => editUserRequest(user)} >
                                                 Edit
                                             </button>
-                                            {!(user.role === Role.ADMIN) &&
-                                                <button className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
-                                                    Delete
-                                                </button>
-                                            }
-
+                                            <button disabled={(currentUser.id === user.id)} className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 )}
