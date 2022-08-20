@@ -52,7 +52,7 @@ const AdminUsersPage = () => {
     // SEARCH BAR
 
     const [query, setQuery] = useState("")
-    const keys = ["firstName", "lastName", "username"]
+    const keys = ["firstName", "lastName", "username", "email"]
 
     // MIJENJANJE USER ROLE
     const changeUserRole = (userId) => {
@@ -139,7 +139,7 @@ const AdminUsersPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {!query ? (currentUsers.filter(user => user.firstName.toLowerCase().includes(query)).map((user, ind) =>
+                                {!query ? (currentUsers.map((user, ind) =>
                                     <tr key={user.id}>
                                         <th scope="row">{ind + 1}</th>
                                         <td>{user.firstName} {user.lastName}</td>
@@ -161,7 +161,7 @@ const AdminUsersPage = () => {
                                     </tr>
                                 )) :
 
-                                    (userList.filter(user => user.firstName.toLowerCase().includes(query)).map((user, ind) =>
+                                    (userList.filter((item) =>keys.some((key)=> item[key].toLowerCase().includes(query))).map((user, ind) =>
                                         <tr key={user.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{user.firstName} {user.lastName}</td>
@@ -182,8 +182,6 @@ const AdminUsersPage = () => {
                                             </td>
                                         </tr>
                                     ))
-
-
 
                                 }
 
