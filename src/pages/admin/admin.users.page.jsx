@@ -9,8 +9,6 @@ import { UserDelete } from '../../components/user-delete';
 import { Role } from './../../models/role';
 
 // TABLE SEARCH
-import { Table, Input } from "antd";
-import { useTableSearch } from "../../components/useTableSearch";
 
 const AdminUsersPage = () => {
 
@@ -52,15 +50,9 @@ const AdminUsersPage = () => {
     };
 
     // SEARCH BAR
-    const { Search } = Input;
 
-    const [searchVal, setSearchVal] = useState(null);
-
-    const { filteredData, loading } = useTableSearch({
-        searchVal,
-        retrieve: userList
-    });
-
+    const [query, setQuery] = useState("")
+    const keys = ["firstName", "lastName", "username"]
 
     // MIJENJANJE USER ROLE
     const changeUserRole = (userId) => {
@@ -127,15 +119,8 @@ const AdminUsersPage = () => {
                                 <h3>All users</h3>
                             </div>
                             <div className="col-6 text-end">
-                                <Search
-                                    onChange={e => setSearchVal(e.target.value)}
-                                    placeholder="Search"
-                                    enterButton
-                                    style={{ position: "sticky", top: "0", left: "0" }}
-                                />
-                                <button className="btn btn-primary" >
-                                    Search
-                                </button>
+                                <input type="text" placeholder='Search...'
+                                    onChange={e => setQuery(e.target.value)} />
                             </div>
                         </div>
                     </div>
@@ -154,7 +139,7 @@ const AdminUsersPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentUsers.map((user, ind) =>
+                                {!query ? (currentUsers.filter(user => user.firstName.toLowerCase().includes(query)).map((user, ind) =>
                                     <tr key={user.id}>
                                         <th scope="row">{ind + 1}</th>
                                         <td>{user.firstName} {user.lastName}</td>
@@ -174,7 +159,35 @@ const AdminUsersPage = () => {
                                             </button>
                                         </td>
                                     </tr>
-                                )}
+                                )) :
+
+                                    (userList.filter(user => user.firstName.toLowerCase().includes(query)).map((user, ind) =>
+                                        <tr key={user.id}>
+                                            <th scope="row">{ind + 1}</th>
+                                            <td>{user.firstName} {user.lastName}</td>
+                                            <td>{user.username}</td>
+                                            <td>{user.email}</td>
+                                            <td>{user.phoneNumber}</td>
+                                            <td>{user.role}</td>
+                                            <td>
+                                                <button disabled={(currentUser.id === user.id)} className="btn btn-success me-1" type='button' onClick={() => changeUserRole(user.id)}   >
+                                                    Change role
+                                                </button>
+                                                <button className="btn btn-light me-1" type='button' onClick={() => editUserRequest(user)} >
+                                                    Edit
+                                                </button>
+                                                <button disabled={(currentUser.id === user.id)} className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+
+
+
+                                }
+
+
                             </tbody>
                         </table>
 
