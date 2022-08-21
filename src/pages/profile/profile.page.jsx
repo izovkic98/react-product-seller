@@ -19,11 +19,11 @@ const ProfilePage = () => {
 
   useEffect(() => {
     ReservationService.getAllReservations().then((response) => {
-        setReservationList(response.data);
+      setReservationList(response.data);
     })
-}, []);
+  }, []);
 
-  
+
 
   return (
 
@@ -121,20 +121,16 @@ const ProfilePage = () => {
           </div>
         </div>
 
-
-
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <div className='dxbs-cardview'>
           <div className='panel-default'>
-            <div className='panel-fanel panel-default'>
+            <div className='tata-panel panel-default'>
               <div className="panel-body row dxbs-content">
-                <UsersCard/>
+                <UsersCard />
               </div>
             </div>
           </div>
         </div>
-
-
 
       </div>
     </div></>

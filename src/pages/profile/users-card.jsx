@@ -11,6 +11,7 @@ import { ProfileUserData } from './profile.user.data';
 import ReservationService from '../../services/reservation.service';
 import ReactPaginate from 'react-paginate';
 import { VehicleManufacturer } from './../../models/vehicleManufacturer';
+import { ReservationStatus } from './../../models/reservationStatus';
 
 const UsersCard = () => {
     const currentUser = useSelector(state => state.user);
@@ -26,7 +27,7 @@ const UsersCard = () => {
                 return (
 
                     <div id="Content_gwCard_DXDataCard0" className="col-md-6 col-lg-6">
-                        <div className="panel dxbs-card panel-primary" >
+                        <div className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'tata-panelApproved dxbs-card panel-primary' : 'panel-fanel dxbs-card panel-primary'}`}>
                             <div id="Content_gwCard_tcch0" className="panel-heading">
                                 <span>Ime i prezime: {currentUser.firstName} {currentUser.lastName}</span>
                             </div>
