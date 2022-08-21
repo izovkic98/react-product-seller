@@ -69,16 +69,19 @@ const UsersCard = () => {
     return (
         <div className='row'>
             {displayReservations}
+            <hr/>
             <ReactPaginate
             previousLabel={"Previous"}
             nextLabel={"Next"}
             pageCount={pageCount}
             onPageChange={changePage}
-            containerClassName={"paginationBttns"}
-            previousLinkClassName={"previousBttn"}
-            nextLinkClassName={"nextBttn"}
-            disabledClassName={"paginationDisabled"}
-            activeClassName={"paginationActive"}
+            containerClassName={"pagination"}
+            previousLinkClassName={"page-link"}
+            nextLinkClassName={"page-link"}
+            disabledClassName={"page-item disabled "}
+            activeClassName={"page-item active"}
+            breakLinkClassName={"page-link"}
+            pageLinkClassName={"page-link"}
             />
         </div>
     )
