@@ -26,14 +26,14 @@ const UsersCard = () => {
             .map((reservation) => {
                 return (
 
-                    <div id="Content_gwCard_DXDataCard0" className="col-md-6 col-lg-6">
+                    <div className="col-md-6 col-lg-6">
                         <div className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'tata-panelApproved dxbs-card panel-primary' : 'panel-fanel dxbs-card panel-primary'}`}>
-                            <div id="Content_gwCard_tcch0" className="panel-heading">
+                            <div className="panel-heading">
                                 <span>Ime i prezime: {currentUser.firstName} {currentUser.lastName}</span>
                             </div>
                             <div className="panel-body" style={{ height: 156 + 'px' }}>
-                                <div id="Content_gwCard_tccv0">
-                                    <div style={{marginLeft:10}}>
+                                <div >
+                                    <div style={{ marginLeft: 10 }}>
                                         <span>Od: {reservation.dateFrom}</span>
                                         <br />
                                         <span>Do: {reservation.dateTo}</span>
@@ -41,7 +41,7 @@ const UsersCard = () => {
                                         <div className="address">
                                             <span><p><b>Status: <span className="icon-success">{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
-                                        <button type="button" className="btn btn-info" style={{marginRight:10}} >Detalji</button>
+                                        <button type="button" className="btn btn-info" style={{ marginRight: 10 }} >Detalji</button>
                                         <button type="button" className="btn btn-warning" >Ispis</button>
                                     </div>
                                 </div>
@@ -51,6 +51,12 @@ const UsersCard = () => {
                 );
             });
 
+
+    const pageCount= Math.ceil(reservationList.length/reservationsPerPage)
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected)
+    }
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {
@@ -63,6 +69,17 @@ const UsersCard = () => {
     return (
         <div className='row'>
             {displayReservations}
+            <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+            />
         </div>
     )
 }
