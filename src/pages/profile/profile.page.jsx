@@ -129,8 +129,13 @@ const ProfilePage = () => {
                 <UsersCard />
               </div>
             </div>
+            <div className="panel-body panel-default tata-panel">
+
+
+            </div>
           </div>
         </div>
+        {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
 
       </div>
     </div></>
