@@ -9,6 +9,8 @@ import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ProfileUserData } from './profile.user.data';
 import ReservationService from '../../services/reservation.service';
+import ReactPaginate from 'react-paginate';
+import { UsersCard } from './users-card';
 
 
 const ProfilePage = () => {
@@ -128,60 +130,9 @@ const ProfilePage = () => {
               <div className="panel-body row dxbs-content">
 
 
-                {/*1.KARTICA */}
-                <div id="Content_gwCard_DXDataCard0" className="col-md-6 col-lg-6">
-                  <div className="panel panel-default dxbs-card panel-primary" >
-                    <div id="Content_gwCard_tcch0" className="panel-heading">
-                      <span>Godišnji odmor - MARKO ZOVKIĆ</span>
-                    </div>
-                    <div className="panel-body" style={{ color: `rgb(${0, 97, 0})`, backgroundColor: `rgb(${198, 239, 206})`, height: 156 + 'px' }}>
-                      <div id="Content_gwCard_tccv0">
-                        <div className="info">
-                          <span>Od: 25.7.2022.</span>
-                          <br />
-                          <span>Do: 25.7.2022.</span>
-                          <br />
-                          <div className="address">
-                            <span>Zamjena: LUKA SAKOMAN</span>
-                            <br />
-                            <span><p><b>Status: <span className="icon-success">Odobreno</span> </b></p></span>
-                          </div>
-                          <button type="button" className="btn btn-info" onClick="ShowDialog(3893)">Detalji</button>
-                          <button type="button" className="btn btn-warning" onClick="ShowReport(this, 3893)">Ispis</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            
 
-
-
-                {/*2.KARTICA */}
-                <div id="Content_gwCard_DXDataCard1" className="col-md-6 col-lg-6">
-                  <div className="panel panel-default dxbs-card panel-primary" >
-                    <div id="Content_gwCard_tcch1" className="panel-heading " style={{ backgroundColor: `rgb(${0, 0, 0})` }}>
-                      <span>Godišnji odmor - MARKO ZOVKIĆ</span>
-                    </div><div className="panel-body" style={{ color: `rgb(${0, 97, 0})`, backgroundColor: `rgb(${198, 239, 206})`, height: 156 + 'px' }}>
-                      <div id="Content_gwCard_tccv1">
-                        <div className="info">
-                          <span>Od: 8.8.2022.</span>
-                          <br />
-                          <span>Do: 12.8.2022.</span>
-                          <br />
-                          <div className="address">
-                            <span>Zamjena: LUKA SAKOMAN</span>
-                            <br />
-                            <span><p><b>Status: <span className="icon-success">Odobreno</span> </b></p></span>
-                          </div>
-                          <button type="button" className="btn btn-info" onClick="ShowDialog(3875)">Detalji</button>
-                          <button type="button" className="btn btn-warning" onClick="ShowReport(this, 3875)">Ispis</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
+                <UsersCard/>
 
 
 

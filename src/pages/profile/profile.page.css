@@ -117,11 +117,7 @@ p {
     border-color: #337ab7;
 }
 
- .panel-default {
-    color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-} 
+
 
 .dxbs-cardview > .panel > .panel:first-child, .dxbs-cardview > .panel > .panel-heading + .panel {
     border-top: 0;
@@ -138,4 +134,18 @@ p {
     border-right: 0;
     margin: 0;
     box-shadow: none;
+}
+
+.reservation-profile{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 300px;
+    margin: 20px;
 }
