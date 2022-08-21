@@ -73,7 +73,29 @@ p {
 
 .panel{
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: whitesmoke;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    
+}
+
+.tata-panelApproved{
+    background-color: rgb(101, 218, 126);
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.tata-panel{
+    margin-bottom: 20px;
+    background-color: whitesmoke;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.panel-fanel{
+    margin-bottom: 20px;
+    background-color: white;
     border: 1px solid transparent;
     border-radius: 4px;
     
@@ -116,8 +138,6 @@ p {
     background-color: #337ab7;
     border-color: #337ab7;
 }
-
-
 
 .dxbs-cardview > .panel > .panel:first-child, .dxbs-cardview > .panel > .panel-heading + .panel {
     border-top: 0;

@@ -125,19 +125,10 @@ const ProfilePage = () => {
 
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <div className='dxbs-cardview'>
-          <div className='panel panel-default'>
-            <div className='panel panel-default'>
+          <div className='panel-default'>
+            <div className='panel-fanel panel-default'>
               <div className="panel-body row dxbs-content">
-
-
-            
-
                 <UsersCard/>
-
-
-
-
-
               </div>
             </div>
           </div>

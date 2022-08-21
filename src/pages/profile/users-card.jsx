@@ -26,13 +26,13 @@ const UsersCard = () => {
                 return (
 
                     <div id="Content_gwCard_DXDataCard0" className="col-md-6 col-lg-6">
-                        <div className="panel panel-default dxbs-card panel-primary" >
+                        <div className="panel dxbs-card panel-primary" >
                             <div id="Content_gwCard_tcch0" className="panel-heading">
                                 <span>Ime i prezime: {currentUser.firstName} {currentUser.lastName}</span>
                             </div>
-                            <div className="panel-body" style={{ color: `rgb(${0, 97, 0})`, backgroundColor: `rgb(${255, 255, 255})`, height: 156 + 'px' }}>
+                            <div className="panel-body" style={{ height: 156 + 'px' }}>
                                 <div id="Content_gwCard_tccv0">
-                                    <div className="info">
+                                    <div style={{marginLeft:10}}>
                                         <span>Od: {reservation.dateFrom}</span>
                                         <br />
                                         <span>Do: {reservation.dateTo}</span>
@@ -40,7 +40,7 @@ const UsersCard = () => {
                                         <div className="address">
                                             <span><p><b>Status: <span className="icon-success">{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
-                                        <button type="button" className="btn btn-info" >Detalji</button>
+                                        <button type="button" className="btn btn-info" style={{marginRight:10}} >Detalji</button>
                                         <button type="button" className="btn btn-warning" >Ispis</button>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@ const UsersCard = () => {
 
 
     return (
-        <div className='content'>
+        <div className='row'>
             {displayReservations}
         </div>
     )
