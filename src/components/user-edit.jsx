@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, useEffect, useImperativeHandle, useState, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 import { Modal } from 'react-bootstrap';
 import User from '../models/user';
@@ -16,10 +16,6 @@ const UserEdit = forwardRef((props, ref) => {
             }, 0);
         }
     }));
-
-
-    const ref0 = useRef();
-    const ref1 = useRef();
 
     useEffect(() => {
         setUser(props.user);

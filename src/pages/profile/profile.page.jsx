@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect, useRef } from 'react';
 import './profile.page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
@@ -7,9 +8,20 @@ import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ProfileUserData } from './profile.user.data';
+import ReservationService from '../../services/reservation.service';
+
 
 const ProfilePage = () => {
   const currentUser = useSelector(state => state.user);
+  const [reservationList, setReservationList] = useState([]);
+
+  useEffect(() => {
+    ReservationService.getAllReservations().then((response) => {
+        setReservationList(response.data);
+    })
+}, []);
+
+  
 
   return (
 
