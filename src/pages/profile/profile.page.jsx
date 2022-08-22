@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './profile.page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
@@ -9,7 +10,6 @@ import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ProfileUserData } from './profile.user.data';
 import ReservationService from '../../services/reservation.service';
-import ReactPaginate from 'react-paginate';
 import { UsersCard } from './users-card';
 
 
@@ -132,6 +132,11 @@ const ProfilePage = () => {
           </div>
         </div>
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
+        <p>
+          <button className="btn btn-primary dxbs-button" id="Content_Button7" type="submit" style={{marginTop:10}} name="ctl00$Content$Button7" value="Novi zahtjev za GO »">Nova rezervacija »</button>
+
+
+        </p>
 
       </div>
     </div></>

@@ -39,7 +39,7 @@ const UsersCard = () => {
                                         <span>Do: {reservation.dateTo}</span>
                                         <br />
                                         <div className="address">
-                                            <span><p><b>Status: <span className="icon-success">{reservation.reservationStatus}</span> </b></p></span>
+                                            <span><p><b>Status: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
                                         <button type="button" className="btn btn-info" style={{ marginRight: 10 }} >Detalji</button>
                                         <button type="button" className="btn btn-warning" >Ispis</button>
