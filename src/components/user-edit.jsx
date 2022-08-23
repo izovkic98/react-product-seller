@@ -62,7 +62,7 @@ const UserEdit = forwardRef((props, ref) => {
     };
 
     return (
-        <Modal show={show}>
+        <Modal centered={true} show={show}>
             <form onSubmit={(e) => saveUser(e)}
                 noValidate
                 className={submitted ? 'was-validated' : ''}>
@@ -159,23 +159,6 @@ const UserEdit = forwardRef((props, ref) => {
                             Phone number is required.
                         </div>
                     </div>
-
-                    {/* <div className="form-group" style={{ marginBottom: 10 }}>
-                        <Autocomplete
-                            name='role'
-                            ref={ref0}
-                            getOptionLabel={(option) => option}
-                            disablePortal
-                            onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
-                            options={Role}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Role" />}
-                            required
-                        />
-                        <div className="invalid-feedback">
-                            Role is required.
-                        </div>
-                    </div> */}
 
                 </div>
 

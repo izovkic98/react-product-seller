@@ -12,12 +12,17 @@ import ReservationService from '../../services/reservation.service';
 import ReactPaginate from 'react-paginate';
 import { VehicleManufacturer } from './../../models/vehicleManufacturer';
 import { ReservationStatus } from './../../models/reservationStatus';
+import { Modal } from 'react-bootstrap';
+import { ReservationDetails } from '../../components/reservationDetails';
+import Reservation from '../../models/reservation';
 
 const UsersCard = () => {
     const currentUser = useSelector(state => state.user);
     const [reservationList, setReservationList] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
+    const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
 
+    const detailsComponent = useRef();
     const reservationsPerPage = 2;
     const pagesVisited = pageNumber * reservationsPerPage;
 
@@ -41,12 +46,13 @@ const UsersCard = () => {
                                         <div className="address">
                                             <span><p><b>Status: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
-                                        <button type="button" className="btn btn-info" style={{ marginRight: 10 }} >Detalji</button>
+                                        <button type="button" className="btn btn-info" style={{ marginRight: 10 }} onClick={() => detailsReservationRequest(reservation)}>Detalji</button>
                                         <button type="button" className="btn btn-warning" >Ispis</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <ReservationDetails ref={detailsComponent} user ={currentUser} reservation={selectedReservation} />
                     </div>
                 );
             });
@@ -57,6 +63,11 @@ const UsersCard = () => {
     const changePage = ({selected}) => {
         setPageNumber(selected)
     }
+
+    const detailsReservationRequest = (item) => {
+        setSelectedReservation(Object.assign({}, item));
+        detailsComponent.current?.showReservationModal();
+    };
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {

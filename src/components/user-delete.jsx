@@ -20,7 +20,7 @@ const UserDelete = forwardRef((props, ref) => {
     };
 
     return (
-        <Modal show={show}>
+        <Modal centered={true} show={show}>
 
             <div className="modal-header">
                 <h5 className="modal-title">Confirmation</h5>

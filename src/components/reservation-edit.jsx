@@ -82,7 +82,7 @@ const ReservationEdit = forwardRef((props, ref) => {
     };
 
     return (
-        <Modal show={show}>
+        <Modal centered={true} show={show}>
             <form onSubmit={(e) => saveReservation(e)}
                 noValidate
                 className={submitted ? 'was-validated' : ''}>
