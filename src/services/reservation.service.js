@@ -27,9 +27,10 @@ class ReservationService {
         return axios.put(API_URL ,reservation, {headers: authHeader()});
     }
 
-    printReservation(reservation){
-        return axios.post(API_URL + '/print/' , reservation, {headers: authHeader()});
+    printReservation(reservationId){
+        return axios.get(API_URL + '/print/' + reservationId,{headers: authHeader()});
     }
+
 
 }
 

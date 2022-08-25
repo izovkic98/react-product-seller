@@ -38,7 +38,7 @@ const UsersCard = () => {
                                             <span><p><b>Status: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
                                         <button type="button" className="btn btn-info" style={{ marginRight: 10 }} onClick={() => detailsReservationRequest(reservation)}>Detalji</button>
-                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation)}>Ispis</button>
+                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation.id)}>Ispis</button>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +67,8 @@ const UsersCard = () => {
     }, []);
 
     // PRINTANJE REZERVACIJE
-    const printReservation = ((reservation) =>{
-        ReservationService.printReservation(reservation).then((response) => {
+    const printReservation = ((reservationId) =>{
+        ReservationService.printReservation(reservationId).then((response) => {
             console.log("printanje pokrenuto");
         })
     })
