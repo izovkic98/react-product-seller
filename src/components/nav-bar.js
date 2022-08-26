@@ -62,6 +62,12 @@ const NavBar = () => {
                         </NavLink>
                     </li>
                     <li className="nav-item">
+                        <NavLink to="/change-password" className="nav-link">
+                            Change password
+                        </NavLink>
+                    </li>
+
+                    <li className="nav-item">
                         <a href="#" className="nav-link" style={{ marginRight: 20, marginLeft: 20 }} onClick={() => logout()}>
                             Sign Out
                         </a>

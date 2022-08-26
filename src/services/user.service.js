@@ -22,6 +22,10 @@ class UserService {
         return axios.put(API_URL , user , {headers: authHeader()});
     }
 
+    updateUserPassword(oldPassword, newPassword, confirmedNewPassword){
+        return axios.put(API_URL + '/change-password/' , null , {headers: authHeader(), params:{newPassword, oldPassword, confirmedNewPassword}});
+    }
+
 }
 
 export default new UserService();

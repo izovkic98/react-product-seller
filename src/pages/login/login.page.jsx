@@ -34,6 +34,9 @@ const LoginPage = () => {
     const handleChange = (e) => {
         const {name, value} = e.target;
 
+        console.log("name : "+name)
+        console.log("value : "+value)
+
         setUser((prevState => {
             //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
             return {
@@ -126,6 +129,7 @@ const LoginPage = () => {
                 </Link>
 
             </div>
+
         </div>
     );
 };
