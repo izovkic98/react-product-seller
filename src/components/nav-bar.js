@@ -36,6 +36,11 @@ const NavBar = () => {
                         Home
                     </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/parking-calculator" className="nav-link">
+                        Calculator
+                    </NavLink>
+                </li>
             </div>
 
             {!currentUser &&

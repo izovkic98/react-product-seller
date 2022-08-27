@@ -12,6 +12,7 @@ import { UnauthorizedPage } from './pages/unauthorized/unauthorized.page';
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role';
 import { UpdateUserPassword } from './pages/updatePassword/update.user.password';
+import { ParkingCalculator } from './pages/parkingCalculator/parking.calculator';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/home" element={<HomePage />} />
+                    <Route path="/parking-calculator" element={<ParkingCalculator />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
 
