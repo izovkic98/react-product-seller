@@ -22,6 +22,7 @@ const AdminPage = () => {
 
     const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
     const [errorMessage, setErrorMessage] = useState('');
+    const [formerrorMessage, setFormerrorMessage] = useState('');
 
 
     const saveComponent = useRef();
@@ -72,11 +73,14 @@ const AdminPage = () => {
             tempReservation = res.data;
             if (tempReservation.reservationStatus === ReservationStatus.APPROVED) tempReservation.reservationStatus = ReservationStatus.IN_PROCESS;
             else tempReservation.reservationStatus = ReservationStatus.APPROVED;
-            ReservationService.updateReservation(tempReservation).then((res) => {
+            ReservationService.changeReservationStatus(tempReservation).then((res) => {
                 ReservationService.getAllReservations().then((res) => {
                     setReservationList(res.data);
                 })
-            })
+            }).catch(err => {
+                setErrorMessage('Unexpected error occurred');
+                console.log(err);
+            });
 
         })
 
@@ -228,7 +232,7 @@ const AdminPage = () => {
             setLastNameInput(false)
 
         }).catch(err => {
-            setErrorMessage('Unexpected error occurred.');
+            setFormerrorMessage('Unexpected error occurred.');
             console.log(err);
         });
     };
@@ -426,9 +430,9 @@ const AdminPage = () => {
 
                         <div className="modal-body">
 
-                            {errorMessage &&
+                            {formerrorMessage &&
                                 <div className="alert alert-danger">
-                                    {errorMessage}
+                                    {formerrorMessage}
                                 </div>
                             }
 

@@ -120,7 +120,7 @@ const AdminParkingsPage = () => {
                                         <td>{parking.parkingStatus}</td>
                                         <td>{parking.parkingType}</td>
                                         <td>
-                                            <button className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
+                                            <button disabled={true} className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
                                                 Edit
                                             </button>
                                             <button  className="btn btn-danger me-1" type='button' onClick={() => deleteParkingRequest(parking)}  >
@@ -136,7 +136,7 @@ const AdminParkingsPage = () => {
                                             <td>{parking.parkingStatus}</td>
                                             <td>{parking.parkingType}</td>
                                             <td>
-                                                <button className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
+                                                <button disabled={true} className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
                                                     Edit
                                                 </button>
                                                 <button className="btn btn-danger me-1" type='button' onClick={() => deleteParkingRequest(parking)}  >

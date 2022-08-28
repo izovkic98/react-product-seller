@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { VehicleManufacturer } from '../models/vehicleManufacturer';
 import { VehicleType } from '../models/vehicleType';
+import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
 
 const ReservationEdit = forwardRef((props, ref) => {
 
@@ -22,6 +23,7 @@ const ReservationEdit = forwardRef((props, ref) => {
 
     const ref0 = useRef();
     const ref1 = useRef();
+    const ref2 = useRef();
 
     useEffect(() => {
         setReservation(props.reservation);
@@ -69,7 +71,7 @@ const ReservationEdit = forwardRef((props, ref) => {
 
     const handleChangeDropdown = (event, value, ref) => {
 
-        if(value===null){
+        if (value === null) {
             return;
         }
 
@@ -124,6 +126,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                             disablePortal
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                             options={manufacturers}
+                            defaultValue={{label:reservation.vehicleManufacturer}}
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
                             required
@@ -141,12 +144,32 @@ const ReservationEdit = forwardRef((props, ref) => {
                             disablePortal
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                             options={types}
+                            defaultValue={{label:reservation.vehicleType}}
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Vehicle type" />}
                             required
                         />
                         <div className="invalid-feedback">
                             Vehicle type is required.
+                        </div>
+                    </div>
+
+                    <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                        <Autocomplete
+                            name="parkingType"
+                            ref={ref2}
+                            getOptionLabel={(option) => option.label}
+                            disablePortal
+                            onChange={(event, value, ref) => handleChangeDropdown(event, value, ref2.current.getAttribute("name"))}
+                            options={parkingTypes}
+                            defaultValue={{label:reservation.parkingType}} 
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Parking type"/>}
+                            required
+                            key={submitted}
+                        />
+                        <div className="invalid-feedback">
+                            Parking type is required.
                         </div>
                     </div>
 
