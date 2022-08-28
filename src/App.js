@@ -13,6 +13,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { Role } from './models/role';
 import { UpdateUserPassword } from './pages/updatePassword/update.user.password';
 import { ParkingCalculator } from './pages/parkingCalculator/parking.calculator';
+import { AdminParkingsPage } from './pages/admin/admin.parking.page';
 
 function App() {
     return (
@@ -42,6 +43,12 @@ function App() {
                     <Route path="/admin-users" element={
                         <AuthGuard roles={[Role.ADMIN]}>
                             <AdminUsersPage />
+                        </AuthGuard>
+                    } />
+
+                    <Route path="/admin-parkings" element={
+                        <AuthGuard roles={[Role.ADMIN]}>
+                            <AdminParkingsPage />
                         </AuthGuard>
                     } />
 

@@ -1,4 +1,4 @@
 export const ParkingType = {
-    I_ZONE : 'I. ZONE (Outside)',
-    II_ZONE : 'II. ZONE (Inside)'
+    I_ZONE : 'I_ZONE',
+    II_ZONE : 'II_ZONE'
 }

@@ -13,6 +13,7 @@ import './admin.page.css'
 import UserService from '../../services/user.service';
 import User from './../../models/user';
 import Alert from 'react-bootstrap/Alert';
+import { parkingTypes } from './../parkingCalculator/parking.calculator';
 
 const AdminPage = () => {
 
@@ -129,6 +130,7 @@ const AdminPage = () => {
 
     const ref0 = useRef();
     const ref1 = useRef();
+    const ref2 = useRef();
 
     const showCreateReservation = () => {
         var x = reservationCreationRef.current;
@@ -192,7 +194,7 @@ const AdminPage = () => {
         setSubmitted(true);
 
         if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
-            || !reservation.dateTo || !reservation.price) {
+            || !reservation.dateTo || !reservation.price || !reservation.parkingType) {
 
             console.log(selectedUser.id);
             console.log(reservation.vehicleModel);
@@ -248,6 +250,11 @@ const AdminPage = () => {
         if (value === null) {
             return;
         }
+        console.log(ref)
+
+        if(ref === 'parkingType'){
+            //setZoneType(value.label);
+        }
 
         setReservation((prevState => {
             return {
@@ -264,6 +271,10 @@ const AdminPage = () => {
     const reservationKeys = ["user?.firstName", "user?.lastName", "vehicleModel", "vehicleManufacturer"]
     const [queryUsers, setQueryUsers] = useState("")
     const userKeys = ["firstName", "lastName", "username", "email"]
+
+    //calculating price
+
+    
 
 
     return (
@@ -472,6 +483,25 @@ const AdminPage = () => {
                                 />
                                 <div className="invalid-feedback">
                                     Vehicle type is required.
+                                </div>
+                            </div>
+
+                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                <Autocomplete
+                                    name="parkingType"
+                                    ref={ref2}
+                                    getOptionLabel={(option) => option.label}
+                                    disablePortal
+                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref2.current.getAttribute("name"))}
+                                    options={parkingTypes}
+                                    sx={{ width: 300 }}
+                                    style={{ width: 50 + '%' }}
+                                    renderInput={(params) => <TextField {...params} label="Parking type" />}
+                                    required
+                                    key={submitted}
+                                />
+                                <div className="invalid-feedback">
+                                    Parking type is required.
                                 </div>
                             </div>
 

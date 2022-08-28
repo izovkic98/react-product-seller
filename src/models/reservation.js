@@ -1,6 +1,6 @@
 export default class Reservation{
     constructor(user, vehicleModel, vehicleManufacturer, vehicleType, dateFrom, dateTo, reservationDate, 
-        price, reservationStatus){
+        price, reservationStatus, parkingType){
         this.user = user;
         this.vehicleModel = vehicleModel;
         this.vehicleManufacturer = vehicleManufacturer;
@@ -11,5 +11,6 @@ export default class Reservation{
         this.reservationDate = reservationDate;
         this.price = price;
         this.reservationStatus = reservationStatus;
+        this.parkingType = parkingType;
     }
 }

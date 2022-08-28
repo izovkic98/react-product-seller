@@ -28,6 +28,7 @@ const NavBar = () => {
                     <NavDropdown title="Admin" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/admin-reservations">Reservations</NavDropdown.Item>
                         <NavDropdown.Item href="/admin-users">Users</NavDropdown.Item>
+                        <NavDropdown.Item href="/admin-parkings">Parkings</NavDropdown.Item>
                     </NavDropdown>
                 }
 
