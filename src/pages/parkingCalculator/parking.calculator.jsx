@@ -110,7 +110,7 @@ const ParkingCalculator = () => {
                                 key={submitted}
                             />
                             <div className="invalid-feedback">
-                                Vehicle type is required.
+                                Parking type is required.
                             </div>
                         </div>
 
