@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ParkingCalculator = () => {
 
-    const ref1 = useRef();
+    const ref5 = useRef();
     const currentUser = useSelector(state => state.user);
 
     const [submitted, setSubmitted] = useState(false);
@@ -37,13 +37,13 @@ const ParkingCalculator = () => {
         let diff = 0;
         let secondZoneUp = 0;
 
-        if(zoneType === ParkingType.II_ZONE){
+        if (zoneType === ParkingType.II_ZONE) {
             secondZoneUp = 5;
         }
 
-        if((dateFromMoment.year()-dateToMoment.year()) === -1){
+        if ((dateFromMoment.year() - dateToMoment.year()) === -1) {
 
-            diff = ((365-dateFromMoment.dayOfYear()) + dateToMoment.dayOfYear());
+            diff = ((365 - dateFromMoment.dayOfYear()) + dateToMoment.dayOfYear());
             console.log("prelazak: " + diff)
 
         } else {
@@ -52,16 +52,16 @@ const ParkingCalculator = () => {
         }
 
         if (diff === 1) {
-            setCalculatedPrice(80.00 + secondZoneUp )
+            setCalculatedPrice(80.00 + secondZoneUp)
         } else if (diff > 1 && diff < 8) {
             const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
-            setCalculatedPrice(daysBelowEight + (diff*secondZoneUp));
+            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp));
 
-        } else if (diff == 8){
-            setCalculatedPrice(355.00 + (8*secondZoneUp))
+        } else if (diff == 8) {
+            setCalculatedPrice(355.00 + (8 * secondZoneUp))
         } else {
-            const daysAboveEight = 355.00 + ((diff-8) * 35);
-            setCalculatedPrice(daysAboveEight + (diff*secondZoneUp));
+            const daysAboveEight = 355.00 + ((diff - 8) * 35);
+            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp));
         }
 
     };
@@ -71,12 +71,8 @@ const ParkingCalculator = () => {
         let { name, value } = e.target;
 
         if (name === 'dateFrom') {
-            console.log("setting dateFrom: " + value)
-            setDateFrom(value)
-            console.log("setting dateFrom: " + moment(value))
-
+            setDateFrom(value);
         } else {
-            console.log("setting dateTo: " + moment(value))
             setDateTo(value);
         }
 
@@ -98,14 +94,14 @@ const ParkingCalculator = () => {
                         <div className="form-group mt-1" style={{ marginBottom: 10 }}>
                             <Autocomplete
                                 name="parkingType"
-                                ref={ref1}
+                                ref={ref5}
                                 getOptionLabel={(option) => option.label}
                                 disablePortal
-                                onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
+                                onChange={(event, value, ref) => handleChangeDropdown(event, value, ref5.current.getAttribute("name"))}
                                 options={parkingTypes}
                                 sx={{ width: 300 }}
                                 style={{ width: 50 + '%' }}
-                                renderInput={(params) =>  <TextField {...params} label="Parking type" />}
+                                renderInput={(params) => <TextField {...params} label="Parking type" />}
                                 required
                                 key={submitted}
                             />
@@ -150,9 +146,27 @@ const ParkingCalculator = () => {
                         </Button>
                     </div>
 
-                    {calculatedPrice &&
+                    <div className="form-group mt-3">
+                        <label htmlFor="price">Price (HRK) </label>
+                        <input
+                            type='text'
+                            name="price"
+                            placeholder="Price (HRK)"
+                            className="form-control"
+                            style={{ width: 50 + '%' }}
+                            required
+                            value={calculatedPrice}
+                            readOnly
+                        />
+                        <span>* For price calculation check Calculator.</span>
+                        <div className="invalid-feedback">
+                            price is required.
+                        </div>
+                    </div>
+
+                    {/* {calculatedPrice &&
                         <p className='p-caclucator output' id="parkingOutput" style={{ display: 'block' }}>Cijena za platiti iznosi {calculatedPrice},00 HRK </p>
-                    }
+                    } */}
                 </div>
 
                 <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
@@ -207,11 +221,11 @@ const ParkingCalculator = () => {
                             </tr>
                         </tbody>
                     </Table>
-                     
+
                     <p>
                         * Natkriveni parking (II. Zona) se naplaćuje 5 kn više po danu.
-                    </p> 
-                    
+                    </p>
+
                 </div>
             </div>
             <hr style={{ marginTop: 50 + 'px' }} />

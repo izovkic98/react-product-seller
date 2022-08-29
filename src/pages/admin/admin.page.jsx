@@ -14,6 +14,9 @@ import UserService from '../../services/user.service';
 import User from './../../models/user';
 import Alert from 'react-bootstrap/Alert';
 import { parkingTypes } from './../parkingCalculator/parking.calculator';
+import { ParkingType } from '../../models/parkingType';
+import moment from 'moment';
+import { Button, Table } from 'react-bootstrap';
 
 const AdminPage = () => {
 
@@ -31,6 +34,16 @@ const AdminPage = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [reservationsPerPage] = useState(5)
+
+    const [dateFrom, setDateFrom] = useState('');
+    const [dateTo, setDateTo] = useState('');
+    const [calculatedPrice, setCalculatedPrice] = useState('');
+    const [zoneType, setZoneType] = useState('');
+    const [resetButton, setResetButton] = useState(false);
+    const dateFromMoment = moment(dateFrom);
+    const dateToMoment = moment(dateTo);
+
+
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {
@@ -78,7 +91,7 @@ const AdminPage = () => {
                     setReservationList(res.data);
                 })
             }).catch(err => {
-                setErrorMessage('Unexpected error occurred');
+                setErrorMessage('Unexpected error occurred, most likely parking is full.');
                 console.log(err);
             });
 
@@ -97,7 +110,7 @@ const AdminPage = () => {
         ReservationService.deleteReservation(selectedReservation).then(_ => {
             setReservationList(reservationList.filter(x => x.id !== selectedReservation.id));
         }).catch(err => {
-            setErrorMessage('Unexpected error occurred.');
+            setErrorMessage('Unexpected error occurred, most likely parking is full.');
             console.log(err);
         });
     };
@@ -199,17 +212,7 @@ const AdminPage = () => {
 
         if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
             || !reservation.dateTo || !reservation.price || !reservation.parkingType) {
-
-            console.log(selectedUser.id);
-            console.log(reservation.vehicleModel);
-            console.log(reservation.vehicleManufacturer);
-            console.log(reservation.vehicleType);
-            console.log(reservation.dateFrom);
-            console.log(reservation.dateTo);
-            console.log(reservation.price);
-
-
-            console.log("returnalo me");
+            setFormerrorMessage("Some mandatory fields are empty")
             return;
         }
 
@@ -241,6 +244,12 @@ const AdminPage = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
+        if (name === 'dateFrom') {
+            setDateFrom(value);
+        } else if (name === 'dateTo') {
+            setDateTo(value);
+        }
+
         setReservation((prevState => {
             return {
                 ...prevState,
@@ -256,8 +265,8 @@ const AdminPage = () => {
         }
         console.log(ref)
 
-        if(ref === 'parkingType'){
-            //setZoneType(value.label);
+        if (ref === 'parkingType') {
+            setZoneType(value.label);
         }
 
         setReservation((prevState => {
@@ -276,15 +285,56 @@ const AdminPage = () => {
     const [queryUsers, setQueryUsers] = useState("")
     const userKeys = ["firstName", "lastName", "username", "email"]
 
-    //calculating price
+    // KALKULACIJA CIJENE
 
-    
+    const handleCalculation = () => {
+        console.log("handleCalculation")
+
+        let diff = 0;
+        let secondZoneUp = 0;
+
+        if (zoneType === ParkingType.II_ZONE) {
+            secondZoneUp = 5;
+        }
+
+
+        if ((dateFromMoment.year() - dateToMoment.year()) === -1) {
+
+            diff = ((365 - dateFromMoment.dayOfYear()) + dateToMoment.dayOfYear());
+            console.log("prelazak: " + diff)
+
+        } else {
+            diff = dateToMoment.dayOfYear() - dateFromMoment.dayOfYear();
+            console.log("neprelazak: " + diff)
+        }
+
+        if (diff === 1) {
+            setCalculatedPrice(80.00 + secondZoneUp)
+        } else if (diff > 1 && diff < 8) {
+            const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
+            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp));
+
+        } else if (diff === 8) {
+            setCalculatedPrice(355.00 + (8 * secondZoneUp))
+        } else {
+            const daysAboveEight = 355.00 + ((diff - 8) * 35);
+            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp));
+        }
+
+        setResetButton(true);
+
+    };
+
+    const reset = () => {
+        setResetButton(false);
+        setCalculatedPrice('');
+    }
 
 
     return (
 
         <div>
-            <div className="container">
+            <div className="container" >
                 <div className="pt-5">
 
                     {errorMessage &&
@@ -318,6 +368,7 @@ const AdminPage = () => {
                                         <th scope="col">Date to </th>
                                         <th scope="col">Date of reservation</th>
                                         <th scope="col">Price</th>
+                                        <th scope="col">Parking type</th>
                                         <th scope="col">Reservation status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -332,7 +383,8 @@ const AdminPage = () => {
                                             <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
                                             <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
                                             <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
-                                            <td>{`$ ${reservation.price}`}</td>
+                                            <td>{reservation.price}</td>
+                                            <td>{reservation.parkingType}</td>
                                             <td>{reservation.reservationStatus}</td>
                                             <td>
                                                 <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
@@ -364,7 +416,8 @@ const AdminPage = () => {
                                                     <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
                                                     <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
                                                     <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
-                                                    <td>{`$ ${reservation.price}`}</td>
+                                                    <td>{reservation.price}</td>
+                                                    <td>{reservation.parkingType}</td>
                                                     <td>{reservation.reservationStatus}</td>
                                                     <td>
                                                         <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
@@ -489,7 +542,6 @@ const AdminPage = () => {
                                     Vehicle type is required.
                                 </div>
                             </div>
-
                             <div className="form-group mt-1" style={{ marginBottom: 10 }}>
                                 <Autocomplete
                                     name="parkingType"
@@ -503,6 +555,7 @@ const AdminPage = () => {
                                     renderInput={(params) => <TextField {...params} label="Parking type" />}
                                     required
                                     key={submitted}
+                                    disabled={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Parking type is required.
@@ -514,11 +567,12 @@ const AdminPage = () => {
                                 <input
                                     type='date'
                                     name="dateFrom"
-                                    placeholder="Date from"
+                                    placeholder="Date to"
                                     className="form-control"
                                     onChange={(e) => handleChange(e)}
                                     style={{ width: 50 + '%' }}
                                     required
+                                    disabled={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Date from is required.
@@ -535,27 +589,41 @@ const AdminPage = () => {
                                     onChange={(e) => handleChange(e)}
                                     style={{ width: 50 + '%' }}
                                     required
+                                    disabled={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Date to is required.
                                 </div>
                             </div>
+                            {!resetButton &&
+                                <Button type='button' size='lg' className='mt-4' onClick={() => handleCalculation()}>
+                                    Calculate
+                                </Button>
+                            }
 
+                            {resetButton &&
+                                <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => reset()} >
+                                    Reset
+                                </button>
+                            }
                             <div className="form-group mt-3">
                                 <label htmlFor="price">Price (HRK) </label>
                                 <input
                                     type='text'
                                     name="price"
-                                    placeholder="Price (EUR)"
+                                    placeholder="Price (HRK)"
                                     className="form-control"
-                                    onChange={(e) => handleChange(e)}
                                     style={{ width: 50 + '%' }}
                                     required
+                                    value={calculatedPrice}
+                                    readOnly
                                 />
+                                <span><span style={{ color: 'red', fontWeight: 'bold' }}>*</span> For details about price calculation check Calculator.</span>
                                 <div className="invalid-feedback">
                                     price is required.
                                 </div>
                             </div>
+
 
                             <div className="modal-header" style={{ marginBottom: 40, marginTop: 30 }} />
                             <h4 style={{ marginLeft: 15 }} >User details </h4>
@@ -655,20 +723,20 @@ const AdminPage = () => {
                                                     </tr>
                                                 )) :
                                                     (userList.filter((item) => userKeys.some((key) =>
-                                                    item[key].toLowerCase().includes(queryUsers))).map((user, ind) =>
-                                                        <tr key={user.id}>
-                                                            <th scope="row">{ind + 1}</th>
-                                                            <td>{user.firstName} {user.lastName}</td>
-                                                            <td>{user.username}</td>
-                                                            <td>{user.email}</td>
-                                                            <td>{user.phoneNumber}</td>
-                                                            <td>
-                                                                <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
-                                                                    Select
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    ))
+                                                        item[key].toLowerCase().includes(queryUsers))).map((user, ind) =>
+                                                            <tr key={user.id}>
+                                                                <th scope="row">{ind + 1}</th>
+                                                                <td>{user.firstName} {user.lastName}</td>
+                                                                <td>{user.username}</td>
+                                                                <td>{user.email}</td>
+                                                                <td>{user.phoneNumber}</td>
+                                                                <td>
+                                                                    <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
+                                                                        Select
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        ))
 
 
                                                 }
