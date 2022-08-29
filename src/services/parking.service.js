@@ -14,7 +14,7 @@ class ParkingService {
         return axios.get(API_URL + '/all' , {headers: authHeader()});
     }
 
-    createParking(parking){
+    saveParking(parking){
         return axios.post(API_URL  + '/', parking , {headers: authHeader()});
     }
 
