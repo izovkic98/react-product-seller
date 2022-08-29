@@ -28,11 +28,20 @@ const ParkingCalculator = () => {
         if (value === null) {
             return;
         }
+
+        if(errorMessage){
+            setErrorMessage(false)
+        }
         setZoneType(value.label);
 
     };
 
     const handleSubmit = () => {
+        
+        if (!zoneType) {
+            setErrorMessage("Zone type is missing");
+            return;
+        }
 
         let diff = 0;
         let secondZoneUp = 0;
@@ -57,7 +66,7 @@ const ParkingCalculator = () => {
             const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
             setCalculatedPrice(daysBelowEight + (diff * secondZoneUp));
 
-        } else if (diff == 8) {
+        } else if (diff === 8) {
             setCalculatedPrice(355.00 + (8 * secondZoneUp))
         } else {
             const daysAboveEight = 355.00 + ((diff - 8) * 35);
@@ -84,11 +93,6 @@ const ParkingCalculator = () => {
 
         <div >
             <div className="container mt-5" style={{ display: 'flex' }} >
-                {errorMessage &&
-                    <div className="alert alert-danger">
-                        {errorMessage}
-                    </div>
-                }
                 <div style={{ width: 'inherit', marginLeft: 50 + 'px' }}>
                     <div >
                         <div className="form-group mt-1" style={{ marginBottom: 10 }}>
@@ -146,27 +150,15 @@ const ParkingCalculator = () => {
                         </Button>
                     </div>
 
-                    <div className="form-group mt-3">
-                        <label htmlFor="price">Price (HRK) </label>
-                        <input
-                            type='text'
-                            name="price"
-                            placeholder="Price (HRK)"
-                            className="form-control"
-                            style={{ width: 50 + '%' }}
-                            required
-                            value={calculatedPrice}
-                            readOnly
-                        />
-                        <span>* For price calculation check Calculator.</span>
-                        <div className="invalid-feedback">
-                            price is required.
+                    {errorMessage &&
+                        <div className="alert alert-danger mt-4" style={{ width:300 + 'px'}} >
+                            {errorMessage}
                         </div>
-                    </div>
-
-                    {/* {calculatedPrice &&
+                    }
+                    {calculatedPrice &&
                         <p className='p-caclucator output' id="parkingOutput" style={{ display: 'block' }}>Cijena za platiti iznosi {calculatedPrice},00 HRK </p>
-                    } */}
+                    }
+
                 </div>
 
                 <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
@@ -179,6 +171,11 @@ const ParkingCalculator = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>75.00</td>
+                                <td>75.00</td>
+                            </tr>
                             <tr>
                                 <td>1</td>
                                 <td>80.00</td>
@@ -223,7 +220,7 @@ const ParkingCalculator = () => {
                     </Table>
 
                     <p>
-                        * Natkriveni parking (II. Zona) se naplaćuje 5 kn više po danu.
+                    <span style={{ color: 'red', fontWeight: 'bold' }}>*</span> Natkriveni parking (II. Zona) se naplaćuje 5 kn više po danu osim ako se ostaje manje od jednog dana u tom slučaju je ista cijena (75 HRK)
                     </p>
 
                 </div>

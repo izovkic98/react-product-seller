@@ -154,25 +154,6 @@ const ReservationEdit = forwardRef((props, ref) => {
                         </div>
                     </div>
 
-                    <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                        <Autocomplete
-                            name="parkingType"
-                            ref={ref2}
-                            getOptionLabel={(option) => option.label}
-                            disablePortal
-                            onChange={(event, value, ref) => handleChangeDropdown(event, value, ref2.current.getAttribute("name"))}
-                            options={parkingTypes}
-                            defaultValue={{label:reservation.parkingType}} 
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Parking type"/>}
-                            required
-                            key={submitted}
-                        />
-                        <div className="invalid-feedback">
-                            Parking type is required.
-                        </div>
-                    </div>
-
                     <div className="form-group">
                         <label htmlFor="dateFrom">Date from </label>
                         <input

@@ -43,7 +43,7 @@ const AdminPage = () => {
     const dateFromMoment = moment(dateFrom);
     const dateToMoment = moment(dateTo);
 
-
+    const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
 
     useEffect(() => {
         ReservationService.getAllReservations().then((response) => {
@@ -53,10 +53,27 @@ const AdminPage = () => {
         UserService.getAllUsers().then((response) => {
             setUserList(response.data)
         })
-
+        
+        
+        setCalculatedPrice(calculatedPrice);
+          
         setResCreation(false);
 
     }, []);
+
+
+    useEffect(() => {
+        if(calculatedPrice){
+            setReservation((prevState => {
+                return {
+                    ...prevState,
+                    price: calculatedPrice
+                };
+            }));
+        }
+          
+      },[calculatedPrice]);
+
 
     const editReservationRequest = (item) => {
         setSelectedReservation(Object.assign({}, item));
@@ -127,7 +144,7 @@ const AdminPage = () => {
 
     // RESERVATION CREATION PART
 
-    const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+    
     const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', ''))
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
@@ -207,13 +224,27 @@ const AdminPage = () => {
     const saveReservation = (e) => {
         console.log("okinulo sejvanje rezervacije")
         e.preventDefault();
-
         setSubmitted(true);
+        setFormerrorMessage(false);
+
+        console.log("dole " + reservation)
 
         if (!reservation.vehicleModel || !reservation.vehicleManufacturer || !reservation.vehicleType || !reservation.dateFrom
             || !reservation.dateTo || !reservation.price || !reservation.parkingType) {
             setFormerrorMessage("Some mandatory fields are empty")
+            console.log(selectedUser.id);
+            console.log(reservation.vehicleModel);
+            console.log(reservation.vehicleManufacturer);
+            console.log(reservation.vehicleType);
+            console.log(reservation.dateFrom);
+            console.log(reservation.dateTo);
+            console.log(reservation.price);
+            console.log(reservation.parkingType);
+
             return;
+
+
+
         }
 
         ReservationService.saveReservation(reservation).then(response => {
@@ -230,6 +261,7 @@ const AdminPage = () => {
             setResCreation(true)
             setShowSuccessAlert(true)
 
+            reset()
             setDisabledCheckBox(false);
             setFirstNameInput(false);
             setLastNameInput(false)
@@ -243,6 +275,9 @@ const AdminPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        console.log("name: " + name)
+        console.log("value: " + value)
 
         if (name === 'dateFrom') {
             setDateFrom(value);
@@ -292,6 +327,10 @@ const AdminPage = () => {
 
         let diff = 0;
         let secondZoneUp = 0;
+
+        if(!zoneType){
+            return;
+        }
 
         if (zoneType === ParkingType.II_ZONE) {
             secondZoneUp = 5;
@@ -455,7 +494,7 @@ const AdminPage = () => {
                 {showResCreation &&
                     <div className="col-6 text-end">
                         <button className="btn btn-primary" onClick={() => showCreateReservation()}>
-                            Create Reservation {'>'}
+                            Create Reservation »
                         </button>
                     </div>
                 }
@@ -556,6 +595,7 @@ const AdminPage = () => {
                                     required
                                     key={submitted}
                                     disabled={resetButton}
+                                    readOnly={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Parking type is required.
@@ -572,7 +612,7 @@ const AdminPage = () => {
                                     onChange={(e) => handleChange(e)}
                                     style={{ width: 50 + '%' }}
                                     required
-                                    disabled={resetButton}
+                                    readOnly={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Date from is required.
@@ -589,14 +629,14 @@ const AdminPage = () => {
                                     onChange={(e) => handleChange(e)}
                                     style={{ width: 50 + '%' }}
                                     required
-                                    disabled={resetButton}
+                                    readOnly={resetButton}
                                 />
                                 <div className="invalid-feedback">
                                     Date to is required.
                                 </div>
                             </div>
                             {!resetButton &&
-                                <Button type='button' size='lg' className='mt-4' onClick={() => handleCalculation()}>
+                                <Button type='button' className="btn mt-4"  onClick={() => handleCalculation()}>
                                     Calculate
                                 </Button>
                             }
@@ -606,7 +646,7 @@ const AdminPage = () => {
                                     Reset
                                 </button>
                             }
-                            <div className="form-group mt-3">
+                            <div className="form-group mt-3" >
                                 <label htmlFor="price">Price (HRK) </label>
                                 <input
                                     type='text'
@@ -615,10 +655,11 @@ const AdminPage = () => {
                                     className="form-control"
                                     style={{ width: 50 + '%' }}
                                     required
+                                    onChange={(e) => handleChange(e)}
                                     value={calculatedPrice}
                                     readOnly
                                 />
-                                <span><span style={{ color: 'red', fontWeight: 'bold' }}>*</span> For details about price calculation check Calculator.</span>
+                                <span ><span style={{ color: 'red', fontWeight: 'bold',marginTop:10 + 'px' }}>*</span> For details about price calculation check Calculator.</span>
                                 <div className="invalid-feedback">
                                     price is required.
                                 </div>
