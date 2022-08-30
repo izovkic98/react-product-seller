@@ -35,6 +35,10 @@ class ReservationService {
         return axios.put(API_URL + '/change-status',reservation, {headers: authHeader()});
     }
 
+    getAllCurrentReservationOfAUser() {
+        return axios.get(API_URL + '/all/current' , {headers: authHeader()});
+    }
+
     printReservation(reservationId){
         return axios.get(API_URL + '/print/' + reservationId,{headers: authHeader()});
     }

@@ -20,6 +20,7 @@ const ProfilePage = () => {
   // const [reservationList, setReservationList] = useState([]);
   const [firstZoneFreeList, setFirstZoneFree] = useState([]);
   const [secondZoneFree, setSecondZoneFree] = useState([]);
+  const [activeRes, setActiveRes] = useState([]);
 
   useEffect(() => {
     // ReservationService.getAllReservations().then((response) => {
@@ -32,6 +33,10 @@ const ProfilePage = () => {
 
     ParkingService.getAllFreeParkingsSecondZone().then((response) => {
       setSecondZoneFree(response.data);
+    })
+
+    ReservationService.getAllCurrentReservationOfAUser().then((response) => {
+      setActiveRes(response.data);
     })
 
   }, []);
@@ -95,14 +100,14 @@ const ProfilePage = () => {
                     <div className="numbers">
                       <FontAwesomeIcon icon={faHourglassHalf} className="icon-big discount left text-center" />
                       <p>Ukupno</p>
-                      0
+                      {activeRes.length}
                     </div>
                   </div>
                 </div>
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Broj preostalih dana tekuće rezervacije
+                    <FontAwesomeIcon icon={faArrowRight} /> Broj tekućih rezervacija (u obradi i potvrđene)
                   </div>
                 </div>
               </div>
