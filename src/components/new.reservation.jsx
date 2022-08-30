@@ -15,7 +15,7 @@ import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
 import { ParkingType } from '../models/parkingType';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import ButtonCus from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
 
@@ -97,23 +97,18 @@ const NewReservation = () => {
     const ref1 = useRef();
     const ref2 = useRef();
 
+    const showCreateReservation = () => {
+        var x = reservationCreationRef.current;
 
-    const selectUser = (userId) => {
-        UserService.getUserById(userId).then((res) => {
-            setSelectedUser(res.data);
-        })
+        setShowSuccessAlert(false)
 
-        setReservation((prevState => {
-            return {
-                ...prevState,
-                "user": { "id": userId }
-            };
-        }));
-
-        console.log(reservation)
-
-        setShowUsersTable(false);
-
+        if (showResCreation) {
+            x.style.display = "block";
+            setResCreation(false)
+        } else {
+            x.style.display = "none";
+            setResCreation(true)
+        }
     }
 
 
@@ -165,6 +160,7 @@ const NewReservation = () => {
             setFormerrorMessage('Unexpected error occurred.');
             console.log(err);
         });
+        
     };
 
 
@@ -258,6 +254,14 @@ const NewReservation = () => {
 
     return (
         <div>
+
+            {showSuccessAlert &&
+
+                <Alert className='alert-success' variant="success" onClose={() => showCreateReservation()} dismissible>
+                    <Alert.Heading>Reservation successfuly saved !</Alert.Heading>
+                </Alert>
+            }
+
             <div className='container--narrow'>
                 <div ref={reservationCreationRef} >
                     <form id='reservationForm' onSubmit={(e) => saveReservation(e)}
