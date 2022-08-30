@@ -200,6 +200,10 @@ const AdminUsersPage = () => {
             </div>
             <UserEdit ref={saveComponent} user={selectedUser} onSaved={(p) => saveUserWatcher(p)} />
             <UserDelete ref={deleteComponent} onConfirmed={() => deleteUser()} />
+            <hr style={{ marginTop: 350 + 'px' }} />
+            <footer>
+                <p>© 2022 - SkyPark d.o.o.</p>
+            </footer>
         </div>
 
 

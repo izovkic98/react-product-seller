@@ -61,9 +61,11 @@ const UsersCard = () => {
     };
 
     useEffect(() => {
-        ReservationService.getAllReservations().then((response) => {
+        ReservationService.getAllReservationsOfAUser().then((response) => {
             setReservationList(response.data);
         })
+
+
     }, []);
 
     // PRINTANJE REZERVACIJE

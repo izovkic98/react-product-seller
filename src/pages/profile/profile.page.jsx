@@ -6,22 +6,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { faParking } from '@fortawesome/free-solid-svg-icons';
 import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
+import { faWarehouse } from '@fortawesome/free-solid-svg-icons';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ProfileUserData } from './profile.user.data';
 import ReservationService from '../../services/reservation.service';
 import { UsersCard } from './users-card';
+import ParkingService from '../../services/parking.service';
 
 
 const ProfilePage = () => {
-  const currentUser = useSelector(state => state.user);
-  const [reservationList, setReservationList] = useState([]);
+  // const currentUser = useSelector(state => state.user);
+  // const [reservationList, setReservationList] = useState([]);
+  const [firstZoneFreeList, setFirstZoneFree] = useState([]);
+  const [secondZoneFree, setSecondZoneFree] = useState([]);
 
   useEffect(() => {
-    ReservationService.getAllReservations().then((response) => {
-      setReservationList(response.data);
+    // ReservationService.getAllReservations().then((response) => {
+    //   setReservationList(response.data);
+    // })
+
+    ParkingService.getAllFreeParkingsFirstZone().then((response) => {
+      setFirstZoneFree(response.data);
     })
+
+    ParkingService.getAllFreeParkingsSecondZone().then((response) => {
+      setSecondZoneFree(response.data);
+    })
+
   }, []);
+
 
 
 
@@ -60,14 +74,14 @@ const ProfilePage = () => {
                       <FontAwesomeIcon icon={faParking} className="icon-big discount left text-center" />
 
                       <p>Ostalo</p>
-                      20
+                      {firstZoneFreeList.length}
                     </div>
                   </div>
                 </div>
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta
+                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta u I. Zoni (Vanjski parking)
                   </div>
                 </div>
               </div>
@@ -100,16 +114,16 @@ const ProfilePage = () => {
                 <div className="row">
                   <div className="col-xs-7">
                     <div className="numbers">
-                      <FontAwesomeIcon icon={faQuestion} className="icon-big discount left text-center" />
-                      <p>Testni</p>
-                      0
+                    <FontAwesomeIcon icon={faWarehouse}  className="icon-big discount left text-center" />
+                      <p>Ostalo</p>
+                      {secondZoneFree.length}
                     </div>
                   </div>
                 </div>
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Testni
+                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta u II. Zoni (Unutarnji parking)
                   </div>
                 </div>
               </div>
@@ -134,11 +148,13 @@ const ProfilePage = () => {
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <p>
           <button className="btn btn-primary dxbs-button" id="Content_Button7" type="submit" style={{marginTop:10}} name="ctl00$Content$Button7" value="Novi zahtjev za GO »">Nova rezervacija »</button>
-
-
         </p>
-
       </div>
+
+      <hr style={{ marginTop: 50 + 'px' }} />
+            <footer>
+                <p>© 2022 - SkyPark d.o.o.</p>
+            </footer>
     </div></>
 
 

@@ -39,6 +39,7 @@ const ReservationDetails = forwardRef((props, ref) => {
             </div>
             <div className="modal-body" style={{ marginTop: 0 + 'px', marginBottom: 0 + 'px' }}>
                 <p></p>
+                <p>Datum rezervacije: {reservation.reservationDate}</p>
                 <p>Od datuma: {reservation.dateFrom}</p>
                 <p>Do datuma: {reservation.dateTo}</p>
                 <p>Model auta: {reservation.vehicleModel}</p>

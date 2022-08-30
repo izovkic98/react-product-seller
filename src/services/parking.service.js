@@ -14,6 +14,14 @@ class ParkingService {
         return axios.get(API_URL + '/all' , {headers: authHeader()});
     }
 
+    getAllFreeParkingsFirstZone() {
+        return axios.get(API_URL + '/all-free-firstZone' , {headers: authHeader()});
+    }
+
+    getAllFreeParkingsSecondZone() {
+        return axios.get(API_URL + '/all-free-secondZone' , {headers: authHeader()});
+    }
+
     saveParking(parking){
         return axios.post(API_URL  + '/', parking , {headers: authHeader()});
     }
