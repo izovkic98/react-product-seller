@@ -1,31 +1,27 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './profile.page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { faParking } from '@fortawesome/free-solid-svg-icons';
 import { faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
 import { faWarehouse } from '@fortawesome/free-solid-svg-icons';
-import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { ProfileUserData } from './profile.user.data';
 import ReservationService from '../../services/reservation.service';
 import { UsersCard } from './users-card';
 import ParkingService from '../../services/parking.service';
+import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 
 
 const ProfilePage = () => {
-  // const currentUser = useSelector(state => state.user);
-  // const [reservationList, setReservationList] = useState([]);
+
   const [firstZoneFreeList, setFirstZoneFree] = useState([]);
   const [secondZoneFree, setSecondZoneFree] = useState([]);
   const [activeRes, setActiveRes] = useState([]);
 
   useEffect(() => {
-    // ReservationService.getAllReservations().then((response) => {
-    //   setReservationList(response.data);
-    // })
 
     ParkingService.getAllFreeParkingsFirstZone().then((response) => {
       setFirstZoneFree(response.data);
@@ -40,8 +36,6 @@ const ProfilePage = () => {
     })
 
   }, []);
-
-
 
 
   return (
@@ -119,7 +113,7 @@ const ProfilePage = () => {
                 <div className="row">
                   <div className="col-xs-7">
                     <div className="numbers">
-                    <FontAwesomeIcon icon={faWarehouse}  className="icon-big discount left text-center" />
+                      <FontAwesomeIcon icon={faWarehouse} className="icon-big discount left text-center" />
                       <p>Ostalo</p>
                       {secondZoneFree.length}
                     </div>
@@ -152,14 +146,16 @@ const ProfilePage = () => {
         </div>
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <p>
-          <button className="btn btn-primary dxbs-button" id="Content_Button7" type="submit" style={{marginTop:10}} name="ctl00$Content$Button7" value="Novi zahtjev za GO »">Nova rezervacija »</button>
+          <Button type='button' component={Link} to="/new-reservation" className="btn btn-primary mt-4" style={{color:'white'}} >
+            Nova rezervacija »
+          </Button>
         </p>
       </div>
 
       <hr style={{ marginTop: 50 + 'px' }} />
-            <footer>
-                <p>© 2022 - SkyPark d.o.o.</p>
-            </footer>
+      <footer>
+        <p>© 2022 - SkyPark d.o.o.</p>
+      </footer>
     </div></>
 
 

@@ -14,6 +14,7 @@ import { Role } from './models/role';
 import { UpdateUserPassword } from './pages/updatePassword/update.user.password';
 import { ParkingCalculator } from './pages/parkingCalculator/parking.calculator';
 import { AdminParkingsPage } from './pages/admin/admin.parking.page';
+import { NewReservation } from './components/new.reservation';
 
 function App() {
     return (
@@ -57,6 +58,14 @@ function App() {
                             <UpdateUserPassword />
                         </AuthGuard>
                     } />
+
+                    <Route path="/new-reservation" element={
+                        <AuthGuard roles={[Role.ADMIN, Role.USER]}>
+                            <NewReservation />
+                        </AuthGuard>
+                    } />
+
+
 
                     <Route path="/404" element={<NotFoundPage />} />
                     <Route path="/401" element={<UnauthorizedPage />} />
