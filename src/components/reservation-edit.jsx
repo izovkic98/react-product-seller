@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { VehicleManufacturer } from '../models/vehicleManufacturer';
 import { VehicleType } from '../models/vehicleType';
-import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
 
 const ReservationEdit = forwardRef((props, ref) => {
 

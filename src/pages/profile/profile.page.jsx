@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './profile.page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +14,10 @@ import ParkingService from '../../services/parking.service';
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
+import { Tier } from '../../models/tier';
+import User from '../../models/user';
+import userService from '../../services/user.service';
+import { useDispatch } from 'react-redux';
 
 
 const ProfilePage = () => {
@@ -20,6 +25,9 @@ const ProfilePage = () => {
   const [firstZoneFreeList, setFirstZoneFree] = useState([]);
   const [secondZoneFree, setSecondZoneFree] = useState([]);
   const [activeRes, setActiveRes] = useState([]);
+  const [updatedUser, setUpdatedUser] = useState(new User('', '', '', '', '', '', '', '','', ''));
+  const currentUser = useSelector(state => state.user);
+
 
   useEffect(() => {
 
@@ -38,6 +46,7 @@ const ProfilePage = () => {
   }, []);
 
 
+
   return (
 
     <><ProfileUserData /><div className="content">
@@ -51,7 +60,16 @@ const ProfilePage = () => {
                     <div className="numbers">
                       <FontAwesomeIcon icon={faPercentage} className="icon-big discount left text-center" />
                       <p>Ukupno</p>
-                      <span className='platinum'>PLATINUM:</span> 27
+                      {(currentUser.tier === Tier.SILVER) &&
+                        <span className='silver'>{currentUser.tier ? currentUser.tier :''}: </span>
+                      }
+                      {(currentUser.tier === Tier.GOLD) &&
+                        <span className='gold'>{currentUser.tier ? currentUser.tier : ''}: </span>
+                      }
+                      {(currentUser.tier === Tier.PLATINUM) &&
+                        <span className='platinum'>{currentUser.tier ? currentUser.tier :''}: </span>
+                      }
+                      {currentUser.loyaltyPoints}
                     </div>
                   </div>
                 </div>
@@ -146,7 +164,7 @@ const ProfilePage = () => {
         </div>
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <p>
-          <Button type='button' component={Link} to="/new-reservation" className="btn btn-primary mt-4" style={{color:'white'}} >
+          <Button type='button' component={Link} to="/new-reservation" className="btn btn-primary mt-4" style={{ color: 'white' }} >
             Nova rezervacija »
           </Button>
         </p>

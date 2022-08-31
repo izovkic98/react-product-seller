@@ -4,7 +4,6 @@ import Reservation from '../models/reservation';
 import { ReservationStatus } from '../models/reservationStatus';
 import { types } from './../components/reservation-edit';
 import { manufacturers } from './../components/reservation-edit';
-import Pagination from '../pages/admin/pagination';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import '../pages/admin/admin.page.css'
@@ -15,9 +14,14 @@ import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
 import { ParkingType } from '../models/parkingType';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
-import { Link, Navigate } from 'react-router-dom'
+import { Link, } from 'react-router-dom'
 import ButtonCus from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
+import { faPercentage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Tier } from '../models/tier';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser, updateCurrentUser } from '../store/actions/user';
 
 
 const NewReservation = () => {
@@ -27,6 +31,7 @@ const NewReservation = () => {
     const [userList, setUserList] = useState([]);
     const [formerrorMessage, setFormerrorMessage] = useState('');
     const reservationCreationRef = useRef();
+    const dispatch = useDispatch(); 
 
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -37,11 +42,14 @@ const NewReservation = () => {
     const dateToMoment = moment(dateTo);
 
     const currentUser = useSelector(state => state.user);
+    const [updatedState, setUpdatedState] = useState('');
+    const [showCampaign, setShowCampaign] = useState(false);
+    const [discount, setDiscount] = useState('');
+
 
     const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
 
     useEffect(() => {
-
 
         setCalculatedPrice(calculatedPrice);
 
@@ -51,6 +59,21 @@ const NewReservation = () => {
 
 
     useEffect(() => {
+
+        if(currentUser.tier === Tier.SILVER ){
+            const loyaltyProgram = currentUser.loyaltyPoints * 0.2
+            setDiscount(loyaltyProgram);
+            setShowCampaign(true);
+        }else if(currentUser.tier === Tier.GOLD){
+            const loyaltyProgram = currentUser.loyaltyPoints * 0.4
+            setDiscount(loyaltyProgram);
+            setShowCampaign(true);
+        }else if(currentUser.tier === Tier.PLATINUM){
+            const loyaltyProgram = currentUser.loyaltyPoints * 0.5
+            setDiscount(loyaltyProgram);
+            setShowCampaign(true);
+        }
+
         if (calculatedPrice) {
             setReservation((prevState => {
                 return {
@@ -68,7 +91,7 @@ const NewReservation = () => {
         }));
 
         console.log("currentUser.id" + currentUser.id)
-        
+
 
     }, [calculatedPrice]);
 
@@ -79,10 +102,6 @@ const NewReservation = () => {
     const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', ''))
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
-    const [disabledCheckBox, setDisabledCheckBox] = useState();
-    const [showUsersTable, setShowUsersTable] = useState(false);
-    const [firstNameInput, setFirstNameInput] = useState(false);
-    const [lastNameInput, setLastNameInput] = useState(false);
 
     const [currentUsersPage, setCurrentUsersPage] = useState(1);
     const [usersPerPage] = useState(5)
@@ -152,15 +171,15 @@ const NewReservation = () => {
             document.getElementById("reservationForm").reset();
             setResCreation(true)
             setShowSuccessAlert(true)
-
             reset();
 
+            
 
         }).catch(err => {
             setFormerrorMessage('Unexpected error occurred.');
             console.log(err);
         });
-        
+
     };
 
 
@@ -231,16 +250,16 @@ const NewReservation = () => {
         }
 
         if (diff === 1) {
-            setCalculatedPrice(80.00 + secondZoneUp)
+            setCalculatedPrice(80.00 + secondZoneUp - discount)
         } else if (diff > 1 && diff < 8) {
             const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
-            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp));
+            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp) - discount);
 
         } else if (diff === 8) {
             setCalculatedPrice(355.00 + (8 * secondZoneUp))
         } else {
             const daysAboveEight = 355.00 + ((diff - 8) * 35);
-            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp));
+            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp) - discount);
         }
 
         setResetButton(true);
@@ -263,6 +282,29 @@ const NewReservation = () => {
             }
 
             <div className='container--narrow'>
+
+                {(showCampaign && !showSuccessAlert) &&
+
+                    <div className="col-lg-6 col-sm-6 mt-4">
+                        <div className="card" style={{marginLeft:10 + 'px'}}>
+                            <div className="content" style={{backgroundColor:'cadetblue'}}>
+                                <div className="row">
+                                    <div className="col-xs-7">
+                                        <div className="numbers">
+                                            <FontAwesomeIcon icon={faPercentage} className="fa-2x loyalty left text-center" />
+                                            <p style={{fontWeight:'bold'}}>Popust na rezervaciju</p>
+                                            <span className='platinum'>{currentUser.tier} </span>
+                                            <hr/>
+                                            <span> {-Math.round(discount*100)/100} HRK</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
                 <div ref={reservationCreationRef} >
                     <form id='reservationForm' onSubmit={(e) => saveReservation(e)}
                         noValidate
@@ -417,14 +459,14 @@ const NewReservation = () => {
                         </div>
 
                         <div className="modal-footer" style={{ marginTop: 40 }}>
-                          
-                            <ButtonCus type='button' variant='contained' component={Link} to="/profile" className="btn btn-secondary ml-4" style={{ color: 'black', marginRight:10+'px', marginTop:'auto' }} >
+
+                            <ButtonCus type='button' variant='contained' component={Link} to="/profile" className="btn btn-secondary ml-4" style={{ color: 'black', marginRight: 10 + 'px', marginTop: 'auto' }} >
                                 Back
                             </ButtonCus>
                             <ButtonCus type='submit' className="btn btn-primary mt-4" style={{ color: 'white' }} >
                                 Save Changes »
                             </ButtonCus>
-                            
+
                         </div>
                     </form>
                 </div>
