@@ -12,7 +12,7 @@ export default {
         'users': 'Korisnici',
         'parkings': 'Parkinzi',
         'calculator': 'Kalkulator',
-        'chng_password': 'Promjena passworda',
+        'chng_password': 'Promjena lozinke',
 
         // PROFIL
         'total': "Ukupno",
