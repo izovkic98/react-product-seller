@@ -98,6 +98,7 @@ const ParkingEdit = forwardRef((props, ref) => {
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                             options={parkingStatus}
                             sx={{ width: 300 }}
+                            defaultValue={{label:parking.parkingStatus}}
                             renderInput={(params) => <TextField {...params} label="Parking status" />}
                             required
                         />
@@ -115,6 +116,7 @@ const ParkingEdit = forwardRef((props, ref) => {
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                             options={parkingTypes}
                             sx={{ width: 300 }}
+                            defaultValue={{label:parking.parkingType}}
                             renderInput={(params) => <TextField {...params} label="Parking type" />}
                             required
                         />

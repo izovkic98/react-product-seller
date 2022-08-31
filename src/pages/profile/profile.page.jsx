@@ -51,14 +51,14 @@ const ProfilePage = () => {
                     <div className="numbers">
                       <FontAwesomeIcon icon={faPercentage} className="icon-big discount left text-center" />
                       <p>Ukupno</p>
-                      27
+                      <span className='platinum'>PLATINUM:</span> 27
                     </div>
                   </div>
                 </div>
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Trenutni popust
+                    <FontAwesomeIcon icon={faArrowRight} /> Trenutni bodovi lojalnosti
                   </div>
                 </div>
               </div>
