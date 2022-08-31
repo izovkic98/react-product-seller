@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './profile.page.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,6 +18,9 @@ import { Tier } from '../../models/tier';
 import User from '../../models/user';
 import userService from '../../services/user.service';
 import { useDispatch } from 'react-redux';
+import { FormattedMessage, IntlProvider } from "react-intl";
+import { I18nProvider, LOCALES } from "../../i18n";
+
 
 
 const ProfilePage = () => {
@@ -25,7 +28,7 @@ const ProfilePage = () => {
   const [firstZoneFreeList, setFirstZoneFree] = useState([]);
   const [secondZoneFree, setSecondZoneFree] = useState([]);
   const [activeRes, setActiveRes] = useState([]);
-  const [updatedUser, setUpdatedUser] = useState(new User('', '', '', '', '', '', '', '','', ''));
+  const [updatedUser, setUpdatedUser] = useState(new User('', '', '', '', '', '', '', '', '', ''));
   const currentUser = useSelector(state => state.user);
 
 
@@ -43,12 +46,16 @@ const ProfilePage = () => {
       setActiveRes(response.data);
     })
 
+    
+
   }, []);
 
 
 
   return (
 
+   
+    <I18nProvider locale={localStorage.getItem("language")}>
     <><ProfileUserData /><div className="content">
       <div className="container-fluid">
         <div className="row" style={{ marginTop: 25 }}>
@@ -59,15 +66,16 @@ const ProfilePage = () => {
                   <div className="col-xs-7">
                     <div className="numbers">
                       <FontAwesomeIcon icon={faPercentage} className="icon-big discount left text-center" />
-                      <p>Ukupno</p>
+                      <p>                                <FormattedMessage id='total' />
+                      </p>
                       {(currentUser.tier === Tier.SILVER) &&
-                        <span className='silver'>{currentUser.tier ? currentUser.tier :''}: </span>
+                        <span className='silver'>{currentUser.tier ? currentUser.tier : ''}: </span>
                       }
                       {(currentUser.tier === Tier.GOLD) &&
                         <span className='gold'>{currentUser.tier ? currentUser.tier : ''}: </span>
                       }
                       {(currentUser.tier === Tier.PLATINUM) &&
-                        <span className='platinum'>{currentUser.tier ? currentUser.tier :''}: </span>
+                        <span className='platinum'>{currentUser.tier ? currentUser.tier : ''}: </span>
                       }
                       {currentUser.loyaltyPoints !== null ? currentUser.loyaltyPoints : 0}
                     </div>
@@ -76,7 +84,7 @@ const ProfilePage = () => {
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Trenutni bodovi lojalnosti
+                    <FontAwesomeIcon icon={faArrowRight} /> <FormattedMessage id='current_loyalty_points' />
                   </div>
                 </div>
               </div>
@@ -90,7 +98,7 @@ const ProfilePage = () => {
                     <div className="numbers">
                       <FontAwesomeIcon icon={faParking} className="icon-big discount left text-center" />
 
-                      <p>Ostalo</p>
+                      <p><FormattedMessage id='remaining' /></p>
                       {firstZoneFreeList.length}
                     </div>
                   </div>
@@ -98,7 +106,7 @@ const ProfilePage = () => {
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta u I. Zoni (Vanjski parking)
+                    <FontAwesomeIcon icon={faArrowRight} /> <FormattedMessage id='free_park_1_zone' />
                   </div>
                 </div>
               </div>
@@ -111,7 +119,7 @@ const ProfilePage = () => {
                   <div className="col-xs-7">
                     <div className="numbers">
                       <FontAwesomeIcon icon={faHourglassHalf} className="icon-big discount left text-center" />
-                      <p>Ukupno</p>
+                      <p><FormattedMessage id='total' /></p>
                       {activeRes.length}
                     </div>
                   </div>
@@ -119,7 +127,7 @@ const ProfilePage = () => {
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Broj tekućih rezervacija (u obradi i potvrđene)
+                    <FontAwesomeIcon icon={faArrowRight} /> <FormattedMessage id='current_rez' />
                   </div>
                 </div>
               </div>
@@ -132,7 +140,7 @@ const ProfilePage = () => {
                   <div className="col-xs-7">
                     <div className="numbers">
                       <FontAwesomeIcon icon={faWarehouse} className="icon-big discount left text-center" />
-                      <p>Ostalo</p>
+                      <p><FormattedMessage id='remaining' /></p>
                       {secondZoneFree.length}
                     </div>
                   </div>
@@ -140,7 +148,7 @@ const ProfilePage = () => {
                 <div className="footer">
                   <hr />
                   <div className="stats">
-                    <FontAwesomeIcon icon={faArrowRight} /> Broj slobodnih parkirnih mjesta u II. Zoni (Unutarnji parking)
+                    <FontAwesomeIcon icon={faArrowRight} /> <FormattedMessage id='free_park_2_zone' />
                   </div>
                 </div>
               </div>
@@ -148,7 +156,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="col-lg-9 col-sm-9">
-            <p>* stari godišnji morate iskoristiti do kraja trećeg mjeseca 2022 godine.</p>
+            <p><FormattedMessage id='note_home_page' /></p>
           </div>
         </div>
 
@@ -165,7 +173,7 @@ const ProfilePage = () => {
         {/*DIO VEZAN ZA ISPIS REZERVACIJA NA PROFILU */}
         <p>
           <Button type='button' component={Link} to="/new-reservation" className="btn btn-primary mt-4" style={{ color: 'white' }} >
-            Nova rezervacija »
+            <FormattedMessage id='new_rez' />
           </Button>
         </p>
       </div>
@@ -175,7 +183,7 @@ const ProfilePage = () => {
         <p>© 2022 - SkyPark d.o.o.</p>
       </footer>
     </div></>
-
+    </I18nProvider>
 
 
   )

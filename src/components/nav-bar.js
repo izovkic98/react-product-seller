@@ -15,7 +15,6 @@ import React, { Component } from "react";
 const NavBar = () => {
 
     const currentUser = useSelector(state => state.user);
-    const [lang, setLang] = useState(LOCALES.CROATIAN);
 
     useEffect(() => {
 
@@ -23,18 +22,19 @@ const NavBar = () => {
             localStorage.setItem("language", LOCALES.CROATIAN);
         }
 
+
     }, []);
 
     const onLanguageChanged = (e) => {
         e.preventDefault();
         if (localStorage.getItem("language") == LOCALES.CROATIAN) {
             localStorage.setItem("language", LOCALES.ENGLISH);
-            setLang(LOCALES.CROATIAN)
 
         } else {
             localStorage.setItem("language", LOCALES.CROATIAN);
-            setLang(LOCALES.ENGLISH)
         }
+        window.location.reload(false);
+
     };
 
 
@@ -48,79 +48,80 @@ const NavBar = () => {
 
     return (
         <React.Fragment>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <I18nProvider locale={localStorage.getItem("language")}>
-                <a href="https://reactjs.org" className="navbar-brand ms-1">
-                    <img src={logo} className="App-logo" alt="logo" />
-                </a>
+            <nav className="navbar navbar-expand navbar-dark bg-dark">
+                <I18nProvider locale={localStorage.getItem("language")}>
+                    <a href="https://reactjs.org" className="navbar-brand ms-1">
+                        <img src={logo} className="App-logo" alt="logo" />
+                    </a>
 
-                <div className="navbar-nav me-auto">
-                    {currentUser?.role === Role.ADMIN &&
-                        <NavDropdown title="Admin" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/admin-reservations">Reservations</NavDropdown.Item>
-                            <NavDropdown.Item href="/admin-users">Users</NavDropdown.Item>
-                            <NavDropdown.Item href="/admin-parkings">Parkings</NavDropdown.Item>
-                        </NavDropdown>
+                    <div className="navbar-nav me-auto">
+                        {currentUser?.role === Role.ADMIN &&
+                            <NavDropdown title="Admin" id="basic-nav-dropdown">
+                                <NavDropdown.Item href="/admin-reservations"><FormattedMessage id='reservations' /></NavDropdown.Item>
+                                <NavDropdown.Item href="/admin-users"><FormattedMessage id='users' /></NavDropdown.Item>
+                                <NavDropdown.Item href="/admin-parkings"><FormattedMessage id='parkings' /></NavDropdown.Item>
+                            </NavDropdown>
+                        }
+
+                        <li className="nav-item">
+                            <NavLink to="/home" className="nav-link">
+                                <FormattedMessage id='home' />
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/parking-calculator" className="nav-link">
+                                <FormattedMessage id='calculator' />
+                            </NavLink>
+                        </li>
+                        <li className="nav-item" style={{ backgroundColor: 'cadetblue', marginLeft: 20 + 'px', color: 'white' }}>
+
+                            <Button onClick={(e) => onLanguageChanged(e)} className="nav-link" style={{ color: 'white' }} >
+                                {localStorage.getItem("language") === LOCALES.ENGLISH ? 'CRO' : 'ENG'} 
+                                <img src={`${localStorage.getItem("language") === LOCALES.ENGLISH ? CroFlag : EngFlag}`} className="lang-logo" alt="logo" />
+                            </Button>
+                        </li>
+                    </div>
+
+
+                    {!currentUser &&
+                        <div className="navbar-nav ms-auto">
+                            <li className="nav-item">
+                                <NavLink to="/register" className="nav-link">
+                                    <FormattedMessage id='sign_up' />
+                                </NavLink>
+                            </li>
+                            <li className="nav-item" style={{ marginRight: 20, marginLeft: 20 }}>
+                                <NavLink to="/login" className="nav-link">
+                                    <FormattedMessage id='sign_in' />
+                                </NavLink>
+                            </li>
+                        </div>
                     }
 
-                    <li className="nav-item">
-                        <NavLink to="/home" className="nav-link">
-                            <FormattedMessage id='home'/>
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink to="/parking-calculator" className="nav-link">
-                            Calculator
-                        </NavLink>
-                    </li>
-                    <li className="nav-item" style={{ backgroundColor: 'cadetblue', marginLeft: 20 + 'px', color: 'white' }}>
+                    {currentUser &&
+                        <div className="navbar-nav ms-auto">
+                            <li className="nav-item">
+                                <NavLink to="/profile" className="nav-link">
+                                    {currentUser.username}
+                                    {currentUser?.role === Role.ADMIN && <span> (admin)</span>}
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="/change-password" className="nav-link">
+                                    <FormattedMessage id='chng_password' />
+                                </NavLink>
+                            </li>
 
-                        <Button onClick={(e) => onLanguageChanged(e)} className="nav-link" style={{ color: 'white' }} >
-                            {lang} <img src={`${localStorage.getItem("language") === LOCALES.ENGLISH ? CroFlag : EngFlag}`} className="lang-logo" alt="logo" />
-                        </Button>
-                    </li>
-                </div>
+                            <li className="nav-item">
+                                <a href="#" className="nav-link" style={{ marginRight: 20, marginLeft: 20 }} onClick={() => logout()}>
+                                    <FormattedMessage id='sign_out' />
+                                </a>
+                            </li>
+                        </div>
+                    }
 
-
-                {!currentUser &&
-                    <div className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <NavLink to="/register" className="nav-link">
-                                Sign Up
-                            </NavLink>
-                        </li>
-                        <li className="nav-item" style={{ marginRight: 20, marginLeft: 20 }}>
-                            <NavLink to="/login" className="nav-link">
-                                Sign In
-                            </NavLink>
-                        </li>
-                    </div>
-                }
-
-                {currentUser &&
-                    <div className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <NavLink to="/profile" className="nav-link">
-                                {currentUser.username}
-                                {currentUser?.role === Role.ADMIN && <span> (admin)</span>}
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/change-password" className="nav-link">
-                                Change password
-                            </NavLink>
-                        </li>
-
-                        <li className="nav-item">
-                            <a href="#" className="nav-link" style={{ marginRight: 20, marginLeft: 20 }} onClick={() => logout()}>
-                                Sign Out
-                            </a>
-                        </li>
-                    </div>
-                }
-
-            </I18nProvider>
-        </nav>
+                </I18nProvider>
+            </nav>
         </React.Fragment>
     );
 };
