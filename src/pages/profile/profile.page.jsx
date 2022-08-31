@@ -69,7 +69,7 @@ const ProfilePage = () => {
                       {(currentUser.tier === Tier.PLATINUM) &&
                         <span className='platinum'>{currentUser.tier ? currentUser.tier :''}: </span>
                       }
-                      {currentUser.loyaltyPoints}
+                      {currentUser.loyaltyPoints !== null ? currentUser.loyaltyPoints : 0}
                     </div>
                   </div>
                 </div>

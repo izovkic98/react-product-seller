@@ -21,7 +21,8 @@ import { faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tier } from '../models/tier';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser, updateCurrentUser } from '../store/actions/user';
+import { clearCurrentUser } from '../store/actions/user';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 const NewReservation = () => {
@@ -32,6 +33,7 @@ const NewReservation = () => {
     const [formerrorMessage, setFormerrorMessage] = useState('');
     const reservationCreationRef = useRef();
     const dispatch = useDispatch(); 
+    const navigate = useNavigate(); 
 
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -70,7 +72,11 @@ const NewReservation = () => {
             setShowCampaign(true);
         }else if(currentUser.tier === Tier.PLATINUM){
             const loyaltyProgram = currentUser.loyaltyPoints * 0.5
-            setDiscount(loyaltyProgram);
+            if(loyaltyProgram >= 50){
+                setDiscount(50)
+            } else {
+                setDiscount(loyaltyProgram);
+            }
             setShowCampaign(true);
         }
 
@@ -128,6 +134,10 @@ const NewReservation = () => {
             x.style.display = "none";
             setResCreation(true)
         }
+
+        dispatch(clearCurrentUser());
+        navigate('/login');
+
     }
 
 
@@ -277,7 +287,7 @@ const NewReservation = () => {
             {showSuccessAlert &&
 
                 <Alert className='alert-success' variant="success" onClose={() => showCreateReservation()} dismissible>
-                    <Alert.Heading>Reservation successfuly saved !</Alert.Heading>
+                    <Alert.Heading>Reservation successfuly saved ! We will log you out for discounts update !</Alert.Heading>
                 </Alert>
             }
 
