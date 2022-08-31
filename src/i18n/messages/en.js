@@ -3,6 +3,7 @@ import { LOCALES } from "../locales"
 export default {
 
     [LOCALES.ENGLISH]: {
+        'home':'Home',
         'sign_in': 'Sign in',
         'sign_out' : 'Sign out',
         'sign_up': 'Sign up',
@@ -22,34 +23,14 @@ export default {
         'new_rez': 'New reservation »',
    
         
-        'admin' : 'Admin',
-        'users' : 'Users',
-        'vehicles' : 'Vehicles',
-        'home': 'Home',
-        'about_us': 'About us',
-        'example': 'Example',
-        'profile': 'Profile',
+        'fName_lName': 'First name and Last name:',
+        'phone': 'Phone:',
+        'email': 'Email:',
 
-        'change_image': 'Change image',
-        'image': 'Image',
-        'model': 'Model',
-        'm10r': 'Manufacturer',
-        'type': 'Type',
-        'price': 'Price',
-        'mileage' : 'Mileage',
-        'production_year' : 'Production year',
-
-        'app_name' : 'Rent a Car',
-
-        'learn_more': 'Learn more',
-        'add_new' : 'Add new',
-        'edit_info' : 'Edit Info',
-        'return' : 'Return',
-        'rent' : 'Rent',
-        'delete' : 'Delete',
-        'new_vehicle' : 'New Vehicle',
-        'save' : 'Save',
-        'cancel' : 'Cancel',
-        'close' : 'Close',
+        'from': 'From:',
+        'to': 'To:',
+        'status': 'Status:',
+        'details': 'Details',
+        'download': 'Download',
     }
 }

@@ -6,6 +6,8 @@ import ReactPaginate from 'react-paginate';
 import { ReservationStatus } from './../../models/reservationStatus';
 import { ReservationDetails } from '../../components/reservationDetails';
 import Reservation from '../../models/reservation';
+import { FormattedMessage, IntlProvider } from "react-intl";
+import { I18nProvider, LOCALES } from "../../i18n";
 
 const UsersCard = () => {
     const currentUser = useSelector(state => state.user);
@@ -25,33 +27,33 @@ const UsersCard = () => {
                     <div className="col-md-6 col-lg-6">
                         <div className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'tata-panelApproved dxbs-card panel-primary' : 'panel-fanel dxbs-card panel-primary'}`}>
                             <div className="panel-heading">
-                                <span>Ime i prezime: {currentUser.firstName} {currentUser.lastName}</span>
+                                <span><FormattedMessage id='fName_lName'/> {currentUser.firstName} {currentUser.lastName}</span>
                             </div>
                             <div className="panel-body" style={{ height: 156 + 'px' }}>
                                 <div >
                                     <div style={{ marginLeft: 10 }}>
-                                        <span>Od: {reservation.dateFrom}</span>
+                                        <span><FormattedMessage id='from' /> {reservation.dateFrom}</span>
                                         <br />
-                                        <span>Do: {reservation.dateTo}</span>
+                                        <span><FormattedMessage id='to'/> {reservation.dateTo}</span>
                                         <br />
                                         <div className="address">
-                                            <span><p><b>Status: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
+                                            <span><p><b><FormattedMessage id='status'/>  <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
-                                        <button type="button" className="btn btn-info" style={{ marginRight: 10 }} onClick={() => detailsReservationRequest(reservation)}>Detalji</button>
-                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation.id)}>Ispis</button>
+                                        <button type="button" className="btn btn-info" style={{ marginRight: 10 }} onClick={() => detailsReservationRequest(reservation)}><FormattedMessage id='details'/> </button>
+                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation.id)}><FormattedMessage id='download'/> </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <ReservationDetails ref={detailsComponent} user ={currentUser} reservation={selectedReservation} />
+                        <ReservationDetails ref={detailsComponent} user={currentUser} reservation={selectedReservation} />
                     </div>
                 );
             });
 
 
-    const pageCount= Math.ceil(reservationList.length/reservationsPerPage)
+    const pageCount = Math.ceil(reservationList.length / reservationsPerPage)
 
-    const changePage = ({selected}) => {
+    const changePage = ({ selected }) => {
         setPageNumber(selected)
     }
 
@@ -69,7 +71,7 @@ const UsersCard = () => {
     }, []);
 
     // PRINTANJE REZERVACIJE
-    const printReservation = ((reservationId) =>{
+    const printReservation = ((reservationId) => {
         ReservationService.printReservation(reservationId).then((response) => {
             console.log("printanje pokrenuto");
         })
@@ -78,23 +80,25 @@ const UsersCard = () => {
 
 
     return (
-        <div className='row'>
-            {displayReservations}
-            <hr/>
-            <ReactPaginate
-            previousLabel={"Previous"}
-            nextLabel={"Next"}
-            pageCount={pageCount}
-            onPageChange={changePage}
-            containerClassName={"pagination"}
-            previousLinkClassName={"page-link"}
-            nextLinkClassName={"page-link"}
-            disabledClassName={"page-item disabled "}
-            activeClassName={"page-item active"}
-            breakLinkClassName={"page-link"}
-            pageLinkClassName={"page-link"}
-            />
-        </div>
+        <I18nProvider locale={localStorage.getItem("language")}>
+            <div className='row'>
+                {displayReservations}
+                <hr />
+                <ReactPaginate
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"pagination"}
+                    previousLinkClassName={"page-link"}
+                    nextLinkClassName={"page-link"}
+                    disabledClassName={"page-item disabled "}
+                    activeClassName={"page-item active"}
+                    breakLinkClassName={"page-link"}
+                    pageLinkClassName={"page-link"}
+                />
+            </div>
+        </I18nProvider>
     )
 }
 

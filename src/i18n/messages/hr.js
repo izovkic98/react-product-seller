@@ -23,7 +23,16 @@ export default {
         'free_park_2_zone': 'Broj slobodnih parkirnih mjesta u II. Zoni (Unutarnji parking)',
         'note_home_page': '* Za detalje o popustima posjetite Početnu stranicu.',
         'new_rez': 'Nova rezervacija »',
- 
+
+        'fName_lName': 'Ime i prezime:',
+        'phone': 'Telefon:',
+        'email': 'Email:',
+
+        'from': 'Od:',
+        'to': 'Do:',
+        'status': 'Status:',
+        'details': 'Detalji',
+        'download': 'Preuzmi',
 
 
     }
