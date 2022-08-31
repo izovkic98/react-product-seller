@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import ReservationService from '../services/reservation.service';
 import Reservation from '../models/reservation';
-import { ReservationStatus } from '../models/reservationStatus';
 import { types } from './../components/reservation-edit';
 import { manufacturers } from './../components/reservation-edit';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import '../pages/admin/admin.page.css'
-import UserService from '../services/user.service';
 import User from '../models/user';
 import Alert from 'react-bootstrap/Alert';
 import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
@@ -32,8 +30,8 @@ const NewReservation = () => {
     const [userList, setUserList] = useState([]);
     const [formerrorMessage, setFormerrorMessage] = useState('');
     const reservationCreationRef = useRef();
-    const dispatch = useDispatch(); 
-    const navigate = useNavigate(); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -62,17 +60,25 @@ const NewReservation = () => {
 
     useEffect(() => {
 
-        if(currentUser.tier === Tier.SILVER ){
+        if (currentUser.tier === Tier.SILVER) {
             const loyaltyProgram = currentUser.loyaltyPoints * 0.2
-            setDiscount(loyaltyProgram);
+            if (loyaltyProgram >= 50) {
+                setDiscount(50)
+            } else {
+                setDiscount(loyaltyProgram);
+            }
             setShowCampaign(true);
-        }else if(currentUser.tier === Tier.GOLD){
+        } else if (currentUser.tier === Tier.GOLD) {
             const loyaltyProgram = currentUser.loyaltyPoints * 0.4
-            setDiscount(loyaltyProgram);
+            if (loyaltyProgram >= 50) {
+                setDiscount(50)
+            } else {
+                setDiscount(loyaltyProgram);
+            }
             setShowCampaign(true);
-        }else if(currentUser.tier === Tier.PLATINUM){
+        } else if (currentUser.tier === Tier.PLATINUM) {
             const loyaltyProgram = currentUser.loyaltyPoints * 0.5
-            if(loyaltyProgram >= 50){
+            if (loyaltyProgram >= 50) {
                 setDiscount(50)
             } else {
                 setDiscount(loyaltyProgram);
@@ -183,7 +189,7 @@ const NewReservation = () => {
             setShowSuccessAlert(true)
             reset();
 
-            
+
 
         }).catch(err => {
             setFormerrorMessage('Unexpected error occurred.');
@@ -296,16 +302,25 @@ const NewReservation = () => {
                 {(showCampaign && !showSuccessAlert) &&
 
                     <div className="col-lg-6 col-sm-6 mt-4">
-                        <div className="card" style={{marginLeft:10 + 'px'}}>
-                            <div className="content" style={{backgroundColor:'cadetblue'}}>
+                        <div className="card" style={{ marginLeft: 10 + 'px' }}>
+                            <div className="content" style={{ backgroundColor: 'cadetblue' }}>
                                 <div className="row">
                                     <div className="col-xs-7">
                                         <div className="numbers">
                                             <FontAwesomeIcon icon={faPercentage} className="fa-2x loyalty left text-center" />
-                                            <p style={{fontWeight:'bold'}}>Popust na rezervaciju</p>
-                                            <span className='platinum'>{currentUser.tier} </span>
-                                            <hr/>
-                                            <span> {-Math.round(discount*100)/100} HRK</span>
+                                            <p style={{ fontWeight: 'bold' }}>Popust na rezervaciju</p>
+                                            {
+                                            (currentUser.tier === Tier.SILVER) &&
+                                                <span className='silver'>{currentUser.tier} </span>
+                                            }
+                                            {(currentUser.tier === Tier.GOLD) &&
+                                                <span className='gold'>{currentUser.tier} </span>
+                                            }
+                                            {(currentUser.tier === Tier.PLATINUM) &&
+                                                <span className='platinum'>{currentUser.tier} </span>
+                                            }
+                                            <hr />
+                                            <span> {-Math.round(discount * 100) / 100} HRK</span>
                                         </div>
                                     </div>
                                 </div>
