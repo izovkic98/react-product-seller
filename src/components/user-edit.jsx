@@ -22,7 +22,7 @@ const UserEdit = forwardRef((props, ref) => {
 
     }, [props.user]);
 
-    const [user, setUser] = useState(new User('', '', '', '', '', '', '', ''));
+    const [user, setUser] = useState(new User('', '', '', '', '', '', '', '', '', ''));
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [show, setShow] = useState(false);

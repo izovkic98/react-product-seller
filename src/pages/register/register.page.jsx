@@ -10,7 +10,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 const RegisterPage = () => {
 
-    const [user, setUser] = useState(new User('', '', '', '', '', '', ''));
+    const [user, setUser] = useState(new User('', '', '', '', '', '', '', '', '', ''));
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');

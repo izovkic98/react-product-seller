@@ -77,7 +77,7 @@ const AdminUsersPage = () => {
 
     // EDITIRANJE USERA
 
-    const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', '', '', ''));
+    const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', '', '', '', '', ''));
     const saveComponent = useRef();
 
 
