@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { VehicleManufacturer } from '../models/vehicleManufacturer';
 import { VehicleType } from '../models/vehicleType';
+import { I18nProvider, LOCALES } from "../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 const ReservationEdit = forwardRef((props, ref) => {
 
@@ -89,7 +91,7 @@ const ReservationEdit = forwardRef((props, ref) => {
                 className={submitted ? 'was-validated' : ''}>
 
                 <div className="modal-header">
-                    <h5 className="modal-title">Reservation details</h5>
+                    <h5 className="modal-title"><FormattedMessage id='res_details' /></h5>
                     <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
                 </div>
 
@@ -102,18 +104,22 @@ const ReservationEdit = forwardRef((props, ref) => {
                     }
 
                     <div className="form-group">
-                        <label htmlFor="vehicleModel">Vehicle model </label>
-                        <input
-                            type="text"
-                            name="vehicleModel"
-                            onChange={(e) => handleChange(e)}
-                            placeholder="Vehicle model {e.g. Passat}"
-                            className="form-control"
-                            value={reservation?.vehicleModel}
-                            required
-                        />
+                        <label htmlFor="vehicleModel"><FormattedMessage id='veh_model' /></label>
+                        <FormattedMessage id='veh_model'>
+                            {(msg) => (
+                                <input
+                                    type="text"
+                                    name="vehicleModel"
+                                    onChange={(e) => handleChange(e)}
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={reservation?.vehicleModel}
+                                    required
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Vehicle model is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
@@ -125,13 +131,13 @@ const ReservationEdit = forwardRef((props, ref) => {
                             disablePortal
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                             options={manufacturers}
-                            defaultValue={{label:reservation.vehicleManufacturer}}
+                            defaultValue={{ label: reservation.vehicleManufacturer }}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
+                            renderInput={(params) => <TextField {...params} label={<FormattedMessage id='veh_manuf' />} />}
                             required
                         />
                         <div className="invalid-feedback">
-                            Vehicle manufacturer is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
@@ -143,69 +149,80 @@ const ReservationEdit = forwardRef((props, ref) => {
                             disablePortal
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                             options={types}
-                            defaultValue={{label:reservation.vehicleType}}
+                            defaultValue={{ label: reservation.vehicleType }}
                             sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Vehicle type" />}
+                            renderInput={(params) => <TextField {...params} label={<FormattedMessage id='veh_type' />} />}
                             required
                         />
                         <div className="invalid-feedback">
-                            Vehicle type is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="dateFrom">Date from </label>
-                        <input
-                            type='date'
-                            name="dateFrom"
-                            placeholder="Date from"
-                            className="form-control"
-                            value={reservation?.dateFrom}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
+                        <label htmlFor="dateFrom">{<FormattedMessage id='date_from' />}</label>
+                        <FormattedMessage id='date_from'>
+                            {(msg) => (
+                                <input
+                                    type='date'
+                                    name="dateFrom"
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={reservation?.dateFrom}
+                                    onChange={(e) => handleChange(e)}
+                                    required
+                                />)}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Date from is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="dateTo">Date to </label>
-                        <input
-                            type='date'
-                            name="dateTo"
-                            placeholder="Date to"
-                            className="form-control"
-                            value={reservation?.dateTo}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
+                        <label htmlFor="dateTo"><FormattedMessage id='date_to' /> </label>
+                        <FormattedMessage id='date_to'>
+                            {(msg) => (
+                                <input
+                                    type='date'
+                                    name="dateTo"
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={reservation?.dateTo}
+                                    onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Date to is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="price">Price (HRK) </label>
-                        <input
-                            type='text'
-                            name="price"
-                            placeholder="Price (EUR)"
-                            className="form-control"
-                            value={reservation?.price}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
+                        <label htmlFor="price"><FormattedMessage id='price' /> (HRK) </label>
+                        <FormattedMessage id='price'>
+                            {(msg) => (
+                                <input
+                                    type='text'
+                                    name="price"
+                                    placeholder={msg + ' (HRK)'} 
+                                    className="form-control"
+                                    value={reservation?.price}
+                                    onChange={(e) => handleChange(e)}
+                                    required
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            price is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                 </div>
 
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save Changes</button>
+                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='close' /></button>
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id='save' /></button>
                 </div>
             </form>
         </Modal>

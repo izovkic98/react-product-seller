@@ -122,9 +122,11 @@ export default {
         //USER DELETE 
         'confirmation': 'Confirmation',
         'warning': 'Warning!',
+        'del_res':'Are you sure to delete the selected reservation?',
         'del_info': ' Deleting this user will delete all reservations tied to him. Do you want to proceed ?',
         'cancel': 'Cancel',
         'im_sure': "I'm sure",
+        'e_g':'(e.g. Passat)'
 
 
 

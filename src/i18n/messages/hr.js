@@ -119,8 +119,11 @@ export default {
         //USER DELETE 
         'confirmation': 'Potvrda',
         'warning': 'Upozorenje!',
+        'del_res':'Jeste li sigurni da želite obrisati odabranu rezervaciju?',
         'del_info': ' Brisanje ovog korisnika automatski briše i njegove rezervacije. Želite li nastaviti?',
         'cancel': 'Prekini',
         'im_sure': "Potvrdi",
+        'e_g':'(npr. Passat)'
+
     }
 }
