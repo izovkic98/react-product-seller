@@ -46,6 +46,7 @@ const NewReservation = () => {
     const currentUser = useSelector(state => state.user);
     const [updatedState, setUpdatedState] = useState('');
     const [showCampaign, setShowCampaign] = useState(false);
+    const [percentage, setPercentage] = useState('');
     const [discount, setDiscount] = useState('');
 
 
@@ -63,28 +64,14 @@ const NewReservation = () => {
     useEffect(() => {
 
         if (currentUser.tier === Tier.SILVER) {
-            const loyaltyProgram = currentUser.loyaltyPoints * 0.2
-            if (loyaltyProgram >= 50) {
-                setDiscount(50)
-            } else {
-                setDiscount(loyaltyProgram);
-            }
+            setDiscount(0.9)
             setShowCampaign(true);
         } else if (currentUser.tier === Tier.GOLD) {
-            const loyaltyProgram = currentUser.loyaltyPoints * 0.4
-            if (loyaltyProgram >= 50) {
-                setDiscount(50)
-            } else {
-                setDiscount(loyaltyProgram);
-            }
+            setDiscount(0.85)
+
             setShowCampaign(true);
         } else if (currentUser.tier === Tier.PLATINUM) {
-            const loyaltyProgram = currentUser.loyaltyPoints * 0.5
-            if (loyaltyProgram >= 50) {
-                setDiscount(50)
-            } else {
-                setDiscount(loyaltyProgram);
-            }
+            setDiscount(0.75)
             setShowCampaign(true);
         }
 
@@ -268,16 +255,16 @@ const NewReservation = () => {
         }
 
         if (diff === 1) {
-            setCalculatedPrice(80.00 + secondZoneUp - discount)
+            setCalculatedPrice((80.00 + secondZoneUp) * discount)
         } else if (diff > 1 && diff < 8) {
             const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
-            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp) - discount);
+            setCalculatedPrice((daysBelowEight + (diff * secondZoneUp)) * discount);
 
         } else if (diff === 8) {
-            setCalculatedPrice(355.00 + (8 * secondZoneUp))
+            setCalculatedPrice((355.00 + (8 * secondZoneUp)) * discount)
         } else {
             const daysAboveEight = 355.00 + ((diff - 8) * 35);
-            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp) - discount);
+            setCalculatedPrice((daysAboveEight + (diff * secondZoneUp)) * discount);
         }
 
         setResetButton(true);
@@ -323,7 +310,17 @@ const NewReservation = () => {
                                                     <span className='platinum'>{currentUser.tier} </span>
                                                 }
                                                 <hr />
-                                                <span> {-Math.round(discount * 100) / 100} HRK</span>
+                                                <span>
+                                                    {(currentUser.tier === Tier.SILVER) &&
+                                                        <span >10 % </span>
+                                                    }
+                                                    {(currentUser.tier === Tier.GOLD) &&
+                                                        <span >15 %  </span>
+                                                    }
+                                                    {(currentUser.tier === Tier.PLATINUM) &&
+                                                        <span >25 %  </span>
+                                                    }
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -482,7 +479,7 @@ const NewReservation = () => {
                                             <input
                                                 type='text'
                                                 name="price"
-                                                placeholder={msg + ' (HRK)'} 
+                                                placeholder={msg + ' (HRK)'}
                                                 className="form-control"
                                                 style={{ width: 50 + '%' }}
                                                 required
