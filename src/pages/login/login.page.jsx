@@ -7,6 +7,8 @@ import { setCurrentUser } from '../../store/actions/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 //import '../register/register.page.css'; //No need it.
+import { I18nProvider, LOCALES } from "../../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 
 const LoginPage = () => {
@@ -32,10 +34,10 @@ const LoginPage = () => {
 
     //<input name="x" value="y" onChange=(event) => handleChange(event)>
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
-        console.log("name : "+name)
-        console.log("value : "+value)
+        console.log("name : " + name)
+        console.log("value : " + value)
 
         setUser((prevState => {
             //e.g: prevState ({user: x, pass: x}) + newKeyValue ({user: xy}) => ({user: xy, pass: x})
@@ -47,91 +49,101 @@ const LoginPage = () => {
     };
 
     const handleLogin = (e) => {
-      e.preventDefault();
+        e.preventDefault();
 
-      setSubmitted(true);
+        setSubmitted(true);
 
-      if (!user.username || !user.password) {
-          return;
-      }
+        if (!user.username || !user.password) {
+            return;
+        }
 
-      setLoading(true);
+        setLoading(true);
 
-      AuthenticationService.login(user).then(response => {
-          //set user in session.
-          dispatch(setCurrentUser(response.data));
-          navigate('/profile');
-      }).catch(error => {
-         console.log(error);
-         setErrorMessage('username or password is not valid.');
-         setLoading(false);
-      });
+        AuthenticationService.login(user).then(response => {
+            //set user in session.
+            dispatch(setCurrentUser(response.data));
+            navigate('/profile');
+        }).catch(error => {
+            console.log(error);
+            setErrorMessage('username or password is not valid.');
+            setLoading(false);
+        });
     };
 
     return (
-        <div className="container mt-5">
-            <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
+        <I18nProvider locale={localStorage.getItem("language")}>
+            <div className="container mt-5">
+                <div className="card ms-auto me-auto p-3 shadow-lg custom-card">
 
-                <FontAwesomeIcon icon={faUserCircle} className="ms-auto me-auto user-icon"/>
+                    <FontAwesomeIcon icon={faUserCircle} className="ms-auto me-auto user-icon" />
 
-                {errorMessage &&
-                <div className="alert alert-danger">
-                    {errorMessage}
+                    {errorMessage &&
+                        <div className="alert alert-danger">
+                            {errorMessage}
+                        </div>
+                    }
+
+                    <form
+                        onSubmit={(e) => handleLogin(e)}
+                        noValidate
+                        className={submitted ? 'was-validated' : ''}
+                    >
+
+                        <div className="form-group">
+                            <label htmlFor="username"><FormattedMessage id='username' /></label>
+
+                            <FormattedMessage id='username_w'>
+                                {(msg) => (
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        className="form-control"
+                                        placeholder={msg}
+                                        value={user.username}
+                                        onChange={(e) => handleChange(e)}
+                                        required
+                                    />
+                                )}
+                            </FormattedMessage>
+                            <div className="invalid-feedback">
+                                <FormattedMessage id='req_field' />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="password"><FormattedMessage id='password' /></label>
+                            <FormattedMessage id='password_w'>
+                                {(msg) => (
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        className="form-control"
+                                        placeholder={msg}
+                                        value={user.password}
+                                        onChange={(e) => handleChange(e)}
+                                        required
+                                    />
+                                )}
+                            </FormattedMessage>
+                            <div className="invalid-feedback">
+                                <FormattedMessage id='req_field' />
+                            </div>
+                        </div>
+
+                        <button className="btn btn-dark w-20 mt-3" style={{ marginLeft: 123 }} disabled={loading}>
+                            <FormattedMessage id='sign_in' />
+                        </button>
+
+                    </form>
+
+                    <Link to="/register" className="btn btn-link" style={{ color: 'darkgray' }}>
+                        <FormattedMessage id='create_new_acc' />
+                    </Link>
+
                 </div>
-                }
-
-                <form
-                    onSubmit={(e) => handleLogin(e)}
-                    noValidate
-                    className={submitted ? 'was-validated' : ''}
-                >
-
-                    <div className="form-group">
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            name="username"
-                            className="form-control"
-                            placeholder="username"
-                            value={user.username}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
-                        <div className="invalid-feedback">
-                            Username is required.
-                        </div>
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="password"
-                            value={user.password}
-                            onChange={(e) => handleChange(e)}
-                            required
-                        />
-                        <div className="invalid-feedback">
-                            Password is required.
-                        </div>
-                    </div>
-
-                    <button className="btn btn-dark w-20 mt-3" style={{ marginLeft: 123 }}  disabled={loading}>
-                        Sign In
-                    </button>
-
-                </form>
-
-                <Link to="/register" className="btn btn-link" style={{color: 'darkgray'}}>
-                    Create New Account!
-                </Link>
-
             </div>
-
-        </div>
+        </I18nProvider>
     );
 };
 
-export {LoginPage};
+export { LoginPage };

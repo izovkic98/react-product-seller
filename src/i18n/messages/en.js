@@ -4,15 +4,22 @@ export default {
 
     [LOCALES.ENGLISH]: {
         // NAVBAR
-        'home':'Home',
+        'home': 'Home',
         'sign_in': 'Sign in',
-        'sign_out' : 'Sign out',
+        'sign_out': 'Sign out',
         'sign_up': 'Sign up',
         'reservations': 'Reservations',
-        'users' : 'Users',
+        'users': 'Users',
         'parkings': 'Parkings',
         'calculator': 'Calculator',
-        'chng_password' : 'Change password',
+        'chng_password': 'Change password',
+
+        //REGA I LOGIN
+        'username': 'Username:',
+        'password': 'Password:',
+        'username_w': 'Username',
+        'password_w': 'Password',
+        'create_new_acc': 'Create new account !',
 
         // PROFIL
         'total': "Total",

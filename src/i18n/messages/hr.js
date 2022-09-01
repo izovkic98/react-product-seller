@@ -14,6 +14,13 @@ export default {
         'calculator': 'Kalkulator',
         'chng_password': 'Promjena lozinke',
 
+        //REGA I LOGIN
+        'username': 'Korisničko ime:',
+        'password': 'Lozinka:',
+        'username_w': 'Korisničko ime',
+        'password_w': 'Lozinka',
+        'create_new_acc': 'Registriraj se !',
+
         // PROFIL
         'total': "Ukupno",
         'remaining': "Ostalo",
