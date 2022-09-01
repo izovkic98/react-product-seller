@@ -20,6 +20,8 @@ import userService from '../../services/user.service';
 import { useDispatch } from 'react-redux';
 import { FormattedMessage, IntlProvider } from "react-intl";
 import { I18nProvider, LOCALES } from "../../i18n";
+import discountService from '../../services/discount.service';
+import Discount from '../../models/discount';
 
 
 
@@ -28,7 +30,8 @@ const ProfilePage = () => {
   const [firstZoneFreeList, setFirstZoneFree] = useState([]);
   const [secondZoneFree, setSecondZoneFree] = useState([]);
   const [activeRes, setActiveRes] = useState([]);
-  const [updatedUser, setUpdatedUser] = useState(new User('', '', '', '', '', '', '', '', '', ''));
+  const [discount, setDiscount] = useState(new Discount('', '', '',));
+
   const currentUser = useSelector(state => state.user);
 
 
@@ -46,11 +49,16 @@ const ProfilePage = () => {
       setActiveRes(response.data);
     })
 
+    discountService.getDiscountOfAUser().then((response) => {
+      setDiscount(response.data);
+    })
+
     
 
   }, []);
 
 
+  console.log("discount: " + discount);
 
   return (
 
@@ -68,16 +76,16 @@ const ProfilePage = () => {
                       <FontAwesomeIcon icon={faPercentage} className="icon-big discount left text-center" />
                       <p>                                <FormattedMessage id='total' />
                       </p>
-                      {(currentUser.tier === Tier.SILVER) &&
-                        <span className='silver'>{currentUser.tier ? currentUser.tier : ''}: </span>
+                      {(discount.tier === Tier.SILVER) &&
+                        <span className='silver'>{discount.tier ? discount.tier : ''}: </span>
                       }
-                      {(currentUser.tier === Tier.GOLD) &&
-                        <span className='gold'>{currentUser.tier ? currentUser.tier : ''}: </span>
+                      {(discount.tier === Tier.GOLD) &&
+                        <span className='gold'>{discount.tier ? discount.tier : ''}: </span>
                       }
-                      {(currentUser.tier === Tier.PLATINUM) &&
-                        <span className='platinum'>{currentUser.tier ? currentUser.tier : ''}: </span>
+                      {(discount.tier === Tier.PLATINUM) &&
+                        <span className='platinum'>{discount.tier ? discount.tier : ''}: </span>
                       }
-                      {currentUser.loyaltyPoints !== null ? currentUser.loyaltyPoints : 0}
+                      {discount.loyaltyPoints !== null ? discount.loyaltyPoints : 0}
                     </div>
                   </div>
                 </div>

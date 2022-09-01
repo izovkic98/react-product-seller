@@ -131,7 +131,7 @@ export default {
         'proceed': ' Do you want to proceed ?',
 
 
-        'res_succ_saved_log_out': 'Reservation successfuly saved ! We will log you out for discounts update !',
+        'res_succ_saved_log_out': 'Reservation successfuly saved !',
         'discount': "Discount on reservation",
         'back': "Back",
         'save_arrow':'Save Changes »'

@@ -127,7 +127,7 @@ export default {
         'proceed': ' Želite li nastaviti ?',
 
 
-        'res_succ_saved_log_out': 'Rezervacija uspješno spremljena ! Odjavit ćemo vas radi ažuriranja popusta !',
+        'res_succ_saved_log_out': 'Rezervacija uspješno spremljena !',
         'discount': "Popust na rezervaciju",
         'back': "Nazad",
         'save_arrow':'Spremi izmjene »'

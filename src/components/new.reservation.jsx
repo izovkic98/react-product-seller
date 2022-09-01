@@ -12,7 +12,7 @@ import { parkingTypes } from './../pages/parkingCalculator/parking.calculator';
 import { ParkingType } from '../models/parkingType';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
-import { Link, } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import ButtonCus from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tier } from '../models/tier';
 import { I18nProvider, LOCALES } from "../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
+import discountService from '../services/discount.service';
+import Discount from '../models/discount';
 
 
 const NewReservation = () => {
@@ -29,6 +31,8 @@ const NewReservation = () => {
     const [userList, setUserList] = useState([]);
     const [formerrorMessage, setFormerrorMessage] = useState('');
     const reservationCreationRef = useRef();
+
+    const navigate = useNavigate();
 
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -44,6 +48,7 @@ const NewReservation = () => {
 
 
     const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+    const [discountObject, setDiscountObject] = useState(new Discount('', '', '',));
 
     useEffect(() => {
 
@@ -51,19 +56,23 @@ const NewReservation = () => {
 
         setResCreation(false);
 
+        discountService.getDiscountOfAUser().then((response) => {
+            setDiscountObject(response.data);
+          })
+
     }, []);
 
 
     useEffect(() => {
 
-        if (currentUser.tier === Tier.SILVER) {
+        if (discountObject.tier === Tier.SILVER) {
             setDiscount(0.9)
             setShowCampaign(true);
-        } else if (currentUser.tier === Tier.GOLD) {
+        } else if (discountObject.tier === Tier.GOLD) {
             setDiscount(0.85)
 
             setShowCampaign(true);
-        } else if (currentUser.tier === Tier.PLATINUM) {
+        } else if (discountObject.tier === Tier.PLATINUM) {
             setDiscount(0.75)
             setShowCampaign(true);
         }
@@ -87,7 +96,7 @@ const NewReservation = () => {
         console.log("currentUser.id" + currentUser.id)
 
 
-    }, [calculatedPrice]);
+    }, [calculatedPrice, discountObject]);
 
 
     // RESERVATION CREATION PART
@@ -122,6 +131,8 @@ const NewReservation = () => {
             x.style.display = "none";
             setResCreation(true)
         }
+
+        navigate('/profile');
 
 
     }
@@ -291,24 +302,24 @@ const NewReservation = () => {
                                                 <FontAwesomeIcon icon={faPercentage} className="fa-2x loyalty left text-center" />
                                                 <p style={{ fontWeight: 'bold' }}><FormattedMessage id='discount' /></p>
                                                 {
-                                                    (currentUser.tier === Tier.SILVER) &&
-                                                    <span className='silver'>{currentUser.tier} </span>
+                                                    (discountObject.tier === Tier.SILVER) &&
+                                                    <span className='silver'>{discountObject.tier} </span>
                                                 }
-                                                {(currentUser.tier === Tier.GOLD) &&
-                                                    <span className='gold'>{currentUser.tier} </span>
+                                                {(discountObject.tier === Tier.GOLD) &&
+                                                    <span className='gold'>{discountObject.tier} </span>
                                                 }
-                                                {(currentUser.tier === Tier.PLATINUM) &&
-                                                    <span className='platinum'>{currentUser.tier} </span>
+                                                {(discountObject.tier === Tier.PLATINUM) &&
+                                                    <span className='platinum'>{discountObject.tier} </span>
                                                 }
                                                 <hr />
                                                 <span>
-                                                    {(currentUser.tier === Tier.SILVER) &&
+                                                    {(discountObject.tier === Tier.SILVER) &&
                                                         <span >10 % </span>
                                                     }
-                                                    {(currentUser.tier === Tier.GOLD) &&
+                                                    {(discountObject.tier === Tier.GOLD) &&
                                                         <span >15 %  </span>
                                                     }
-                                                    {(currentUser.tier === Tier.PLATINUM) &&
+                                                    {(discountObject.tier === Tier.PLATINUM) &&
                                                         <span >25 %  </span>
                                                     }
                                                 </span>

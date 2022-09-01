@@ -1,6 +1,6 @@
 export default class User {
     constructor(firstName, lastName, address, email, phoneNumber, username, password,
-        role, createTime, reservations, token, loyaltyPoints, tier, id){
+        role, createTime, reservations, token, id){
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -12,8 +12,6 @@ export default class User {
         this.createTime = createTime;
         this.token = token;
         this.reservations = reservations;
-        this.loyaltyPoints = loyaltyPoints;
-        this.tier = tier;
         this.id = id;
     }
 }
