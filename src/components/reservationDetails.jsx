@@ -33,27 +33,29 @@ const ReservationDetails = forwardRef((props, ref) => {
 
 
     return (
-        <Modal centered={true} show={show}>
+        <I18nProvider>
+            <Modal centered={true} show={show}>
 
-            <div className="modal-header">
-                <h5 className="modal-title"><FormattedMessage id='res_details' /></h5>
-                <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
-            </div>
-            <div className="modal-body" style={{ marginTop: 0 + 'px', marginBottom: 0 + 'px' }}>
-                <p></p>
-                <p><FormattedMessage id='date_of_res' />: {reservation.reservationDate}</p>
-                <p><FormattedMessage id='date_from' />: {reservation.dateFrom}</p>
-                <p><FormattedMessage id='date_to' />: {reservation.dateTo}</p>
-                <p><FormattedMessage id='veh_model' />: {reservation.vehicleModel}</p>
-                <p><FormattedMessage id='veh_manuf' />: {reservation.vehicleManufacturer}</p>
-                <p><FormattedMessage id='veh_type' />: {reservation.vehicleType}</p>
-                <p><b><FormattedMessage id='res_status' />: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p>
-                <p></p>
-            </div>
-            <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='close' /></button>
-            </div>
-        </Modal>
+                <div className="modal-header">
+                    <h5 className="modal-title"><FormattedMessage id='res_details' /></h5>
+                    <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
+                </div>
+                <div className="modal-body" style={{ marginTop: 0 + 'px', marginBottom: 0 + 'px' }}>
+                    <p></p>
+                    <p><FormattedMessage id='date_of_res' />: {reservation.reservationDate}</p>
+                    <p><FormattedMessage id='date_from' />: {reservation.dateFrom}</p>
+                    <p><FormattedMessage id='date_to' />: {reservation.dateTo}</p>
+                    <p><FormattedMessage id='veh_model' />: {reservation.vehicleModel}</p>
+                    <p><FormattedMessage id='veh_manuf' />: {reservation.vehicleManufacturer}</p>
+                    <p><FormattedMessage id='veh_type' />: {reservation.vehicleType}</p>
+                    <p><b><FormattedMessage id='res_status' />: <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p>
+                    <p></p>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='close' /></button>
+                </div>
+            </Modal>
+        </I18nProvider>
     );
 
 });
