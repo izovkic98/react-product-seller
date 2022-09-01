@@ -16,6 +16,7 @@ export default {
 
         //REGA I LOGIN
         'username': 'Korisničko ime:',
+        'role': 'Uloga',
         'password': 'Lozinka:',
         'first_name': 'Ime:',
         'last_name': 'Prezime:',
@@ -43,6 +44,7 @@ export default {
         'note_home_page': ' Za detalje o popustima posjetite Početnu stranicu.',
         'new_rez': 'Nova rezervacija »',
         'fName_lName': 'Ime i prezime:',
+        'fName_lName_w': 'Ime i prezime',
         'phone': 'Broj mobitela:',
         'from': 'Od:',
         'to': 'Do:',
@@ -79,7 +81,22 @@ export default {
         'new_pass_w': 'Nova Lozinka',
         'confirm_new_pass_w': 'Potvrdi novu lozinku',
         'chng_password_btn': 'Promjeni lozinku',
+        
+        //ADMIN PARKING
 
+        'all_parkings': 'Svi parkinzi',
+        'all_users': 'Svi useri',
+        'park_status': 'Parking status',
+        'action': 'Akcije',
+        'edit': 'Uredi',
+        'delete': 'Obriši',
+        'create_park': 'Napravi parking »',
+        'park_succ': 'Parking uspješno spremljen !',
+        'park_details': 'Parking detalji',
+        'close': 'Zatvori',
+        'save': 'Spremi izmjene',
+        'search': 'Pretraži...',
+        'chng_role': 'Promijeni ulogu',
 
     }
 }

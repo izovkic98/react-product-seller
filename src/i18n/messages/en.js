@@ -16,6 +16,7 @@ export default {
 
         //REGA I LOGIN
         'username': 'Username:',
+        'role': 'Role',
         'password': 'Password:',
         'first_name': 'First name:',
         'last_name': 'Last name:',
@@ -43,6 +44,7 @@ export default {
         'note_home_page': ' To learn more about discounts visit Home page.',
         'new_rez': 'New reservation »',
         'fName_lName': 'First name and Last name:',
+        'fName_lName_w': 'First name and Last name',
         'phone': 'Phone:',
         'email': 'Email:',
         'from': 'From:',
@@ -80,5 +82,28 @@ export default {
         'new_pass_w': 'New password',
         'confirm_new_pass_w': 'Confirm new password',
         'chng_password_btn': 'Change password',
+
+        //ADMIN PARKING
+
+        'all_parkings': 'All parkings',
+        'all_users': 'All users',
+        'park_status': 'Parking status',
+        'action': 'Action',
+        'edit': 'Edit',
+        'delete': 'Delete',
+        'create_park': 'Create Parking »',
+        'park_succ': 'Parking successfuly saved !',
+        'park_details': 'Parking details',
+        'close': 'Close',
+        'save': 'Save changes',
+        'search': 'Search...',
+        'chng_role': 'Change role',
+
+
+
+
+
+
+
     }
 }

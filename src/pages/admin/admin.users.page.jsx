@@ -7,6 +7,8 @@ import User from '../../models/user';
 import { UserEdit } from '../../components/user-edit';
 import { UserDelete } from '../../components/user-delete';
 import { Role } from './../../models/role';
+import { I18nProvider, LOCALES } from "../../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 // TABLE SEARCH
 
@@ -109,59 +111,41 @@ const AdminUsersPage = () => {
     };
 
     return (
-
-        <div>
-            <div className="container">
-                <div className="card mt-5">
-                    <div className="card-header">
-                        <div className="row">
-                            <div className="col-6">
-                                <h3>All users</h3>
-                            </div>
-                            <div className="col-6 text-end">
-                                <input type="text" placeholder='Search...'
-                                    onChange={e => setQuery(e.target.value)} />
+        <I18nProvider locale={localStorage.getItem("language")}>
+            <div>
+                <div className="container">
+                    <div className="card mt-5">
+                        <div className="card-header">
+                            <div className="row">
+                                <div className="col-6">
+                                    <h3><FormattedMessage id='all_users' /></h3>
+                                </div>
+                                <div className="col-6 text-end">
+                                    <FormattedMessage id='search'>
+                                        {(msg) => (
+                                            <input type="text" placeholder={msg}
+                                                onChange={e => setQuery(e.target.value)} />
+                                        )}
+                                    </FormattedMessage>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="card-body">
+                        <div className="card-body">
 
-                        <table className="table table-striped table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Full name</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone number </th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {!query ? (currentUsers.map((user, ind) =>
-                                    <tr key={user.id}>
-                                        <th scope="row">{ind + 1}</th>
-                                        <td>{user.firstName} {user.lastName}</td>
-                                        <td>{user.username}</td>
-                                        <td>{user.email}</td>
-                                        <td>{user.phoneNumber}</td>
-                                        <td>{user.role}</td>
-                                        <td>
-                                            <button disabled={(currentUser.id === user.id)} className="btn btn-success me-1" type='button' onClick={() => changeUserRole(user.id)}   >
-                                                Change role
-                                            </button>
-                                            <button className="btn btn-light me-1" type='button' onClick={() => editUserRequest(user)} >
-                                                Edit
-                                            </button>
-                                            <button disabled={(currentUser.id === user.id)} className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
-                                                Delete
-                                            </button>
-                                        </td>
+                            <table className="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col"><FormattedMessage id='fName_lName_w' /></th>
+                                        <th scope="col"><FormattedMessage id='username_w' /></th>
+                                        <th scope="col"><FormattedMessage id='email_w' /></th>
+                                        <th scope="col"><FormattedMessage id='phone_number_w' /></th>
+                                        <th scope="col"><FormattedMessage id='role' /></th>
+                                        <th scope="col"><FormattedMessage id='action' /></th>
                                     </tr>
-                                )) :
-
-                                    (userList.filter((item) => keys.some((key) => item[key]?.toLowerCase().includes(query))).map((user, ind) =>
+                                </thead>
+                                <tbody>
+                                    {!query ? (currentUsers.map((user, ind) =>
                                         <tr key={user.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{user.firstName} {user.lastName}</td>
@@ -171,41 +155,64 @@ const AdminUsersPage = () => {
                                             <td>{user.role}</td>
                                             <td>
                                                 <button disabled={(currentUser.id === user.id)} className="btn btn-success me-1" type='button' onClick={() => changeUserRole(user.id)}   >
-                                                    Change role
+                                                    <FormattedMessage id='chng_role' />
+
                                                 </button>
                                                 <button className="btn btn-light me-1" type='button' onClick={() => editUserRequest(user)} >
-                                                    Edit
+                                                    <FormattedMessage id='edit' />
                                                 </button>
                                                 <button disabled={(currentUser.id === user.id)} className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
-                                                    Delete
+                                                    <FormattedMessage id='delete' />
                                                 </button>
                                             </td>
                                         </tr>
-                                    ))
+                                    )) :
 
-                                }
+                                        (userList.filter((item) => keys.some((key) => item[key]?.toLowerCase().includes(query))).map((user, ind) =>
+                                            <tr key={user.id}>
+                                                <th scope="row">{ind + 1}</th>
+                                                <td>{user.firstName} {user.lastName}</td>
+                                                <td>{user.username}</td>
+                                                <td>{user.email}</td>
+                                                <td>{user.phoneNumber}</td>
+                                                <td>{user.role}</td>
+                                                <td>
+                                                    <button disabled={(currentUser.id === user.id)} className="btn btn-success me-1" type='button' onClick={() => changeUserRole(user.id)}   >
+                                                        <FormattedMessage id='chng_role' />
+                                                    </button>
+                                                    <button className="btn btn-light me-1" type='button' onClick={() => editUserRequest(user)} >
+                                                        <FormattedMessage id='edit' />
+                                                    </button>
+                                                    <button disabled={(currentUser.id === user.id)} className="btn btn-danger me-1" type='button' onClick={() => deleteUserRequest(user)}  >
+                                                        <FormattedMessage id='delete' />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+
+                                    }
 
 
-                            </tbody>
-                        </table>
-                        {!query &&
-                            <Pagination pages={totalPagesNumUsers}
-                                setCurrentPage={setCurrentUsersPage}
-                                currentObjects={currentUsers}
-                                sortedObjects={userList} />
-                        }
+                                </tbody>
+                            </table>
+                            {!query &&
+                                <Pagination pages={totalPagesNumUsers}
+                                    setCurrentPage={setCurrentUsersPage}
+                                    currentObjects={currentUsers}
+                                    sortedObjects={userList} />
+                            }
+                        </div>
                     </div>
+
                 </div>
-
+                <UserEdit ref={saveComponent} user={selectedUser} onSaved={(p) => saveUserWatcher(p)} />
+                <UserDelete ref={deleteComponent} onConfirmed={() => deleteUser()} />
+                <hr style={{ marginTop: 350 + 'px' }} />
+                <footer>
+                    <p>© 2022 - SkyPark d.o.o.</p>
+                </footer>
             </div>
-            <UserEdit ref={saveComponent} user={selectedUser} onSaved={(p) => saveUserWatcher(p)} />
-            <UserDelete ref={deleteComponent} onConfirmed={() => deleteUser()} />
-            <hr style={{ marginTop: 350 + 'px' }} />
-            <footer>
-                <p>© 2022 - SkyPark d.o.o.</p>
-            </footer>
-        </div>
-
+        </I18nProvider>
 
     )
 }

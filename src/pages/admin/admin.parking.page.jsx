@@ -11,6 +11,8 @@ import Alert from 'react-bootstrap/Alert';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import parkingService from '../../services/parking.service';
+import { I18nProvider, LOCALES } from "../../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 // TABLE SEARCH
 
@@ -109,7 +111,7 @@ const AdminParkingsPage = () => {
         console.log("parking.parkingStatus " + parking.parkingStatus)
 
 
-        if (!parking.parkingType || !parking.parkingStatus ) {
+        if (!parking.parkingType || !parking.parkingStatus) {
             setFormerrorMessage("Some mandatory fields are empty")
             return;
         }
@@ -168,170 +170,174 @@ const AdminParkingsPage = () => {
 
 
     return (
-
-        <div>
-            <div className="container">
-                <div className="card mt-5">
-                    <div className="card-header">
-                        <div className="row">
-                            <div className="col-6">
-                                <h3>All parkings</h3>
-                            </div>
-                            <div className="col-6 text-end">
-                                <input type="text" placeholder='Search...'
-                                    onChange={e => setQuery(e.target.value)} />
+        <I18nProvider locale={localStorage.getItem("language")}>
+            <div>
+                <div className="container">
+                    <div className="card mt-5">
+                        <div className="card-header">
+                            <div className="row">
+                                <div className="col-6">
+                                    <h3><FormattedMessage id='all_parkings' /></h3>
+                                </div>
+                                <div className="col-6 text-end">
+                                    <FormattedMessage id='search'>
+                                        {(msg) => (
+                                            <input type="text" placeholder={msg}
+                                                onChange={e => setQuery(e.target.value)} />
+                                        )}
+                                    </FormattedMessage>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="card-body">
+                        <div className="card-body">
 
-                        <table className="table table-striped table-dark">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Parking status</th>
-                                    <th scope="col">Parking type</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {!query ? (currentParkings.map((parking, ind) =>
-                                    <tr key={parking.id}>
-                                        <th scope="row">{ind + 1}</th>
-                                        <td>{parking.parkingStatus}</td>
-                                        <td>{parking.parkingType}</td>
-                                        <td>
-                                            <button className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
-                                                Edit
-                                            </button>
-                                            <button  className="btn btn-danger me-1" type='button' onClick={() => deleteParkingRequest(parking)}  >
-                                                Delete
-                                            </button>
-                                        </td>
+                            <table className="table table-striped table-dark">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col"><FormattedMessage id='park_status' /></th>
+                                        <th scope="col"><FormattedMessage id='park_type' /></th>
+                                        <th scope="col"><FormattedMessage id='action' /></th>
                                     </tr>
-                                )) :
-
-                                    (parkingList.filter((item) => keys.some((key) => item[key]?.toLowerCase().includes(query))).map((parking, ind) =>
+                                </thead>
+                                <tbody>
+                                    {!query ? (currentParkings.map((parking, ind) =>
                                         <tr key={parking.id}>
                                             <th scope="row">{ind + 1}</th>
                                             <td>{parking.parkingStatus}</td>
                                             <td>{parking.parkingType}</td>
                                             <td>
                                                 <button className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
-                                                    Edit
+                                                    <FormattedMessage id='edit' />
                                                 </button>
                                                 <button className="btn btn-danger me-1" type='button' onClick={() => deleteParkingRequest(parking)}  >
-                                                    Delete
+                                                    <FormattedMessage id='delete' />
                                                 </button>
                                             </td>
                                         </tr>
-                                    ))
+                                    )) :
 
+                                        (parkingList.filter((item) => keys.some((key) => item[key]?.toLowerCase().includes(query))).map((parking, ind) =>
+                                            <tr key={parking.id}>
+                                                <th scope="row">{ind + 1}</th>
+                                                <td>{parking.parkingStatus}</td>
+                                                <td>{parking.parkingType}</td>
+                                                <td>
+                                                    <button className="btn btn-light me-1" type='button' onClick={() => editParkingRequest(parking)} >
+                                                        <FormattedMessage id='edit' />
+                                                    </button>
+                                                    <button className="btn btn-danger me-1" type='button' onClick={() => deleteParkingRequest(parking)}  >
+                                                        <FormattedMessage id='delete' />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            {!query &&
+                                <Pagination pages={totalPagesNumParkings}
+                                    setCurrentPage={setCurrentParkingsPage}
+                                    currentObjects={currentParkings}
+                                    sortedObjects={parkingList} />
+                            }
+                        </div>
+                    </div>
+
+
+                    {/*PARKING CREATION DIV  */}
+                    {showParkCreation &&
+                        <div className="col-6 text-end">
+                            <button className="btn btn-primary" onClick={() => showCreateParking()}>
+                                <FormattedMessage id='create_park' />
+                            </button>
+                        </div>
+                    }
+
+                    {showSuccessAlert &&
+
+                        <Alert className='alert-success' variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
+                            <Alert.Heading><FormattedMessage id='park_succ' /></Alert.Heading>
+                        </Alert>
+                    }
+
+
+                </div>
+                <ParkingEdit ref={saveComponent} parking={selectedParking} onSaved={(p) => saveParkingWatcher(p)} />
+                <ParkingDelete ref={deleteComponent} onConfirmed={() => deleteParking()} />
+
+
+                <div className='container--narrow'>
+                    <div ref={parkingCreationRef} >
+                        <div className="modal-header" style={{ marginBottom: 40 }} />
+                        <form id='parkingForm' onSubmit={(e) => saveParking(e)}
+                            noValidate
+                            className={submitted ? 'was-validated' : ''}>
+                            <h4 style={{ marginLeft: 15 }} ><FormattedMessage id='park_details' /> </h4>
+
+                            <div className="modal-body">
+
+                                {formerrorMessage &&
+                                    <div className="alert alert-danger">
+                                        {formerrorMessage}
+                                    </div>
                                 }
 
-
-                            </tbody>
-                        </table>
-                        {!query &&
-                            <Pagination pages={totalPagesNumParkings}
-                                setCurrentPage={setCurrentParkingsPage}
-                                currentObjects={currentParkings}
-                                sortedObjects={parkingList} />
-                        }
-                    </div>
-                </div>
-
-
-                {/*PARKING CREATION DIV  */}
-                {showParkCreation &&
-                    <div className="col-6 text-end">
-                        <button className="btn btn-primary" onClick={() => showCreateParking()}>
-                            Create Parking »
-                        </button>
-                    </div>
-                }
-
-                {showSuccessAlert &&
-
-                    <Alert className='alert-success' variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
-                        <Alert.Heading>Parking successfuly saved !</Alert.Heading>
-                    </Alert>
-                }
-
-
-            </div>
-            <ParkingEdit ref={saveComponent} parking={selectedParking} onSaved={(p) => saveParkingWatcher(p)} />
-            <ParkingDelete ref={deleteComponent} onConfirmed={() => deleteParking()} />
-
-
-            <div className='container--narrow'>
-                <div ref={parkingCreationRef} >
-                    <div className="modal-header" style={{ marginBottom: 40 }} />
-                    <form id='parkingForm' onSubmit={(e) => saveParking(e)}
-                        noValidate
-                        className={submitted ? 'was-validated' : ''}>
-                        <h4 style={{ marginLeft: 15 }} >Parking details </h4>
-
-                        <div className="modal-body">
-
-                            {formerrorMessage &&
-                                <div className="alert alert-danger">
-                                    {formerrorMessage}
+                                <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                    <Autocomplete
+                                        name='parkingType'
+                                        ref={ref0}
+                                        getOptionLabel={(option) => option.label}
+                                        disablePortal
+                                        onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
+                                        options={parkingTypes}
+                                        sx={{ width: 300 }}
+                                        style={{ width: 50 + '%' }}
+                                        renderInput={(params) => <TextField {...params} label={<FormattedMessage id='park_type' />} />}
+                                        required
+                                        key={submitted}
+                                    />
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
                                 </div>
-                            }
 
-                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                                <Autocomplete
-                                    name='parkingType'
-                                    ref={ref0}
-                                    getOptionLabel={(option) => option.label}
-                                    disablePortal
-                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
-                                    options={parkingTypes}
-                                    sx={{ width: 300 }}
-                                    style={{ width: 50 + '%' }}
-                                    renderInput={(params) => <TextField {...params} label="Parking type" />}
-                                    required
-                                    key={submitted}
-                                />
-                                <div className="invalid-feedback">
-                                    Vehicle manufacturer is required.
+                                <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                    <Autocomplete
+                                        name="parkingStatus"
+                                        ref={ref1}
+                                        getOptionLabel={(option) => option.label}
+                                        disablePortal
+                                        onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
+                                        options={parkingStatus}
+                                        sx={{ width: 300 }}
+                                        style={{ width: 50 + '%' }}
+                                        renderInput={(params) => <TextField {...params} label={<FormattedMessage id='park_status' />} />}
+                                        required
+                                        key={submitted}
+                                    />
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                                <Autocomplete
-                                    name="parkingStatus"
-                                    ref={ref1}
-                                    getOptionLabel={(option) => option.label}
-                                    disablePortal
-                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
-                                    options={parkingStatus}
-                                    sx={{ width: 300 }}
-                                    style={{ width: 50 + '%' }}
-                                    renderInput={(params) => <TextField {...params} label="Parking status" />}
-                                    required
-                                    key={submitted}
-                                />
-                                <div className="invalid-feedback">
-                                    Vehicle type is required.
-                                </div>
-                            </div>   
-                        </div>
-
-                        <div className="modal-footer" style={{ marginTop: 40 }}>
-                            <button type="button" className="btn btn-secondary" onClick={() => showCreateParking()} >Close</button>
-                            <button type="submit" className="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
+                            <div className="modal-footer" style={{ marginTop: 40 }}>
+                                <button type="button" className="btn btn-secondary" onClick={() => showCreateParking()} ><FormattedMessage id='close' /></button>
+                                <button type="submit" className="btn btn-primary"><FormattedMessage id='save' /></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <hr style={{ marginTop: 50 + 'px' }} />
+                <footer>
+                    <p>© 2022 - SkyPark d.o.o.</p>
+                </footer>
             </div>
-            <hr style={{ marginTop: 50 + 'px' }} />
-            <footer>
-                <p>© 2022 - SkyPark d.o.o.</p>
-            </footer>
-
-        </div>
+        </I18nProvider>
 
 
     )
