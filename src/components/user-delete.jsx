@@ -1,5 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import { I18nProvider, LOCALES } from "../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 
 const UserDelete = forwardRef((props, ref) => {
@@ -23,17 +25,17 @@ const UserDelete = forwardRef((props, ref) => {
         <Modal centered={true} show={show}>
 
             <div className="modal-header">
-                <h5 className="modal-title">Confirmation</h5>
+                <h5 className="modal-title"><FormattedMessage id='confirmation' /></h5>
                 <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
             </div>
 
             <div className="modal-body">
-               <span style={{color:"red", fontWeight:"bold" }}>Warning!</span> Deleting this user will delete all reservations tied to him. Do you want to proceed ?
+               <span style={{color:"red", fontWeight:"bold" }}><FormattedMessage id='warning' /></span> <FormattedMessage id='del_info' />
             </div>
 
             <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>Cancel</button>
-                <button type="button" className="btn btn-danger" onClick={() => deleteUser()}>I'm sure!</button>
+                <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='cancel' /></button>
+                <button type="button" className="btn btn-danger" onClick={() => deleteUser()}><FormattedMessage id='im_sure' /></button>
             </div>
 
         </Modal>

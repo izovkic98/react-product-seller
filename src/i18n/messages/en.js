@@ -119,6 +119,13 @@ export default {
         'deselect': 'Deselect',
         'select': 'Select',
 
+        //USER DELETE 
+        'confirmation': 'Confirmation',
+        'warning': 'Warning!',
+        'del_info': ' Deleting this user will delete all reservations tied to him. Do you want to proceed ?',
+        'cancel': 'Cancel',
+        'im_sure': "I'm sure",
+
 
 
 

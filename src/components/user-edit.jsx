@@ -4,6 +4,8 @@ import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import User from '../models/user';
 import UserService from '../services/user.service';
+import { I18nProvider, LOCALES } from "../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 
 const UserEdit = forwardRef((props, ref) => {
@@ -68,7 +70,7 @@ const UserEdit = forwardRef((props, ref) => {
                 className={submitted ? 'was-validated' : ''}>
 
                 <div className="modal-header">
-                    <h5 className="modal-title">User details</h5>
+                    <h5 className="modal-title"><FormattedMessage id='user_details' /></h5>
                     <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
                 </div>
 
@@ -81,90 +83,110 @@ const UserEdit = forwardRef((props, ref) => {
                     }
 
                     <div className="form-group">
-                        <label htmlFor="firstName">First name </label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            onChange={(e) => handleChange(e)}
-                            placeholder="First name"
-                            className="form-control"
-                            value={user?.firstName}
+                        <label htmlFor="firstName"><FormattedMessage id='first_name' /></label>
+                        <FormattedMessage id='first_name_w'>
+                            {(msg) => (
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    onChange={(e) => handleChange(e)}
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={user?.firstName}
 
-                        />
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            First name is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="lastName">Last name </label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            onChange={(e) => handleChange(e)}
-                            placeholder="Last name"
-                            className="form-control"
-                            value={user?.lastName}
+                        <label htmlFor="lastName"><FormattedMessage id='last_name' /></label>
+                        <FormattedMessage id='last_name_w'>
+                            {(msg) => (
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    onChange={(e) => handleChange(e)}
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={user?.lastName}
 
-                        />
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Last name is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="username">Username </label>
-                        <input
-                            type="text"
-                            name="username"
-                            onChange={(e) => handleChange(e)}
-                            placeholder="Username"
-                            className="form-control"
-                            value={user?.username}
+                        <label htmlFor="username"><FormattedMessage id='username' /> </label>
+                        <FormattedMessage id='username_w'>
+                            {(msg) => (
+                                <input
+                                    type="text"
+                                    name="username"
+                                    onChange={(e) => handleChange(e)}
+                                    placeholder={msg}
+                                    className="form-control"
+                                    value={user?.username}
 
-                        />
+                                />
+                            )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Username is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="email">Email </label>
+                        <label htmlFor="email"><FormattedMessage id='email' /> </label>
+                        <FormattedMessage id='email_w'>
+                                {(msg) => (
                         <input
                             type="text"
                             name="email"
                             onChange={(e) => handleChange(e)}
-                            placeholder="Email"
+                            placeholder={msg}
                             className="form-control"
                             value={user?.email}
 
                         />
+                        )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Email is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="phoneNumber">Phone number </label>
+                        <label htmlFor="phoneNumber"><FormattedMessage id='phone_number' /> </label>
+                        <FormattedMessage id='phone_number_w'>
+                                {(msg) => (
                         <input
                             type="text"
                             name="phoneNumber"
                             onChange={(e) => handleChange(e)}
-                            placeholder="Phone number"
+                            placeholder={msg}
                             className="form-control"
                             value={user?.phoneNumber}
 
                         />
+                        )}
+                        </FormattedMessage>
                         <div className="invalid-feedback">
-                            Phone number is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                 </div>
 
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save Changes</button>
+                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='close' /></button>
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id='save' /></button>
                 </div>
             </form>
         </Modal>

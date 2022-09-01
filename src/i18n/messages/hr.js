@@ -116,5 +116,11 @@ export default {
         'reg_user': 'Registrirani korisnik',
         'select': 'Odaberi',
 
+        //USER DELETE 
+        'confirmation': 'Potvrda',
+        'warning': 'Upozorenje!',
+        'del_info': ' Brisanje ovog korisnika automatski briše i njegove rezervacije. Želite li nastaviti?',
+        'cancel': 'Prekini',
+        'im_sure': "Potvrdi",
     }
 }
