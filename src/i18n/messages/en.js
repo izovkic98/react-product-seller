@@ -43,8 +43,8 @@ export default {
         'free_park_2_zone': 'Number of free parking spots in II. Zone (With roof)',
         'note_home_page': ' To learn more about discounts visit Home page.',
         'new_rez': 'New reservation »',
-        'fName_lName': 'First name and Last name:',
-        'fName_lName_w': 'First name and Last name',
+        'fName_lName': 'Full name:',
+        'fName_lName_w': 'Full name',
         'phone': 'Phone:',
         'email': 'Email:',
         'from': 'From:',
@@ -98,6 +98,29 @@ export default {
         'save': 'Save changes',
         'search': 'Search...',
         'chng_role': 'Change role',
+
+        //ADMIN REZE
+
+        'all_res': 'All Reservations',
+        'veh_model': 'Vehicle model',
+        'veh_manuf': 'Vehicle manufacturer',
+        'date_of_res': 'Date of reservation',
+        'veh_type': 'Vehicle type',
+        'price': 'Price',
+        'res_status': 'Reservation status',
+        'approve': 'Approve',
+        'deny': 'Deny',
+        'res_succ': 'Reservation successfuly saved !',
+        'res_details': 'Reservation details',
+        'reset': 'Reset',
+        'rez_info': ' For details about price calculation check Calculator.',
+        'user_details': 'User details',
+        'reg_user': 'Registered user',
+        'deselect': 'Deselect',
+        'select': 'Select',
+
+
+
 
 
 

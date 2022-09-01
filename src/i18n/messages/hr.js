@@ -81,13 +81,13 @@ export default {
         'new_pass_w': 'Nova Lozinka',
         'confirm_new_pass_w': 'Potvrdi novu lozinku',
         'chng_password_btn': 'Promjeni lozinku',
-        
+
         //ADMIN PARKING
 
         'all_parkings': 'Svi parkinzi',
         'all_users': 'Svi useri',
         'park_status': 'Parking status',
-        'action': 'Akcije',
+        'action': 'Akcija',
         'edit': 'Uredi',
         'delete': 'Obriši',
         'create_park': 'Napravi parking »',
@@ -97,6 +97,24 @@ export default {
         'save': 'Spremi izmjene',
         'search': 'Pretraži...',
         'chng_role': 'Promijeni ulogu',
+
+        //ADMIN REZE
+        'all_res': 'Sve rezervacije',
+        'veh_model': 'Model vozila',
+        'veh_manuf': 'Proizvođač vozila',
+        'veh_type': 'Tip vozila',
+        'date_of_res': 'Datum rezervacije',
+        'price': 'Cijena ',
+        'res_status': 'Status rezervacije',
+        'approve': 'Odobri',
+        'deny': 'Odbij',
+        'res_succ': 'Rezervacija uspješno spremljena !',
+        'res_details': 'Detalji rezervacije',
+        'reset': 'Poništi',
+        'rez_info': ' Za detalje o proračunu cijena pogledajte Kalkulator.',
+        'user_details': 'Korisnički detalji',
+        'reg_user': 'Registrirani korisnik',
+        'select': 'Odaberi',
 
     }
 }

@@ -17,6 +17,8 @@ import { parkingTypes } from './../parkingCalculator/parking.calculator';
 import { ParkingType } from '../../models/parkingType';
 import moment from 'moment';
 import { Button, Table } from 'react-bootstrap';
+import { I18nProvider, LOCALES } from "../../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 const AdminPage = () => {
 
@@ -53,17 +55,17 @@ const AdminPage = () => {
         UserService.getAllUsers().then((response) => {
             setUserList(response.data)
         })
-        
-        
+
+
         setCalculatedPrice(calculatedPrice);
-          
+
         setResCreation(false);
 
     }, []);
 
 
     useEffect(() => {
-        if(calculatedPrice){
+        if (calculatedPrice) {
             setReservation((prevState => {
                 return {
                     ...prevState,
@@ -71,8 +73,8 @@ const AdminPage = () => {
                 };
             }));
         }
-          
-      },[calculatedPrice]);
+
+    }, [calculatedPrice]);
 
 
     const editReservationRequest = (item) => {
@@ -144,7 +146,7 @@ const AdminPage = () => {
 
     // RESERVATION CREATION PART
 
-    
+
     const [selectedUser, setSelectedUser] = useState(new User('', '', '', '', '', ''))
     const [submitted, setSubmitted] = useState(false);
     const [showResCreation, setResCreation] = useState();
@@ -328,7 +330,7 @@ const AdminPage = () => {
         let diff = 0;
         let secondZoneUp = 0;
 
-        if(!zoneType){
+        if (!zoneType) {
             return;
         }
 
@@ -372,447 +374,479 @@ const AdminPage = () => {
 
     return (
 
-        <div>
-            <div className="container" >
-                <div className="pt-5">
+        <I18nProvider locale={localStorage.getItem("language")}>
+            <div>
+                <div className="container" >
+                    <div className="pt-5">
 
-                    {errorMessage &&
-                        <div className="alert alert-danger">
-                            {errorMessage}
-                        </div>
-                    }
+                        {errorMessage &&
+                            <div className="alert alert-danger">
+                                {errorMessage}
+                            </div>
+                        }
 
-                    <div className="card">
-                        <div className="card-header">
-                            <div className="row">
-                                <div className="col-6">
-                                    <h3>All Reservations</h3>
-                                </div>
-                                <div className="col-6 text-end">
-                                    <input type="text" placeholder='Search...'
-                                        onChange={e => setQuery(e.target.value)} />
+                        <div className="card">
+                            <div className="card-header">
+                                <div className="row">
+                                    <div className="col-6">
+                                        <h3><FormattedMessage id='all_res' /></h3>
+                                    </div>
+                                    <div className="col-6 text-end">
+                                        <FormattedMessage id='search'>
+                                            {(msg) => (
+                                                <input type="text" placeholder={msg}
+                                                    onChange={e => setQuery(e.target.value)} />
+                                            )}
+                                        </FormattedMessage>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="card-body">
+                            <div className="card-body">
 
-                            <table className="table table-striped table-dark">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Full name</th>
-                                        <th scope="col">Vehicle model</th>
-                                        <th scope="col">Vehicle manufacturer</th>
-                                        <th scope="col">Date from </th>
-                                        <th scope="col">Date to </th>
-                                        <th scope="col">Date of reservation</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Parking type</th>
-                                        <th scope="col">Reservation status</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {!query ? (currentReservations.map((reservation, ind) =>
-                                        <tr key={reservation.id}>
-                                            <th scope="row">{ind + 1}</th>
-                                            <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
-                                            <td>{reservation.vehicleModel}</td>
-                                            <td>{reservation.vehicleManufacturer}</td>
-                                            <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
-                                            <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
-                                            <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
-                                            <td>{reservation.price}</td>
-                                            <td>{reservation.parkingType}</td>
-                                            <td>{reservation.reservationStatus}</td>
-                                            <td>
-                                                <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
-                                                    Approve
-                                                </button>
-
-                                                <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
-                                                    Deny
-                                                </button>
-
-                                                <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
-                                                    Edit
-                                                </button>
-
-                                                <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
-                                                    Delete
-                                                </button>
-                                            </td>
+                                <table className="table table-striped table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col"><FormattedMessage id='fName_lName_w' /></th>
+                                            <th scope="col"><FormattedMessage id='veh_model' /></th>
+                                            <th scope="col"><FormattedMessage id='veh_manuf' /></th>
+                                            <th scope="col"><FormattedMessage id='date_from' /></th>
+                                            <th scope="col"><FormattedMessage id='date_to' /></th>
+                                            <th scope="col"><FormattedMessage id='date_of_res' /></th>
+                                            <th scope="col"><FormattedMessage id='price' /> (HRK)</th>
+                                            <th scope="col"><FormattedMessage id='park_type' /></th>
+                                            <th scope="col"><FormattedMessage id='res_status' /></th>
+                                            <th scope="col"><FormattedMessage id='action' /></th>
                                         </tr>
-                                    ))
-                                        :
-                                        (reservationList.filter((item) => reservationKeys.some((key) =>
-                                            item[key]?.toLowerCase().includes(query))).map((reservation, ind) =>
-                                                <tr key={reservation.id}>
-                                                    <th scope="row">{ind + 1}</th>
-                                                    <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
-                                                    <td>{reservation.vehicleModel}</td>
-                                                    <td>{reservation.vehicleManufacturer}</td>
-                                                    <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
-                                                    <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
-                                                    <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
-                                                    <td>{reservation.price}</td>
-                                                    <td>{reservation.parkingType}</td>
-                                                    <td>{reservation.reservationStatus}</td>
-                                                    <td>
-                                                        <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
-                                                            Approve
-                                                        </button>
+                                    </thead>
+                                    <tbody>
+                                        {!query ? (currentReservations.map((reservation, ind) =>
+                                            <tr key={reservation.id}>
+                                                <th scope="row">{ind + 1}</th>
+                                                <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
+                                                <td>{reservation.vehicleModel}</td>
+                                                <td>{reservation.vehicleManufacturer}</td>
+                                                <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
+                                                <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
+                                                <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
+                                                <td>{reservation.price}</td>
+                                                <td>{reservation.parkingType}</td>
+                                                <td>{reservation.reservationStatus}</td>
+                                                <td>
+                                                    <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
+                                                        <FormattedMessage id='approve' />
+                                                    </button>
 
-                                                        <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
-                                                            Deny
-                                                        </button>
+                                                    <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
+                                                        <FormattedMessage id='deny' />
+                                                    </button>
 
-                                                        <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
-                                                            Edit
-                                                        </button>
+                                                    <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
+                                                        <FormattedMessage id='edit' />
+                                                    </button>
 
-                                                        <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
-                                                            Delete
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                    }
-                                </tbody>
-                            </table>
-                            {!query &&
-                                <Pagination pages={totalPagesNum}
-                                    setCurrentPage={setCurrentPage}
-                                    currentObjects={currentReservations}
-                                    sortedObjects={reservationList} />
-                            }
-                        </div>
-                    </div>
-                </div>
-
-                {/*RESERVATION CREATION DIV  */}
-                {showResCreation &&
-                    <div className="col-6 text-end">
-                        <button className="btn btn-primary" onClick={() => showCreateReservation()}>
-                            Create Reservation »
-                        </button>
-                    </div>
-                }
-
-                {showSuccessAlert &&
-
-                    <Alert className='alert-success' variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
-                        <Alert.Heading>Reservation successfuly saved !</Alert.Heading>
-                    </Alert>
-                }
-
-            </div>
-
-            <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
-            <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />
-
-
-            <div className='container--narrow'>
-                <div ref={reservationCreationRef} >
-                    <div className="modal-header" style={{ marginBottom: 40 }} />
-                    <form id='reservationForm' onSubmit={(e) => saveReservation(e)}
-                        noValidate
-                        className={submitted ? 'was-validated' : ''}>
-                        <h4 style={{ marginLeft: 15 }} >Reservation details </h4>
-
-                        <div className="modal-body">
-
-                            {formerrorMessage &&
-                                <div className="alert alert-danger">
-                                    {formerrorMessage}
-                                </div>
-                            }
-
-                            <div className="form-group mt-3">
-                                <label htmlFor="vehicleModel">Vehicle model </label>
-                                <input
-                                    type="text"
-                                    name="vehicleModel"
-                                    onChange={(e) => handleChange(e)}
-                                    placeholder="Vehicle model {e.g. Passat}"
-                                    className="form-control input-width"
-                                    style={{ width: 50 + '%' }}
-                                    required
-                                />
-                                <div className="invalid-feedback">
-                                    Vehicle model is required.
-                                </div>
-                            </div>
-
-                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                                <Autocomplete
-                                    name='vehicleManufacturer'
-                                    ref={ref0}
-                                    getOptionLabel={(option) => option.label}
-                                    disablePortal
-                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
-                                    options={manufacturers}
-                                    sx={{ width: 300 }}
-                                    style={{ width: 50 + '%' }}
-                                    renderInput={(params) => <TextField {...params} label="Vehicle manufacturer" />}
-                                    required
-                                    key={submitted}
-                                />
-                                <div className="invalid-feedback">
-                                    Vehicle manufacturer is required.
-                                </div>
-                            </div>
-
-                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                                <Autocomplete
-                                    name="vehicleType"
-                                    ref={ref1}
-                                    getOptionLabel={(option) => option.label}
-                                    disablePortal
-                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
-                                    options={types}
-                                    sx={{ width: 300 }}
-                                    style={{ width: 50 + '%' }}
-                                    renderInput={(params) => <TextField {...params} label="Vehicle type" />}
-                                    required
-                                    key={submitted}
-                                />
-                                <div className="invalid-feedback">
-                                    Vehicle type is required.
-                                </div>
-                            </div>
-                            <div className="form-group mt-1" style={{ marginBottom: 10 }}>
-                                <Autocomplete
-                                    name="parkingType"
-                                    ref={ref2}
-                                    getOptionLabel={(option) => option.label}
-                                    disablePortal
-                                    onChange={(event, value, ref) => handleChangeDropdown(event, value, ref2.current.getAttribute("name"))}
-                                    options={parkingTypes}
-                                    sx={{ width: 300 }}
-                                    style={{ width: 50 + '%' }}
-                                    renderInput={(params) => <TextField {...params} label="Parking type" />}
-                                    required
-                                    key={submitted}
-                                    disabled={resetButton}
-                                    readOnly={resetButton}
-                                />
-                                <div className="invalid-feedback">
-                                    Parking type is required.
-                                </div>
-                            </div>
-
-                            <div className="form-group mt-3">
-                                <label htmlFor="dateFrom">Date from </label>
-                                <input
-                                    type='date'
-                                    name="dateFrom"
-                                    placeholder="Date to"
-                                    className="form-control"
-                                    onChange={(e) => handleChange(e)}
-                                    style={{ width: 50 + '%' }}
-                                    required
-                                    readOnly={resetButton}
-                                />
-                                <div className="invalid-feedback">
-                                    Date from is required.
-                                </div>
-                            </div>
-
-                            <div className="form-group mt-3">
-                                <label htmlFor="dateTo">Date to </label>
-                                <input
-                                    type='date'
-                                    name="dateTo"
-                                    placeholder="Date to"
-                                    className="form-control"
-                                    onChange={(e) => handleChange(e)}
-                                    style={{ width: 50 + '%' }}
-                                    required
-                                    readOnly={resetButton}
-                                />
-                                <div className="invalid-feedback">
-                                    Date to is required.
-                                </div>
-                            </div>
-                            {!resetButton &&
-                                <Button type='button' className="btn mt-4"  onClick={() => handleCalculation()}>
-                                    Calculate
-                                </Button>
-                            }
-
-                            {resetButton &&
-                                <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => reset()} >
-                                    Reset
-                                </button>
-                            }
-                            <div className="form-group mt-3" >
-                                <label htmlFor="price">Price (HRK) </label>
-                                <input
-                                    type='text'
-                                    name="price"
-                                    placeholder="Price (HRK)"
-                                    className="form-control"
-                                    style={{ width: 50 + '%' }}
-                                    required
-                                    onChange={(e) => handleChange(e)}
-                                    value={calculatedPrice}
-                                    readOnly
-                                />
-                                <span ><span style={{ color: 'red', fontWeight: 'bold',marginTop:10 + 'px' }}>*</span> For details about price calculation check Calculator.</span>
-                                <div className="invalid-feedback">
-                                    price is required.
-                                </div>
-                            </div>
-
-
-                            <div className="modal-header" style={{ marginBottom: 40, marginTop: 30 }} />
-                            <h4 style={{ marginLeft: 15 }} >User details </h4>
-                            <div className="form-check mt-5" >
-                                <input className="form-check-input" type="checkbox" disabled={disabledCheckBox} onClick={() => showRegistratedUsersTable()} id="flexCheckDefault" />
-                                <label className="form-check-label" htmlFor="flexCheckDefault">
-                                    Registered user
-                                </label>
-                            </div>
-
-                            {!showUsersTable &&
-                                <div className="form-group mt-3">
-                                    <label htmlFor="firstName">First name</label>
-                                    <input
-                                        type='text'
-                                        name="firstName"
-                                        placeholder={disabledCheckBox ? selectedUser.firstName : "First name"}
-                                        className="form-control"
-                                        onChange={(e) => handleChange(e)}
-                                        disabled={firstNameInput}
-                                        style={{ width: 50 + '%' }}
-                                        required
-                                    />
-                                    <div className="invalid-feedback">
-                                        First name is required.
-                                    </div>
-                                </div>
-                            }
-
-                            {!showUsersTable &&
-                                <div className="form-group mt-3">
-                                    <label htmlFor="lastName">Last name</label>
-                                    <input
-                                        type='text'
-                                        name="lastName"
-                                        placeholder={disabledCheckBox ? selectedUser.lastName : "Last name"}
-                                        className="form-control"
-                                        onChange={(e) => handleChange(e)}
-                                        disabled={lastNameInput}
-                                        style={{ width: 50 + '%' }}
-                                        required
-                                    />
-                                    <div className="invalid-feedback">
-                                        Last name is required.
-                                    </div>
-                                </div>
-                            }
-
-                            {(!showUsersTable && disabledCheckBox) &&
-
-                                <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => deselect()} >
-                                    Deselect
-                                </button>
-                            }
-
-                            {/*USER TABLE  */}
-
-                            {showUsersTable &&
-                                <div className="card mt-5">
-                                    <div className="card-header">
-                                        <div className="row">
-                                            <div className="col-6">
-                                                <h3>All users</h3>
-                                            </div>
-                                            <div className="col-6 text-end">
-                                                <input type="text" placeholder='Search...'
-                                                    onChange={e => setQueryUsers(e.target.value)} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="card-body">
-
-                                        <table className="table table-striped table-dark">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Full name</th>
-                                                    <th scope="col">Username</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Phone number </th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {!queryUsers ? (currentUsers.map((user, ind) =>
-                                                    <tr key={user.id}>
+                                                    <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
+                                                        <FormattedMessage id='delete' />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        ))
+                                            :
+                                            (reservationList.filter((item) => reservationKeys.some((key) =>
+                                                item[key]?.toLowerCase().includes(query))).map((reservation, ind) =>
+                                                    <tr key={reservation.id}>
                                                         <th scope="row">{ind + 1}</th>
-                                                        <td>{user.firstName} {user.lastName}</td>
-                                                        <td>{user.username}</td>
-                                                        <td>{user.email}</td>
-                                                        <td>{user.phoneNumber}</td>
+                                                        <td>{reservation?.user?.firstName} {reservation?.user?.lastName}</td>
+                                                        <td>{reservation.vehicleModel}</td>
+                                                        <td>{reservation.vehicleManufacturer}</td>
+                                                        <td>{new Date(reservation.dateFrom).toLocaleDateString()}</td>
+                                                        <td>{new Date(reservation.dateTo).toLocaleDateString()}</td>
+                                                        <td>{new Date(reservation.reservationDate).toLocaleDateString()}</td>
+                                                        <td>{reservation.price}</td>
+                                                        <td>{reservation.parkingType}</td>
+                                                        <td>{reservation.reservationStatus}</td>
                                                         <td>
-                                                            <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
-                                                                Select
+                                                            <button hidden={(reservation.reservationStatus === ReservationStatus.APPROVED)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-success me-1" >
+                                                                <FormattedMessage id='approve' />
+                                                            </button>
+
+                                                            <button hidden={(reservation.reservationStatus === ReservationStatus.IN_PROCESS)} onClick={() => changeReservationStatus(reservation.id)} className="btn btn-secondary me-1" >
+                                                                <FormattedMessage id='deny' />
+                                                            </button>
+
+                                                            <button className="btn btn-light me-1" onClick={() => editReservationRequest(reservation)} >
+                                                                <FormattedMessage id='edit' />
+                                                            </button>
+
+                                                            <button className="btn btn-danger" onClick={() => deleteReservationRequest(reservation)} >
+                                                                <FormattedMessage id='delete' />
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                )) :
-                                                    (userList.filter((item) => userKeys.some((key) =>
-                                                        item[key].toLowerCase().includes(queryUsers))).map((user, ind) =>
-                                                            <tr key={user.id}>
-                                                                <th scope="row">{ind + 1}</th>
-                                                                <td>{user.firstName} {user.lastName}</td>
-                                                                <td>{user.username}</td>
-                                                                <td>{user.email}</td>
-                                                                <td>{user.phoneNumber}</td>
-                                                                <td>
-                                                                    <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
-                                                                        Select
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        ))
-
-
-                                                }
-                                            </tbody>
-                                        </table>
-                                        {!queryUsers &&
-                                            <Pagination pages={totalPagesNumUsers}
-                                                setCurrentPage={setCurrentUsersPage}
-                                                currentObjects={currentUsers}
-                                                sortedObjects={userList} />
+                                                ))
                                         }
+                                    </tbody>
+                                </table>
+                                {!query &&
+                                    <Pagination pages={totalPagesNum}
+                                        setCurrentPage={setCurrentPage}
+                                        currentObjects={currentReservations}
+                                        sortedObjects={reservationList} />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    {/*RESERVATION CREATION DIV  */}
+                    {showResCreation &&
+                        <div className="col-6 text-end">
+                            <button className="btn btn-primary" onClick={() => showCreateReservation()}>
+                                <FormattedMessage id='new_rez' />
+                            </button>
+                        </div>
+                    }
+
+                    {showSuccessAlert &&
+
+                        <Alert className='alert-success' variant="success" onClose={() => setShowSuccessAlert(false)} dismissible>
+                            <Alert.Heading><FormattedMessage id='res_succ' /></Alert.Heading>
+                        </Alert>
+                    }
+
+                </div>
+
+                <ReservationEdit ref={saveComponent} reservation={selectedReservation} onSaved={(p) => saveReservationWatcher(p)} />
+                <ReservationDelete ref={deleteComponent} onConfirmed={() => deleteReservation()} />
+
+
+                <div className='container--narrow'>
+                    <div ref={reservationCreationRef} >
+                        <div className="modal-header" style={{ marginBottom: 40 }} />
+                        <form id='reservationForm' onSubmit={(e) => saveReservation(e)}
+                            noValidate
+                            className={submitted ? 'was-validated' : ''}>
+                            <h4 style={{ marginLeft: 15 }} ><FormattedMessage id='res_details' /> </h4>
+
+                            <div className="modal-body">
+
+                                {formerrorMessage &&
+                                    <div className="alert alert-danger">
+                                        {formerrorMessage}
+                                    </div>
+                                }
+
+                                <div className="form-group mt-3">
+                                    <label htmlFor="vehicleModel"><FormattedMessage id='veh_model' /> </label>
+                                    <FormattedMessage id='veh_model'>
+                                        {(msg) => (
+                                            <input
+                                                type="text"
+                                                name="vehicleModel"
+                                                onChange={(e) => handleChange(e)}
+                                                placeholder={msg}
+                                                className="form-control input-width"
+                                                style={{ width: 50 + '%' }}
+                                                required
+                                            />
+                                        )}
+                                    </FormattedMessage>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
                                     </div>
                                 </div>
 
-                            }
+                                <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                    <Autocomplete
+                                        name='vehicleManufacturer'
+                                        ref={ref0}
+                                        getOptionLabel={(option) => option.label}
+                                        disablePortal
+                                        onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
+                                        options={manufacturers}
+                                        sx={{ width: 300 }}
+                                        style={{ width: 50 + '%' }}
+                                        renderInput={(params) => <TextField {...params} label={<FormattedMessage id='veh_manuf' />} />}
+                                        required
+                                        key={submitted}
+                                    />
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
+
+                                <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                    <Autocomplete
+                                        name="vehicleType"
+                                        ref={ref1}
+                                        getOptionLabel={(option) => option.label}
+                                        disablePortal
+                                        onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
+                                        options={types}
+                                        sx={{ width: 300 }}
+                                        style={{ width: 50 + '%' }}
+                                        renderInput={(params) => <TextField {...params} label={<FormattedMessage id='veh_type' />} />}
+                                        required
+                                        key={submitted}
+                                    />
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
+                                <div className="form-group mt-1" style={{ marginBottom: 10 }}>
+                                    <Autocomplete
+                                        name="parkingType"
+                                        ref={ref2}
+                                        getOptionLabel={(option) => option.label}
+                                        disablePortal
+                                        onChange={(event, value, ref) => handleChangeDropdown(event, value, ref2.current.getAttribute("name"))}
+                                        options={parkingTypes}
+                                        sx={{ width: 300 }}
+                                        style={{ width: 50 + '%' }}
+                                        renderInput={(params) => <TextField {...params} label={<FormattedMessage id='park_type' />} />}
+                                        required
+                                        key={submitted}
+                                        disabled={resetButton}
+                                        readOnly={resetButton}
+                                    />
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
+
+                                <div className="form-group mt-3">
+                                    <label htmlFor="dateFrom"><FormattedMessage id='date_from' /> </label>
+                                    <FormattedMessage id='date_from'>
+                                        {(msg) => (
+                                            <input
+                                                type='date'
+                                                name="dateFrom"
+                                                placeholder={msg}
+                                                className="form-control"
+                                                onChange={(e) => handleChange(e)}
+                                                style={{ width: 50 + '%' }}
+                                                required
+                                                readOnly={resetButton}
+                                            />
+                                        )}
+                                    </FormattedMessage>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
+
+                                <div className="form-group mt-3">
+                                    <label htmlFor="dateTo"><FormattedMessage id='date_to' /> </label>
+                                    <FormattedMessage id='date_to'>
+                                        {(msg) => (
+                                            <input
+                                                type='date'
+                                                name="dateTo"
+                                                placeholder={msg}
+                                                className="form-control"
+                                                onChange={(e) => handleChange(e)}
+                                                style={{ width: 50 + '%' }}
+                                                required
+                                                readOnly={resetButton}
+                                            />
+                                        )}
+                                    </FormattedMessage>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
+                                {!resetButton &&
+                                    <Button type='button' className="btn mt-4" onClick={() => handleCalculation()}>
+                                        <FormattedMessage id='calculate' />
+                                    </Button>
+                                }
+
+                                {resetButton &&
+                                    <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => reset()} >
+                                        <FormattedMessage id='reset' />
+                                    </button>
+                                }
+                                <div className="form-group mt-3" >
+                                    <label htmlFor="price"><FormattedMessage id='price' />(HRK) </label>
+                                    <FormattedMessage id='price'>
+                                        {(msg) => (
+                                            <input
+                                                type='text'
+                                                name="price"
+                                                placeholder={msg}
+                                                className="form-control"
+                                                style={{ width: 50 + '%' }}
+                                                required
+                                                onChange={(e) => handleChange(e)}
+                                                value={calculatedPrice}
+                                                readOnly
+                                            />
+                                        )}
+                                    </FormattedMessage>
+                                    <span ><span style={{ color: 'red', fontWeight: 'bold', marginTop: 10 + 'px' }}>*</span> <FormattedMessage id='rez_info' /></span>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='req_field' />
+                                    </div>
+                                </div>
 
 
-                            {/*USER TABLE  */}
+                                <div className="modal-header" style={{ marginBottom: 40, marginTop: 30 }} />
+                                <h4 style={{ marginLeft: 15 }} ><FormattedMessage id='user_details' /></h4>
+                                <div className="form-check mt-5" >
+                                    <input className="form-check-input" type="checkbox" disabled={disabledCheckBox} onClick={() => showRegistratedUsersTable()} id="flexCheckDefault" />
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                        <FormattedMessage id='reg_user' />
+                                    </label>
+                                </div>
 
-                        </div>
+                                {!showUsersTable &&
+                                    <div className="form-group mt-3">
+                                        <label htmlFor="firstName"><FormattedMessage id='first_name_w' /></label>
+                                        <FormattedMessage id='first_name_w'>
+                                            {(msg) => (
+                                                <input
+                                                    type='text'
+                                                    name="firstName"
+                                                    placeholder={disabledCheckBox ? selectedUser.firstName : msg}
+                                                    className="form-control"
+                                                    onChange={(e) => handleChange(e)}
+                                                    disabled={firstNameInput}
+                                                    style={{ width: 50 + '%' }}
+                                                    required
+                                                />
+                                            )}
+                                        </FormattedMessage>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id='req_field' />
+                                        </div>
+                                    </div>
+                                }
 
-                        <div className="modal-footer" style={{ marginTop: 40 }}>
-                            <button type="button" className="btn btn-secondary" onClick={() => showCreateReservation()} >Close</button>
-                            <button type="submit" className="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
+                                {!showUsersTable &&
+                                    <div className="form-group mt-3">
+                                        <label htmlFor="lastName"><FormattedMessage id='last_name_w' /></label>
+                                        <FormattedMessage id='last_name_w'>
+                                            {(msg) => (
+                                                <input
+                                                    type='text'
+                                                    name="lastName"
+                                                    placeholder={disabledCheckBox ? selectedUser.lastName : msg}
+                                                    className="form-control"
+                                                    onChange={(e) => handleChange(e)}
+                                                    disabled={lastNameInput}
+                                                    style={{ width: 50 + '%' }}
+                                                    required
+                                                />
+                                            )}
+                                        </FormattedMessage>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id='req_field' />
+                                        </div>
+                                    </div>
+                                }
+
+                                {(!showUsersTable && disabledCheckBox) &&
+
+                                    <button className="btn btn-danger me-1 mt-4" type='button' onClick={() => deselect()} >
+                                        <FormattedMessage id='reset' />
+                                    </button>
+                                }
+
+                                {/*USER TABLE  */}
+
+                                {showUsersTable &&
+                                    <div className="card mt-5">
+                                        <div className="card-header">
+                                            <div className="row">
+                                                <div className="col-6">
+                                                    <h3><FormattedMessage id='all_users' /></h3>
+                                                </div>
+                                                <div className="col-6 text-end">
+                                                    <FormattedMessage id='search'>
+                                                        {(msg) => (
+                                                            <input type="text" placeholder={msg}
+                                                                onChange={e => setQueryUsers(e.target.value)} />
+                                                        )}
+                                                    </FormattedMessage>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+
+                                            <table className="table table-striped table-dark">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col"><FormattedMessage id='fName_lName_w' /></th>
+                                                        <th scope="col"><FormattedMessage id='username_w' /></th>
+                                                        <th scope="col"><FormattedMessage id='email_w' /></th>
+                                                        <th scope="col"><FormattedMessage id='phone_number_w' /></th>
+                                                        <th scope="col"><FormattedMessage id='action' /></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {!queryUsers ? (currentUsers.map((user, ind) =>
+                                                        <tr key={user.id}>
+                                                            <th scope="row">{ind + 1}</th>
+                                                            <td>{user.firstName} {user.lastName}</td>
+                                                            <td>{user.username}</td>
+                                                            <td>{user.email}</td>
+                                                            <td>{user.phoneNumber}</td>
+                                                            <td>
+                                                                <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
+                                                                    <FormattedMessage id='select' />
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    )) :
+                                                        (userList.filter((item) => userKeys.some((key) =>
+                                                            item[key].toLowerCase().includes(queryUsers))).map((user, ind) =>
+                                                                <tr key={user.id}>
+                                                                    <th scope="row">{ind + 1}</th>
+                                                                    <td>{user.firstName} {user.lastName}</td>
+                                                                    <td>{user.username}</td>
+                                                                    <td>{user.email}</td>
+                                                                    <td>{user.phoneNumber}</td>
+                                                                    <td>
+                                                                        <button className="btn btn-info me-1" type='button' onClick={() => selectUser(user.id)} >
+                                                                            <FormattedMessage id='select' />
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            ))
+
+
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            {!queryUsers &&
+                                                <Pagination pages={totalPagesNumUsers}
+                                                    setCurrentPage={setCurrentUsersPage}
+                                                    currentObjects={currentUsers}
+                                                    sortedObjects={userList} />
+                                            }
+                                        </div>
+                                    </div>
+
+                                }
+
+
+                                {/*USER TABLE  */}
+
+                            </div>
+
+                            <div className="modal-footer" style={{ marginTop: 40 }}>
+                                <button type="button" className="btn btn-secondary" onClick={() => showCreateReservation()} ><FormattedMessage id='close' /></button>
+                                <button type="submit" className="btn btn-primary"><FormattedMessage id='save' /></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+                <hr style={{ marginTop: 50 + 'px' }} />
+                <footer>
+                    <p>© 2022 - SkyPark d.o.o.</p>
+                </footer>
             </div>
-            <hr style={{ marginTop: 50 + 'px' }} />
-            <footer>
-                <p>© 2022 - SkyPark d.o.o.</p>
-            </footer>
-
-        </div>
-
+        </I18nProvider>
 
     )
 }
