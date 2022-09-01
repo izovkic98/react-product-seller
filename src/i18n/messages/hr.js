@@ -4,7 +4,7 @@ export default {
 
     [LOCALES.CROATIAN]: {
         // NAVBAR
-        'home':'Početna',
+        'home': 'Početna',
         'sign_in': 'Prijava',
         'sign_out': 'Odjava',
         'sign_up': 'Registracija',
@@ -31,12 +31,25 @@ export default {
         'status': 'Status:',
         'details': 'Detalji',
         'download': 'Preuzmi',
-
         'showing': 'Prikazuje se',
         'out_of': ' od ',
         'entries': 'objekata',
         'previous': 'Prethodni',
         'next': 'Sljedeći',
+
+        //KALCKULATOR
+        'req_field': 'Obavezno polje',
+        'park_type': 'Tip parkinga',
+        'date_from': 'Datum od',
+        'date_to': 'Datum do',
+        'calculate': 'Izračunaj',
+        'price_to_pay': 'Cijena za platiti iznosi',
+        'decimal': ',00 HRK',
+        'num_of_days': 'Broj dana',
+        'price_first_zone': 'Cijena I. Zona (HRK)',
+        'price_second_zone': 'Cijena II. Zona (HRK)',
+        'every_add_day': 'Svaki dodatni dan (8+)',
+        'park_w_roof': ' Natkriveni parking (II. Zona) se naplaćuje 5 kn više po danu osim ako se ostaje manje od jednog dana u tom slučaju je ista cijena (75 HRK)',
 
 
     }

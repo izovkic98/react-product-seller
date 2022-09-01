@@ -3,6 +3,7 @@ import { LOCALES } from "../locales"
 export default {
 
     [LOCALES.ENGLISH]: {
+        // NAVBAR
         'home':'Home',
         'sign_in': 'Sign in',
         'sign_out' : 'Sign out',
@@ -13,6 +14,7 @@ export default {
         'calculator': 'Calculator',
         'chng_password' : 'Change password',
 
+        // PROFIL
         'total': "Total",
         'remaining': "Remaining",
         'current_loyalty_points': 'Current loyalty points',
@@ -29,12 +31,25 @@ export default {
         'status': 'Status:',
         'details': 'Details',
         'download': 'Download',
-
         'showing': 'Showing',
         'out_of': ' out of ',
         'entries': 'entries',
         'previous': 'Previous',
         'next': 'Next',
+
+        //KALCKULATOR
+        'req_field': 'Required field',
+        'park_type': 'Parking type',
+        'date_from': 'Date from',
+        'date_to': 'Date to',
+        'calculate': 'Calculate',
+        'price_to_pay': 'Price to pay',
+        'decimal': ',00 HRK',
+        'num_of_days': 'Number of days',
+        'price_first_zone': 'Price for I. Zone (HRK)',
+        'price_second_zone': 'Price for II. Zone (HRK)',
+        'every_add_day': 'Every additional day (8+)',
+        'park_w_roof': ' Covered parking (II. Zone) is charged HRK 5 more per day, unless you stay less than one day, in which case the price is the same (HRK 75)',
 
     }
 }
