@@ -85,8 +85,8 @@ const UsersCard = () => {
                 {displayReservations}
                 <hr />
                 <ReactPaginate
-                    previousLabel={"Previous"}
-                    nextLabel={"Next"}
+                    previousLabel={ <FormattedMessage id='previous'/>}
+                    nextLabel={ <FormattedMessage id='next'/>}
                     pageCount={pageCount}
                     onPageChange={changePage}
                     containerClassName={"pagination"}

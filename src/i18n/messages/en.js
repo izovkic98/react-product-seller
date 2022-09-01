@@ -21,16 +21,20 @@ export default {
         'free_park_2_zone': 'Number of free parking spots in II. Zone (With roof)',
         'note_home_page': '* To learn more about discounts visit Home page.',
         'new_rez': 'New reservation »',
-   
-        
         'fName_lName': 'First name and Last name:',
         'phone': 'Phone:',
         'email': 'Email:',
-
         'from': 'From:',
         'to': 'To:',
         'status': 'Status:',
         'details': 'Details',
         'download': 'Download',
+
+        'showing': 'Showing',
+        'out_of': ' out of ',
+        'entries': 'entries',
+        'previous': 'Previous',
+        'next': 'Next',
+
     }
 }
