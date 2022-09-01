@@ -18,9 +18,6 @@ import { useSelector } from 'react-redux';
 import { faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tier } from '../models/tier';
-import { useDispatch } from 'react-redux';
-import { clearCurrentUser } from '../store/actions/user';
-import { NavLink, useNavigate } from 'react-router-dom';
 import { I18nProvider, LOCALES } from "../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
 
@@ -32,8 +29,6 @@ const NewReservation = () => {
     const [userList, setUserList] = useState([]);
     const [formerrorMessage, setFormerrorMessage] = useState('');
     const reservationCreationRef = useRef();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -44,9 +39,7 @@ const NewReservation = () => {
     const dateToMoment = moment(dateTo);
 
     const currentUser = useSelector(state => state.user);
-    const [updatedState, setUpdatedState] = useState('');
     const [showCampaign, setShowCampaign] = useState(false);
-    const [percentage, setPercentage] = useState('');
     const [discount, setDiscount] = useState(1);
 
 
