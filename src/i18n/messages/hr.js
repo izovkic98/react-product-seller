@@ -51,6 +51,17 @@ export default {
         'every_add_day': 'Svaki dodatni dan (8+)',
         'park_w_roof': ' Natkriveni parking (II. Zona) se naplaćuje 5 kn više po danu osim ako se ostaje manje od jednog dana u tom slučaju je ista cijena (75 HRK)',
 
+        //MIJENJANJE LOZINKE
+        'lower_form': 'Koristite donji obrazac za promjenu loznike.',
+        'four_chars': 'Nove lozinke moraju biti duljine od najmanje 4 znaka.',
+        'old_pass': 'Stara loznika:',
+        'new_pass': 'Nova Lozinka:',
+        'confirm_new_pass': 'Potvrdi novu lozinku:',
+        'old_pass_w': 'Stara loznika',
+        'new_pass_w': 'Nova Lozinka',
+        'confirm_new_pass_w': 'Potvrdi novu lozinku',
+        'chng_password_btn': 'Promjeni lozinku',
+
 
     }
 }

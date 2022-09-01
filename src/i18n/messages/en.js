@@ -51,5 +51,15 @@ export default {
         'every_add_day': 'Every additional day (8+)',
         'park_w_roof': ' Covered parking (II. Zone) is charged HRK 5 more per day, unless you stay less than one day, in which case the price is the same (HRK 75)',
 
+        //MIJENJANJE LOZINKE
+        'lower_form': 'Use the form below to change your password.',
+        'four_chars': 'New passwords must be at least 4 characters long.',
+        'old_pass': 'Old password:',
+        'new_pass': 'New password:',
+        'confirm_new_pass': 'Confirm new password:',
+        'old_pass_w': 'Old password',
+        'new_pass_w': 'New password',
+        'confirm_new_pass_w': 'Confirm new password',
+        'chng_password_btn': 'Change password',
     }
 }
