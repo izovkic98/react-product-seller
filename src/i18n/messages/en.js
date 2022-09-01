@@ -17,9 +17,21 @@ export default {
         //REGA I LOGIN
         'username': 'Username:',
         'password': 'Password:',
+        'first_name': 'First name:',
+        'last_name': 'Last name:',
+        'address': 'Address:',
+        'email': 'Email:',
+        'phone_number': 'Phone number:',
+
         'username_w': 'Username',
         'password_w': 'Password',
+        'first_name_w': 'First name',
+        'last_name_w': 'Last name',
+        'address_w': 'Address',
+        'email_w': 'Email',
+        'phone_number_w': 'Phone number',
         'create_new_acc': 'Create new account !',
+        'i_have_acc': 'I have an Account !',
 
         // PROFIL
         'total': "Total",
@@ -28,7 +40,7 @@ export default {
         'free_park_1_zone': 'Number of free parking spots in I. Zone (No roof)',
         'current_rez': 'Number of current reservations (in process and approved)',
         'free_park_2_zone': 'Number of free parking spots in II. Zone (With roof)',
-        'note_home_page': '* To learn more about discounts visit Home page.',
+        'note_home_page': ' To learn more about discounts visit Home page.',
         'new_rez': 'New reservation »',
         'fName_lName': 'First name and Last name:',
         'phone': 'Phone:',
@@ -45,7 +57,7 @@ export default {
         'next': 'Next',
 
         //KALCKULATOR
-        'req_field': 'Required field',
+        'req_field': 'Required field!',
         'park_type': 'Parking type',
         'date_from': 'Date from',
         'date_to': 'Date to',

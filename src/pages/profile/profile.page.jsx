@@ -156,7 +156,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="col-lg-9 col-sm-9">
-            <p><FormattedMessage id='note_home_page' /></p>
+            <p><span style={{color: 'red', fontWeight: 'bold'}}>*</span><FormattedMessage id='note_home_page' /></p>
           </div>
         </div>
 

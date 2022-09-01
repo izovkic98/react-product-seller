@@ -17,9 +17,21 @@ export default {
         //REGA I LOGIN
         'username': 'Korisničko ime:',
         'password': 'Lozinka:',
+        'first_name': 'Ime:',
+        'last_name': 'Prezime:',
+        'address': 'Adresa:',
+        'email': 'Email:',
+        'phone_number': 'Broj mobitela:',
+        'i_have_acc': 'Imam korisnički račun !',
+
         'username_w': 'Korisničko ime',
         'password_w': 'Lozinka',
-        'create_new_acc': 'Registriraj se !',
+        'first_name_w': 'Ime',
+        'last_name_w': 'Prezime',
+        'address_w': 'Adresa',
+        'email_w': 'Email',
+        'phone_number_w': 'Broj mobitela',
+        'create_new_acc': 'Kreiraj korisnički račun !',
 
         // PROFIL
         'total': "Ukupno",
@@ -28,11 +40,10 @@ export default {
         'free_park_1_zone': 'Broj slobodnih parkirnih mjesta u I. Zoni (Vanjski parking)',
         'current_rez': 'Broj tekućih rezervacija (u obradi i potvrđene)',
         'free_park_2_zone': 'Broj slobodnih parkirnih mjesta u II. Zoni (Unutarnji parking)',
-        'note_home_page': '* Za detalje o popustima posjetite Početnu stranicu.',
+        'note_home_page': ' Za detalje o popustima posjetite Početnu stranicu.',
         'new_rez': 'Nova rezervacija »',
         'fName_lName': 'Ime i prezime:',
-        'phone': 'Telefon:',
-        'email': 'Email:',
+        'phone': 'Broj mobitela:',
         'from': 'Od:',
         'to': 'Do:',
         'status': 'Status:',
@@ -45,7 +56,7 @@ export default {
         'next': 'Sljedeći',
 
         //KALCKULATOR
-        'req_field': 'Obavezno polje',
+        'req_field': 'Obavezno polje!',
         'park_type': 'Tip parkinga',
         'date_from': 'Datum od',
         'date_to': 'Datum do',
