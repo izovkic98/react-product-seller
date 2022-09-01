@@ -123,7 +123,8 @@ export default {
         'del_info': ' Brisanje ovog korisnika automatski briše i njegove rezervacije. Želite li nastaviti?',
         'cancel': 'Prekini',
         'im_sure': "Potvrdi",
-        'e_g':'(npr. Passat)'
+        'e_g':'(npr. Passat)',
+        'proceed': ' Želite li nastaviti ?',
 
     }
 }

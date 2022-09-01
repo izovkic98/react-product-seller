@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { forwardRef, useEffect, useImperativeHandle, useState,useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState, useRef } from 'react';
 
 import { Modal } from 'react-bootstrap';
 import Parking from '../models/parking';
@@ -8,6 +8,8 @@ import ParkingService from '../services/parking.service';
 import { ParkingType } from './../models/parkingType';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+import { I18nProvider, LOCALES } from "../i18n";
+import { FormattedMessage, IntlProvider } from "react-intl";
 
 
 const ParkingEdit = forwardRef((props, ref) => {
@@ -58,7 +60,7 @@ const ParkingEdit = forwardRef((props, ref) => {
 
     const handleChangeDropdown = (event, value, ref) => {
 
-        if(value===null){
+        if (value === null) {
             return;
         }
 
@@ -77,7 +79,7 @@ const ParkingEdit = forwardRef((props, ref) => {
                 className={submitted ? 'was-validated' : ''}>
 
                 <div className="modal-header">
-                    <h5 className="modal-title">Parking details</h5>
+                    <h5 className="modal-title"><FormattedMessage id='park_details' /></h5>
                     <button type="button" className="btn-close" onClick={() => setShow(false)}></button>
                 </div>
 
@@ -98,12 +100,12 @@ const ParkingEdit = forwardRef((props, ref) => {
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref0.current.getAttribute("name"))}
                             options={parkingStatus}
                             sx={{ width: 300 }}
-                            defaultValue={{label:parking.parkingStatus}}
-                            renderInput={(params) => <TextField {...params} label="Parking status" />}
+                            defaultValue={{ label: parking.parkingStatus }}
+                            renderInput={(params) => <TextField {...params} label={<FormattedMessage id='park_status' />} />}
                             required
                         />
                         <div className="invalid-feedback">
-                            Vehicle manufacturer is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
@@ -116,20 +118,20 @@ const ParkingEdit = forwardRef((props, ref) => {
                             onChange={(event, value, ref) => handleChangeDropdown(event, value, ref1.current.getAttribute("name"))}
                             options={parkingTypes}
                             sx={{ width: 300 }}
-                            defaultValue={{label:parking.parkingType}}
-                            renderInput={(params) => <TextField {...params} label="Parking type" />}
+                            defaultValue={{ label: parking.parkingType }}
+                            renderInput={(params) => <TextField {...params} label={<FormattedMessage id='park_type' />} />}
                             required
                         />
                         <div className="invalid-feedback">
-                            Vehicle type is required.
+                            <FormattedMessage id='req_field' />
                         </div>
                     </div>
 
                 </div>
 
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>Close</button>
-                    <button type="submit" className="btn btn-primary">Save Changes</button>
+                    <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}><FormattedMessage id='close' /></button>
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id='save' /></button>
                 </div>
             </form>
         </Modal>

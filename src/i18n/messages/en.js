@@ -58,6 +58,7 @@ export default {
         'previous': 'Previous',
         'next': 'Next',
 
+
         //KALCKULATOR
         'req_field': 'Required field!',
         'park_type': 'Parking type',
@@ -126,7 +127,8 @@ export default {
         'del_info': ' Deleting this user will delete all reservations tied to him. Do you want to proceed ?',
         'cancel': 'Cancel',
         'im_sure': "I'm sure",
-        'e_g':'(e.g. Passat)'
+        'e_g':'(e.g. Passat)',
+        'proceed': ' Do you want to proceed ?',
 
 
 
