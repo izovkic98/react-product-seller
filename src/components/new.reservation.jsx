@@ -47,7 +47,7 @@ const NewReservation = () => {
     const [updatedState, setUpdatedState] = useState('');
     const [showCampaign, setShowCampaign] = useState(false);
     const [percentage, setPercentage] = useState('');
-    const [discount, setDiscount] = useState('');
+    const [discount, setDiscount] = useState(1);
 
 
     const [reservation, setReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
@@ -130,8 +130,6 @@ const NewReservation = () => {
             setResCreation(true)
         }
 
-        dispatch(clearCurrentUser());
-        navigate('/login');
 
     }
 
