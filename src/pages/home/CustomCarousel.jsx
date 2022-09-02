@@ -23,7 +23,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -34,7 +34,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -46,7 +46,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -58,7 +58,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -70,7 +70,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -83,7 +83,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -95,7 +95,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
@@ -107,7 +107,7 @@ const CustomCarousel = () => {
 
                 />
                 <Carousel.Caption>
-                    <h3>Listaj dalje »</h3>
+                    <h3>« Listaj dalje »</h3>
                 </Carousel.Caption>
             </Carousel.Item>
 
