@@ -174,7 +174,7 @@ const HomePage = () => {
                     <CustomMap />
 
                     <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
-                        <div style={{width: 30+'%', fontWeight:'bold'}}>
+                        <div style={{ width: 30 + '%', fontWeight: 'bold' }}>
                             <h3>Važni kontakti:</h3>
                             <div>
                                 <label>Email: ivan.zovki98@gmail.com</label>
@@ -182,15 +182,19 @@ const HomePage = () => {
                                 <label>Adresa: Petina 10, Velika Gorica 10410</label>
                             </div>
                         </div>
-                        <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
+                        <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto', textAlignLast: 'end' }}>
                             <h3>Pratite nas:</h3>
+                            <div>
+                                <a href="https://www.facebook.com/SkyParkZG/">
+                                    <img src="./carousel/facebook.png" alt="logo" style={{ width: 10 + '%', marginRight: 5 + 'px' }} />
+                                </a>
+                                <a href="https://www.instagram.com/skypark_zagreb/">
+                                    <img src="./carousel/instagram.png" alt="logo" style={{ width: 10 + '%' }} />
+                                </a>
+                            </div>
                         </div>
 
                     </div>
-
-
-
-
                 </div>
 
             </div>
