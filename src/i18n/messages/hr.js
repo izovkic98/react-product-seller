@@ -125,7 +125,9 @@ export default {
         'im_sure': "Potvrdi",
         'e_g':'(npr. Passat)',
         'proceed': ' Želite li nastaviti ?',
-
+        'subject': 'Subjekt',
+        'message': 'Poruka',
+        'send_message': 'Pošalji',
 
         'res_succ_saved_log_out': 'Rezervacija uspješno spremljena !',
         'discount': "Popust na rezervaciju",

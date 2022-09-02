@@ -57,6 +57,9 @@ export default {
         'entries': 'entries',
         'previous': 'Previous',
         'next': 'Next',
+        'subject': 'Subject',
+        'message': 'Message',
+        'send_message': 'Send',
 
 
         //KALCKULATOR
