@@ -52,9 +52,20 @@ const HomePage = () => {
 
                     <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
 
+                    <h2 className="skypark-subtitle">Cjenik i popusti</h2>
 
-                    <div style={{ display: 'flex' }}>
-                        <div>
+                    <div className="container mt-5" style={{ display: 'flex' }} >
+                        <div style={{ width: 'inherit', marginLeft: 50 + 'px' }}>
+                            <div style={{ marginRight: 5 + 'px' }}>
+                                <p>
+                                    <span style={{ color: 'red', fontWeight: 'bold' }}>*</span><FormattedMessage id='park_w_roof' />
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
                             <Table striped bordered hover style={{ width: 380 + 'px' }} variant="dark" >
                                 <thead>
                                     <tr>
@@ -112,33 +123,43 @@ const HomePage = () => {
                                 </tbody>
                             </Table>
 
-                            <p style={{ width: 100 + '%', maxInlineSize: 'fit-content'}}>
-                                <span style={{ color: 'red', fontWeight: 'bold',textAlign:"justify" }}>*</span><FormattedMessage id='park_w_roof' />
-                            </p>
-
                         </div>
-
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="list-group" id="list-tab" role="tablist">
-                                    <a className="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-                                    <a className="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-                                    <a className="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-                                    <a className="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
-                                </div>
-                            </div>
-                            <div className="col-8">
-                                <div className="tab-content" id="nav-tabContent">
-                                    <div className="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-                                    <div className="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-                                    <div className="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-                                    <div className="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
+                    {/*OVDJE IDU POPUSTI  */}
+                    <div style={{marginLeft:50 + 'px'}}>
+
+                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+
+                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+
+                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
 
