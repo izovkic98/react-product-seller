@@ -5,6 +5,8 @@ import React, { Component } from "react";
 import { Email } from "./Email";
 import { I18nProvider, LOCALES } from "../../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
+import Map from "./google.maps";
+import CustomMap from "./google.maps";
 
 
 
@@ -15,7 +17,7 @@ const HomePage = () => {
 
             <div className="container-xxl test"  >
                 <CustomCarousel />
-                <div className="container-sm" style={{ backgroundColor: 'whitesmoke', marginTop: 20 + 'px', maxWidth: 1000 + 'px' }}>
+                <div className="container-xl" style={{ backgroundColor: 'whitesmoke', marginTop: 20 + 'px', maxWidth: 1000 + 'px' }}>
                     <h1 className="skypark-title">
                         SKYPARK
                     </h1>
@@ -155,14 +157,37 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
-                        <p style={{marginRight: 40 + 'px', marginLeft: 40 + 'px'}}> 
+                        <p style={{ marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
                             <span style={{ color: 'red', fontWeight: 'bold' }}>* </span>
                             Kupovinom rezervacije koja je iznad 100 kn se dobija po jedan loyalty bod za svakih idućih 100 potrošenih kuna.
                             Npr. kupovina rezervacije ispod 100 kn ne donosi bodove, a kupovina od 300 kn nosi 3 loyalty boda.
                         </p>
                     </div>
+                    <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
+                    <h2 className="skypark-subtitle">Mapa Parkinga</h2>
+                    <div>
+                        <img src="./carousel/skypark.jpg" alt="logo" style={{ width: 100 + '%' }} />
+                    </div>
 
                     <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
+                    <h2 className="skypark-subtitle">Kontakt</h2>
+                    <CustomMap />
+
+                    <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
+                        <div style={{width: 30+'%', fontWeight:'bold'}}>
+                            <h3>Važni kontakti:</h3>
+                            <div>
+                                <label>Email: ivan.zovki98@gmail.com</label>
+                                <label>Tel.: 095 888 7449</label>
+                                <label>Adresa: Petina 10, Velika Gorica 10410</label>
+                            </div>
+                        </div>
+                        <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
+                            <h3>Pratite nas:</h3>
+                        </div>
+
+                    </div>
+
 
 
 
