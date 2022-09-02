@@ -197,6 +197,11 @@ const HomePage = () => {
                     </div>
                 </div>
 
+                <hr style={{ marginTop: 50 + 'px' }} />
+                <footer>
+                    <p>© 2022 - SkyPark d.o.o.</p>
+                </footer>
+
             </div>
         </I18nProvider>
     )
