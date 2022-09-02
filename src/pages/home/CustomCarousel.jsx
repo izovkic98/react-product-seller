@@ -22,6 +22,9 @@ const CustomCarousel = () => {
                     alt="First slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
                 <img
@@ -30,6 +33,9 @@ const CustomCarousel = () => {
                     alt="Second slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
 
             <Carousel.Item>
@@ -39,8 +45,11 @@ const CustomCarousel = () => {
                     alt="Third slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
-           
+
             <Carousel.Item>
                 <img
                     className="d-block w-100 "
@@ -48,6 +57,9 @@ const CustomCarousel = () => {
                     alt="Fourth slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
 
             <Carousel.Item>
@@ -57,6 +69,9 @@ const CustomCarousel = () => {
                     alt="Sixth slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
 
 
@@ -67,6 +82,9 @@ const CustomCarousel = () => {
                     alt="Seventh slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
 
             <Carousel.Item>
@@ -76,6 +94,9 @@ const CustomCarousel = () => {
                     alt="Eight slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
 
             <Carousel.Item>
@@ -85,9 +106,12 @@ const CustomCarousel = () => {
                     alt="Ninth slide"
 
                 />
+                <Carousel.Caption>
+                    <h3>Listaj dalje »</h3>
+                </Carousel.Caption>
             </Carousel.Item>
-           
-           
+
+
         </Carousel>
     )
 }

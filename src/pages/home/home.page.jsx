@@ -25,6 +25,7 @@ const HomePage = () => {
                     <h2 className="skypark-sub-subtitle">Parking/Transfer/Safety</h2>
                     <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
 
+                    <h3 className="skypark-subtitle">O nama</h3>
                     <h6 className="">
                         <div style={{ marginBottom: 20 + 'px', marginRight: 20 + 'px', marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
                             SkyPark Zagreb je privatno parkiralište u blizini Zračne luke Franjo Tuđman svega 1 kilometar udaljen.
@@ -45,7 +46,7 @@ const HomePage = () => {
                     <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
 
                     <div>
-                        <h2 className="skypark-subtitle">Pošaljite upit</h2>
+                        <h3 className="skypark-subtitle">Pošaljite upit</h3>
 
                         <Email />
                     </div>
@@ -126,38 +127,42 @@ const HomePage = () => {
                         </div>
                     </div>
                     {/*OVDJE IDU POPUSTI  */}
-                    <div style={{marginLeft:50 + 'px'}}>
 
-                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                    <div>
+                        <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
+
+                            <div className="card" style={{ width: 18 + 'rem', marginRight: 3 + 'px' }}>
+                                <div className="card-body">
+                                    <h5 className="card-title silver">SILVER</h5>
+                                    <p className="card-text">"Silver" značka se dobija ako imate više od 5 a manje od 10 loyalty bodova.
+                                        Dobivanjem "silver" značke ostvarujete popoust od 10 % na rezervacije. </p>
+                                </div>
+                            </div>
+
+                            <div className="card" style={{ width: 18 + 'rem', marginRight: 3 + 'px' }}>
+                                <div className="card-body">
+                                    <h5 className="card-title gold">GOLD</h5>
+                                    <p className="card-text">"Gold" značka se dobija ako imate više od 10 a manje od 20 loyalty bodova.
+                                        Dobivanjem "gold" značke ostvarujete popoust od 15 % na rezervacije.</p>
+                                </div>
+                            </div>
+
+                            <div className="card" style={{ width: 18 + 'rem', marginRight: 3 + 'px' }}>
+                                <div className="card-body">
+                                    <h5 className="card-title platinum">PLATINUM</h5>
+                                    <p className="card-text">"Platinum" značka se dobija ako imate više od 20 loyalty bodova.
+                                        Dobivanjem "platinum" značke ostvarujete popoust od 25 % na rezervacije.</p>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div>
-
-                        <div class="card" style={{width: 18 + 'rem', marginRight: 3 + 'px'}}>
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div>
+                        <p style={{marginRight: 40 + 'px', marginLeft: 40 + 'px'}}> 
+                            <span style={{ color: 'red', fontWeight: 'bold' }}>* </span>
+                            Kupovinom rezervacije koja je iznad 100 kn se dobija po jedan loyalty bod za svakih idućih 100 potrošenih kuna.
+                            Npr. kupovina rezervacije ispod 100 kn ne donosi bodove, a kupovina od 300 kn nosi 3 loyalty boda.
+                        </p>
                     </div>
+
+                    <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
 
 
 
