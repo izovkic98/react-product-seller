@@ -173,8 +173,8 @@ const HomePage = () => {
                     <h2 className="skypark-subtitle">Kontakt</h2>
                     <CustomMap />
 
-                    <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
-                        <div style={{ width: 30 + '%', fontWeight: 'bold' }}>
+                    <div style={{ marginLeft: 50 + 'px', display: 'flex'}}>
+                        <div style={{ width: 30 + '%', fontWeight: 'bold',marginBottom: 25+ 'px' }}>
                             <h3>Važni kontakti:</h3>
                             <div>
                                 <label>Email: ivan.zovki98@gmail.com</label>

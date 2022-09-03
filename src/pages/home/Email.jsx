@@ -24,23 +24,24 @@ export const Email = () => {
                 <div className="container">
                     <form ref={form} onSubmit={sendEmail}>
                         <div className="row pt-5 mx-auto">
+                        <h6 style={{textAlign: 'left',marginLeft: 155 + 'px',marginBottom: 40+ 'px'}}><span style={{color: 'red', fontWeight: 'bold'}}>* </span>Pošaljite upit za rezervaciju pa ćemo vas povratno kontaktirati.</h6>
                             <div className="col-8 form-group mx-auto">
                                 <label htmlFor="name"><FormattedMessage id='fName_lName' /></label>
-                                <input type="text" className="form-control" placeholder="Name" name="name" />
+                                <input type="text" className="form-control" placeholder="Ime" name="name" />
                             </div>
                             <div className="col-8 form-group pt-2 mx-auto">
                                 <label htmlFor="email"><FormattedMessage id='email' /></label>
 
-                                <input type="email" className="form-control" placeholder="Email Address" name="email" />
+                                <input type="email" className="form-control" placeholder="Email" name="email" />
                             </div>
                             <div className="col-8 form-group pt-2 mx-auto">
-                                <label htmlFor="subject"><FormattedMessage id='subject' />:</label>
+                                <label htmlFor="subject">Naslov:</label>
 
-                                <input type="text" className="form-control" placeholder="Subject" name="subject" />
+                                <input type="text" className="form-control" placeholder="Naslov" name="subject" />
                             </div>
                             <div className="col-8 form-group pt-2 mx-auto">
                                 <label htmlFor="message"><FormattedMessage id='message' />:</label>
-                                <textarea className="form-control" id="" cols="30" rows="8" placeholder="Your message" name="message"></textarea>
+                                <textarea className="form-control" id="" cols="30" rows="8" placeholder="Poruka" name="message"></textarea>
                             </div>
 
                             <FormattedMessage id='send_message'>

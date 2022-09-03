@@ -29,6 +29,13 @@ const UpdateUserPassword = () => {
 
         setLoading(true);
 
+
+        if (!oldPassword || !newPassword || !confirmedNewPassword) {
+            setErrorMessage("Some mandatory fields are empty");
+            return;
+        }
+
+
         UserService.updateUserPassword(oldPassword, newPassword, confirmedNewPassword).then(() => {
             //clear user from session.
             console.log("updateUserPassword")
