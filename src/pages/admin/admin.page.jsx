@@ -708,7 +708,7 @@ const AdminPage = () => {
                                                     name="firstName"
                                                     placeholder={disabledCheckBox ? selectedUser.firstName : msg}
                                                     className="form-control"
-                                                    onChange={(e) => handleChange(e)}
+                                                    //onChange={(e) => handleChange(e)}
                                                     disabled={firstNameInput}
                                                     style={{ width: 50 + '%' }}
                                                     required
@@ -731,7 +731,7 @@ const AdminPage = () => {
                                                     name="lastName"
                                                     placeholder={disabledCheckBox ? selectedUser.lastName : msg}
                                                     className="form-control"
-                                                    onChange={(e) => handleChange(e)}
+                                                    //onChange={(e) => handleChange(e)}
                                                     disabled={lastNameInput}
                                                     style={{ width: 50 + '%' }}
                                                     required

@@ -8,11 +8,17 @@ import './parking.calculator.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage, IntlProvider } from "react-intl";
 import { I18nProvider, LOCALES } from "../../i18n";
+import Discount from '../../models/discount';
+import discountService from '../../services/discount.service';
+import { Tier } from '../../models/tier';
 
 const ParkingCalculator = () => {
 
     const ref5 = useRef();
     const currentUser = useSelector(state => state.user);
+    const [discountObject, setDiscountObject] = useState(new Discount('', '', '',));
+    const [discount, setDiscount] = useState(1);
+
 
     const [submitted, setSubmitted] = useState(false);
     const [dateFrom, setDateFrom] = useState('');
@@ -23,6 +29,33 @@ const ParkingCalculator = () => {
 
     const dateFromMoment = moment(dateFrom);
     const dateToMoment = moment(dateTo);
+
+
+    useEffect(() => {
+
+        discountService.getDiscountOfAUser().then((response) => {
+            setDiscountObject(response.data);
+          })
+
+    }, []);
+
+    useEffect(() => {
+
+        if (discountObject.tier === Tier.SILVER) {
+            setDiscount(0.9)
+
+        } else if (discountObject.tier === Tier.GOLD) {
+            setDiscount(0.85)
+
+        } else if (discountObject.tier === Tier.PLATINUM) {
+            setDiscount(0.75)
+
+        }
+
+
+    }, [discountObject]);
+
+
 
     const handleChangeDropdown = (event, value, ref) => {
 
@@ -63,16 +96,16 @@ const ParkingCalculator = () => {
         }
 
         if (diff === 1) {
-            setCalculatedPrice(80.00 + secondZoneUp)
+            setCalculatedPrice((80.00 + secondZoneUp) * discount)
         } else if (diff > 1 && diff < 8) {
             const daysBelowEight = 80.00 + ((diff - 1) * 40.00);
-            setCalculatedPrice(daysBelowEight + (diff * secondZoneUp));
+            setCalculatedPrice((daysBelowEight + (diff * secondZoneUp)) * discount);
 
         } else if (diff === 8) {
-            setCalculatedPrice(355.00 + (8 * secondZoneUp))
+            setCalculatedPrice((355.00 + (8 * secondZoneUp)) * discount)
         } else {
             const daysAboveEight = 355.00 + ((diff - 8) * 35);
-            setCalculatedPrice(daysAboveEight + (diff * secondZoneUp));
+            setCalculatedPrice((daysAboveEight + (diff * secondZoneUp)) * discount);
         }
 
     };
@@ -159,7 +192,7 @@ const ParkingCalculator = () => {
                             </div>
                         }
                         {calculatedPrice &&
-                            <p className='p-caclucator output' id="parkingOutput" style={{ display: 'block' }}><FormattedMessage id='price_to_pay' /> {calculatedPrice},00 HRK </p>
+                            <p className='p-caclucator output' id="parkingOutput" style={{ display: 'block' }}><FormattedMessage id='price_to_pay' /> {calculatedPrice} HRK </p>
                         }
 
                     </div>
