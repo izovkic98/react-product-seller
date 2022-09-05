@@ -137,7 +137,15 @@ export default {
         'res_succ_saved_log_out': 'Reservation successfuly saved !',
         'discount': "Discount on reservation",
         'back': "Back",
-        'save_arrow':'Save Changes »'
+        'discounts': "Discounts",
+        'all_discounts': "All discounts",
+        'save_arrow':'Save Changes »',
+
+        'loyalty_points':'Loyalty points',
+        'tier':'Tier',
+        'code':'Code',
+        'reset_code':'Reset code',
+
 
 
 

@@ -16,6 +16,7 @@ import { ParkingCalculator } from './pages/parkingCalculator/parking.calculator'
 import { AdminParkingsPage } from './pages/admin/admin.parking.page';
 import { NewReservation } from './components/new.reservation';
 import { Jumbotron, Button, Container } from "react-bootstrap";
+import { AdminDiscountsPage } from './pages/admin/admin.discount.page';
 
 function App() {
     return (
@@ -53,6 +54,12 @@ function App() {
                     <Route path="/admin-parkings" element={
                         <AuthGuard roles={[Role.ADMIN]}>
                             <Container ><AdminParkingsPage /></Container>
+                        </AuthGuard>
+                    } />
+
+                    <Route path="/admin-discounts" element={
+                        <AuthGuard roles={[Role.ADMIN]}>
+                            <Container ><AdminDiscountsPage/></Container>
                         </AuthGuard>
                     } />
 

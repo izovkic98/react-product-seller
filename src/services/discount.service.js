@@ -11,6 +11,20 @@ class DiscountService {
         return axios.get(API_URL + '/' , {headers: authHeader()});
     }
 
+    getDiscountById(dicountId){
+        return axios.get(API_URL + '/id/' + dicountId, {headers: authHeader()});
+    }
+
+    
+    getAllDiscounts() {
+        return axios.get(API_URL + '/all' , {headers: authHeader()});
+    }
+
+    updateDiscount(discount) {
+        return axios.put(API_URL + '/update' ,discount,  {headers: authHeader()});
+    }
+
+
 }
 
 export default new DiscountService();

@@ -60,6 +60,7 @@ const NavBar = () => {
                                 <NavDropdown.Item href="/admin-reservations"><FormattedMessage id='reservations' /></NavDropdown.Item>
                                 <NavDropdown.Item href="/admin-users"><FormattedMessage id='users' /></NavDropdown.Item>
                                 <NavDropdown.Item href="/admin-parkings"><FormattedMessage id='parkings' /></NavDropdown.Item>
+                                <NavDropdown.Item href="/admin-discounts"><FormattedMessage id='discounts' /></NavDropdown.Item>
                             </NavDropdown>
                         }
 

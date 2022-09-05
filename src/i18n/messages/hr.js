@@ -131,10 +131,15 @@ export default {
 
         'res_succ_saved_log_out': 'Rezervacija uspješno spremljena !',
         'discount': "Popust na rezervaciju",
+        'discounts': "Popusti",
+        'all_discounts': "Svi popusti",
         'back': "Nazad",
-        'save_arrow':'Spremi izmjene »'
+        'save_arrow':'Spremi izmjene »',
 
-
+        'loyalty_points':'Bodovi lojalnosti',
+        'tier':'Značka',
+        'code':'Kod',
+        'reset_code':'Poništi kod',
 
 
     }
