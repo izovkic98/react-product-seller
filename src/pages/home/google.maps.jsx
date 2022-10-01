@@ -4,7 +4,7 @@ import './home.css';
 
 export default function CustomMap() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "",
+    googleMapsApiKey: "AIzaSyBIkOy_I6bxiurXRQQVuGZFF7qORegj05k",
   });
 
   if (!isLoaded) return <div>Loading...</div>;

@@ -474,6 +474,8 @@ const NewReservation = () => {
                                         <FormattedMessage id='reset' />
                                     </button>
                                 }
+
+                                <span> * Obavezna kalkulacija cijene</span>
                                 <div className="form-group mt-3" >
                                     <label htmlFor="price"><FormattedMessage id='price' /> (HRK) </label>
                                     <FormattedMessage id='price'>

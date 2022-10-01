@@ -9,11 +9,16 @@ import Reservation from '../../models/reservation';
 import { FormattedMessage, IntlProvider } from "react-intl";
 import { I18nProvider, LOCALES } from "../../i18n";
 
+import axios from 'axios'
+import fileDownload from 'js-file-download'
+
 const UsersCard = () => {
     const currentUser = useSelector(state => state.user);
     const [reservationList, setReservationList] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [selectedReservation, setSelectedReservation] = useState(new Reservation('', '', '', '', '', '', '', ''));
+
+    //const [file, setFile] = useState(new Reservation('', '', '', '', '', '', '', ''));
 
     const detailsComponent = useRef();
     const reservationsPerPage = 2;
@@ -40,7 +45,7 @@ const UsersCard = () => {
                                             <span><p><b><FormattedMessage id='status'/>  <span className={`${reservation.reservationStatus === ReservationStatus.APPROVED ? 'icon-success' : 'icon-process'}`}>{reservation.reservationStatus}</span> </b></p></span>
                                         </div>
                                         <button type="button" className="btn btn-info" style={{ marginRight: 10 }} onClick={() => detailsReservationRequest(reservation)}><FormattedMessage id='details'/> </button>
-                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation.id)}><FormattedMessage id='download'/> </button>
+                                        <button type="button" disabled={reservation.reservationStatus === ReservationStatus.IN_PROCESS} className="btn btn-warning" onClick={() => printReservation(reservation.code)}><FormattedMessage id='download'/> </button>
                                     </div>
                                 </div>
                             </div>
@@ -71,12 +76,12 @@ const UsersCard = () => {
     }, []);
 
     // PRINTANJE REZERVACIJE
-    const printReservation = ((reservationId) => {
-        ReservationService.printReservation(reservationId).then((response) => {
-            console.log("printanje pokrenuto");
+    const printReservation = ((code) => {
+        ReservationService.printReservation(code).then((response) => {
+            fileDownload(response.data, "Potvrda_" + code + ".pdf" ,"application/pdf", "UTF-8")
+            console.log(response.data);
         })
     })
-
 
 
     return (
