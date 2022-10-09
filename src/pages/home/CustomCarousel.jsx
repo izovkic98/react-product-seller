@@ -16,9 +16,10 @@ const CustomCarousel = () => {
 
     return (
 
-        <Carousel activeIndex={index} onSelect={handleSelect} interval={2000} nextIcon={<FontAwesomeIcon icon={faChevronRight} className="fa-5x discount left text-center" />}
-        prevIcon={<FontAwesomeIcon icon={faChevronLeft} className="fa-5x discount left text-center" />}>
-            <Carousel.Item >
+        <Carousel 
+        activeIndex={index} onSelect={handleSelect} interval={2000} nextIcon={<FontAwesomeIcon icon={faChevronRight} className="fa-5x discount left text-center" />}
+        prevIcon={<FontAwesomeIcon icon={faChevronLeft} className="fa-5x discount left text-center" />} >
+            <Carousel.Item  >
                 <img
                     className="d-block w-100"
                     src="./carousel/skypark1.jpg"

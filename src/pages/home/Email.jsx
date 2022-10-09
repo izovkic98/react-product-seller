@@ -46,7 +46,7 @@ export const Email = () => {
 
                             <FormattedMessage id='send_message'>
                                 {(msg) => (
-                                    <div className="col-8 pt-3 mx-auto">
+                                    <div className="col-8 pt-3 mx-auto mb-3">
                                         <input type="submit" className="btn btn-primary" value={msg}></input>
                                     </div>
                                 )}

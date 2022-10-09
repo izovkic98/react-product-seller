@@ -48,7 +48,7 @@ const NavBar = () => {
 
     return (
         <React.Fragment>
-            <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <nav className="navbar navbar-expand navbar-dark bg-dark sticky-top">
                 <I18nProvider locale={localStorage.getItem("language")}>
                     <a href="https://reactjs.org" className="navbar-brand ms-1">
                         <img src={logo} className="App-logo" alt="logo" />

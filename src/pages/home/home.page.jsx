@@ -7,6 +7,7 @@ import { I18nProvider, LOCALES } from "../../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
 import Map from "./google.maps";
 import CustomMap from "./google.maps";
+import { Footer } from "antd/lib/layout/layout";
 
 
 
@@ -14,46 +15,53 @@ import CustomMap from "./google.maps";
 const HomePage = () => {
     return (
         <I18nProvider locale={localStorage.getItem("language")}>
-
-            <div className="container-xxl test"  >
-                <CustomCarousel />
-                <div className="container-xl" style={{ backgroundColor: 'whitesmoke', marginTop: 20 + 'px', maxWidth: 1000 + 'px' }}>
-                    <h1 className="skypark-title">
-                        SKYPARK
-                    </h1>
-
-                    <h2 className="skypark-subtitle">YOUR VACATION STARTS HERE</h2>
-
-                    <h2 className="skypark-sub-subtitle">Parking/Transfer/Safety</h2>
-                    <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
-
-                    <h3 className="skypark-subtitle">O nama</h3>
-                    <h6 className="">
-                        <div style={{ marginBottom: 20 + 'px', marginRight: 20 + 'px', marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
-                            SkyPark Zagreb je privatno parkiralište u blizini Zračne luke Franjo Tuđman svega 1 kilometar udaljen.
-                            Naša uloga je da Vama pružimo siguran  i jeftin smještaj za Vaše vozilo dok ste vi na putu.
-                            Također nudimo besplatan transfer do zračne luke, te povratak do  automobila.
-                            Parking je ograđen, asfaltiran te pokriven video nadzorom, kako bi mogli bezbrižno putovati, bez nepotrebne brige za vaše vozilo.
-                        </div>
-                        <div style={{ marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
-                            OPIS USLUGE
-                            <div>
-                                Vi dolazite na parking, gdje Vas čeka parking mjesto za Vašeg limenog ljubimca.
-                                Ostavljate auto kod nas, mi vas i vašu prtljagu smjestimo u naše vozilo te  odvezemo na zračnu luku.
-                                Prilikom povratka kontaktirate nas i mi dolazimo na zračnu luku i vraćamo Vas do  vozila.
-                            </div>
-                        </div>
-                    </h6>
-
-                    <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
-
+                <div className="ex1">
+                    <CustomCarousel />
+                </div>
+            <Container className="container-xxl test" >
+                <Container className="container-xl" style={{ backgroundColor: 'white', marginTop: 20 + 'px', maxWidth: 1320 + 'px' }} >
                     <div>
-                        <h3 className="skypark-subtitle">Pošaljite upit</h3>
+                        <h1 className="skypark-title">
+                            SKYPARK
+                        </h1>
 
-                        <Email />
+                        <h2 className="skypark-subtitle">YOUR VACATION STARTS HERE</h2>
+
+                        <h2 className="skypark-sub-subtitle">Parking/Transfer/Safety</h2>
+                        <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
+
+                        <h3 className="skypark-subtitle">O nama</h3>
+                        <h6 className="">
+                            <div style={{ marginBottom: 20 + 'px', marginRight: 20 + 'px', marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
+                                SkyPark Zagreb je privatno parkiralište u blizini Zračne luke Franjo Tuđman svega 1 kilometar udaljen.
+                                Naša uloga je da Vama pružimo siguran  i jeftin smještaj za Vaše vozilo dok ste vi na putu.
+                                Također nudimo besplatan transfer do zračne luke, te povratak do  automobila.
+                                Parking je ograđen, asfaltiran te pokriven video nadzorom, kako bi mogli bezbrižno putovati, bez nepotrebne brige za vaše vozilo.
+                            </div>
+                            <div style={{ marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
+                                OPIS USLUGE
+                                <div>
+                                    Vi dolazite na parking, gdje Vas čeka parking mjesto za Vašeg limenog ljubimca.
+                                    Ostavljate auto kod nas, mi vas i vašu prtljagu smjestimo u naše vozilo te  odvezemo na zračnu luku.
+                                    Prilikom povratka kontaktirate nas i mi dolazimo na zračnu luku i vraćamo Vas do  vozila.
+                                </div>
+                            </div>
+                        </h6>
+
+                        <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
+
+                        <div>
+                            <h3 className="skypark-subtitle">Pošaljite upit</h3>
+
+                            <Email />
+                        </div>
                     </div>
 
-                    <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
+                </Container>
+                {/* <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" /> */}
+
+
+                <Container className="container-xl" style={{ backgroundColor: 'white', marginTop: 20 + 'px', maxWidth: 1320 + 'px' }} >
 
                     <h2 className="skypark-subtitle">Cjenik i popusti</h2>
 
@@ -173,8 +181,8 @@ const HomePage = () => {
                     <h2 className="skypark-subtitle">Kontakt</h2>
                     <CustomMap />
 
-                    <div style={{ marginLeft: 50 + 'px', display: 'flex'}}>
-                        <div style={{ width: 30 + '%', fontWeight: 'bold',marginBottom: 25+ 'px' }}>
+                    <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
+                        <div style={{ width: 30 + '%', fontWeight: 'bold', marginBottom: 25 + 'px' }}>
                             <h3>Važni kontakti:</h3>
                             <div>
                                 <label>Email: ivan.zovki98@gmail.com</label>
@@ -195,14 +203,16 @@ const HomePage = () => {
                         </div>
 
                     </div>
-                </div>
+                </Container>
 
                 <hr style={{ marginTop: 50 + 'px' }} />
-                <footer>
-                    <p>© 2022 - SkyPark d.o.o.</p>
-                </footer>
 
-            </div>
+                <Footer>
+                    <p>© 2022 - SkyPark d.o.o.</p>
+                </Footer>
+
+            </Container>
+
         </I18nProvider>
     )
 }
