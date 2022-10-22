@@ -145,6 +145,8 @@ export default {
         'tier':'Tier',
         'code':'Code',
         'reset_code':'Reset code',
+        'map':'Map',
+
 
 
 

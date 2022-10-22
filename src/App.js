@@ -17,6 +17,7 @@ import { AdminParkingsPage } from './pages/admin/admin.parking.page';
 import { NewReservation } from './components/new.reservation';
 import { Jumbotron, Button, Container } from "react-bootstrap";
 import { AdminDiscountsPage } from './pages/admin/admin.discount.page';
+import { CustomStreetMap } from './pages/home/custom.street.map';
 
 function App() {
     return (
@@ -26,7 +27,6 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/home" element={<HomePage />} />
-
 
                     <Route path="/parking-calculator" element={<Container ><ParkingCalculator /></Container>} />
                     <Route path="/login" element={<LoginPage />} />

@@ -5,19 +5,18 @@ import React, { Component } from "react";
 import { Email } from "./Email";
 import { I18nProvider, LOCALES } from "../../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
-import Map from "./google.maps";
-import CustomMap from "./google.maps";
 import { Footer } from "antd/lib/layout/layout";
-
+import { CustomStreetMap } from "./custom.street.map";
+import CustomMap from './google.maps';
 
 
 
 const HomePage = () => {
     return (
         <I18nProvider locale={localStorage.getItem("language")}>
-                <div className="ex1">
-                    <CustomCarousel />
-                </div>
+            <div className="ex1">
+                <CustomCarousel />
+            </div>
             <Container className="container-xxl test" >
                 <Container className="container-xl" style={{ backgroundColor: 'white', marginTop: 20 + 'px', maxWidth: 1320 + 'px' }} >
                     <div>
@@ -179,7 +178,9 @@ const HomePage = () => {
 
                     <hr style={{ width: 700 + 'px', margin: 'auto', marginBottom: 50 + 'px', marginTop: 50 + 'px' }} className="hr" />
                     <h2 className="skypark-subtitle">Kontakt</h2>
-                    <CustomMap />
+                    <div className={{ width: 100 + '%', height: 30 + 'vh' }}>
+                        <CustomStreetMap />
+                    </div>
 
                     <div style={{ marginLeft: 50 + 'px', display: 'flex' }}>
                         <div style={{ width: 30 + '%', fontWeight: 'bold', marginBottom: 25 + 'px' }}>

@@ -140,6 +140,7 @@ export default {
         'tier':'Značka',
         'code':'Kod',
         'reset_code':'Poništi kod',
+        'map':'Mapa',
 
 
     }
