@@ -11,7 +11,7 @@ const CustomStreetMap = () => {
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
-                <Marker position={position} >
+                <Marker position={position} hover="petina bato">
                 </Marker>
             </MapContainer>
     );

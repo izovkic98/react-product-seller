@@ -7,9 +7,6 @@ import { I18nProvider, LOCALES } from "../../i18n";
 import { FormattedMessage, IntlProvider } from "react-intl";
 import { Footer } from "antd/lib/layout/layout";
 import { CustomStreetMap } from "./custom.street.map";
-import CustomMap from './google.maps';
-
-
 
 const HomePage = () => {
     return (
@@ -32,17 +29,12 @@ const HomePage = () => {
                         <h3 className="skypark-subtitle">O nama</h3>
                         <h6 className="">
                             <div style={{ marginBottom: 20 + 'px', marginRight: 20 + 'px', marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
-                                SkyPark Zagreb je privatno parkiralište u blizini Zračne luke Franjo Tuđman svega 1 kilometar udaljen.
-                                Naša uloga je da Vama pružimo siguran  i jeftin smještaj za Vaše vozilo dok ste vi na putu.
-                                Također nudimo besplatan transfer do zračne luke, te povratak do  automobila.
-                                Parking je ograđen, asfaltiran te pokriven video nadzorom, kako bi mogli bezbrižno putovati, bez nepotrebne brige za vaše vozilo.
+                                <FormattedMessage id="aboutSkyPark"></FormattedMessage>
                             </div>
                             <div style={{ marginRight: 40 + 'px', marginLeft: 40 + 'px' }}>
-                                OPIS USLUGE
+                                <h3 className="skypark-subtitle">Opis usluge</h3>
                                 <div>
-                                    Vi dolazite na parking, gdje Vas čeka parking mjesto za Vašeg limenog ljubimca.
-                                    Ostavljate auto kod nas, mi vas i vašu prtljagu smjestimo u naše vozilo te  odvezemo na zračnu luku.
-                                    Prilikom povratka kontaktirate nas i mi dolazimo na zračnu luku i vraćamo Vas do  vozila.
+                                    <FormattedMessage id="serviceDesc"></FormattedMessage>
                                 </div>
                             </div>
                         </h6>
@@ -51,7 +43,6 @@ const HomePage = () => {
 
                         <div>
                             <h3 className="skypark-subtitle">Pošaljite upit</h3>
-
                             <Email />
                         </div>
                     </div>
@@ -77,58 +68,44 @@ const HomePage = () => {
 
                         <div style={{ marginLeft: 'auto', marginRight: 100 + 'px', width: 'auto' }}>
                             <Table striped bordered hover style={{ width: 380 + 'px' }} variant="dark" >
-                                <thead>
+                                <thead className="text-center">
                                     <tr>
                                         <th><FormattedMessage id='num_of_days' /></th>
-                                        <th><FormattedMessage id='price_first_zone' /></th>
-                                        <th><FormattedMessage id='price_second_zone' /></th>
+                                        <th><FormattedMessage id='price' /></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>75.00</td>
-                                        <td>75.00</td>
-                                    </tr>
+                                <tbody className="text-center">
                                     <tr>
                                         <td>1</td>
-                                        <td>80.00</td>
-                                        <td>85.00</td>
+                                        <td>80.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>120.00</td>
-                                        <td>130.00</td>
+                                        <td>120.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td >3</td>
-                                        <td>160.00</td>
-                                        <td>175.00</td>
+                                        <td>160.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td >4</td>
-                                        <td>200.00</td>
-                                        <td>220.00</td>
+                                        <td>200.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td >5</td>
-                                        <td>240.00</td>
-                                        <td>265.00</td>
+                                        <td>240.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td >6</td>
-                                        <td>280.00</td>
-                                        <td>310.00</td>
+                                        <td>280.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td >7</td>
-                                        <td>320.00</td>
-                                        <td>355.00</td>
+                                        <td>320.00 (20 €)</td>
                                     </tr>
                                     <tr>
                                         <td ><FormattedMessage id='every_add_day' /></td>
-                                        <td>+35.00</td>
-                                        <td>+47.00</td>
+                                        <td>+35.00 (20 €)</td>
                                     </tr>
                                 </tbody>
                             </Table>

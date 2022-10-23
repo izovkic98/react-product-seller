@@ -24,7 +24,7 @@ export const Email = () => {
                 <div className="container">
                     <form ref={form} onSubmit={sendEmail}>
                         <div className="row pt-5 mx-auto">
-                        <h6 style={{textAlign: 'left',marginLeft: 155 + 'px',marginBottom: 40+ 'px'}}><span style={{color: 'red', fontWeight: 'bold'}}>* </span>Pošaljite upit za rezervaciju pa ćemo vas povratno kontaktirati.</h6>
+                            <h6 style={{ textAlign: 'left', marginLeft: 155 + 'px', marginBottom: 40 + 'px' }}><span style={{ color: 'red', fontWeight: 'bold' }}>* </span>Pošaljite upit za rezervaciju pa ćemo vas povratno kontaktirati.</h6>
                             <div className="col-8 form-group mx-auto">
                                 <label htmlFor="name"><FormattedMessage id='fName_lName' /></label>
                                 <input type="text" className="form-control" placeholder="Ime" name="name" />
@@ -39,6 +39,12 @@ export const Email = () => {
 
                                 <input type="text" className="form-control" placeholder="Naslov" name="subject" />
                             </div>
+
+                            {/*Biranje vremena: */}
+                            <input type='date' name="timeFrom" placeholder="Date to" className="form-control" required="" style={{ width: 50 + '%' }}></input>
+                            <input type='time' name="timeFrom" placeholder="Date to" className="form-control" required="" style={{ width: 50 + '%' }}></input>
+
+
                             <div className="col-8 form-group pt-2 mx-auto">
                                 <label htmlFor="message"><FormattedMessage id='message' />:</label>
                                 <textarea className="form-control" id="" cols="30" rows="8" placeholder="Poruka" name="message"></textarea>

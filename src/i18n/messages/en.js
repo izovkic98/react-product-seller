@@ -146,6 +146,8 @@ export default {
         'code':'Code',
         'reset_code':'Reset code',
         'map':'Map',
+        'aboutSkyPark':'SkyPark Zagreb is a private parking lot near Franjo Tuđman Airport, only 1 kilometer away. Our role is to provide you with safe and cheap accommodation for your vehicle while you are on the road. We also offer free transfer to the airport and return to the car. The parking lot is fenced, asphalted and covered by video surveillance, so that you can travel carefree, without unnecessary worry for your vehicle.',
+        'serviceDesc':'You arrive at the parking lot, where a parking space for your tin pet is waiting for you. You leave your car with us, we place you and your luggage in our vehicle and take you to the airport. When returning, contact us and we will come to the airport and return you to the vehicle.'
 
 
 

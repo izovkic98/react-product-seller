@@ -141,6 +141,8 @@ export default {
         'code':'Kod',
         'reset_code':'Poništi kod',
         'map':'Mapa',
+        'aboutSkyPark':'SkyPark Zagreb je privatno parkiralište u blizini Zračne luke Franjo Tuđman svega 1 kilometar udaljen. Naša uloga je da Vama pružimo siguran  i jeftin smještaj za Vaše vozilo dok ste vi na putu. Također nudimo besplatan transfer do zračne luke, te povratak do  automobila. Parking je ograđen, asfaltiran te pokriven video nadzorom, kako bi mogli bezbrižno putovati, bez nepotrebne brige za vaše vozilo.',
+        'serviceDesc':' Vi dolazite na parking, gdje Vas čeka parking mjesto za Vašeg limenog ljubimca. Ostavljate auto kod nas, mi vas i vašu prtljagu smjestimo u naše vozilo te  odvezemo na zračnu luku. Prilikom povratka kontaktirate nas i mi dolazimo na zračnu luku i vraćamo Vas do  vozila.'
 
 
     }
